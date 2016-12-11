@@ -5,7 +5,7 @@ ActiveAdmin.register Customer do
 
   filter :customer_type,
          as: :select,
-         collection: Customer.customer_types.map{|key, _value| [I18n.t("admin.customer.customer_types.#{key}"), _value]}
+         collection: ->{Customer.customer_types.map{|key, _value| [I18n.t("admin.customer.customer_types.#{key}"), _value]}}
   filter :name
   filter :company_name
   filter :contact

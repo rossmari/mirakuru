@@ -5,7 +5,7 @@ ActiveAdmin.register CharactersGroup do
 
   filter :characters,
          as: :select,
-         collection: Character.all.map{|ch| [ch.name, ch.id]},
+         collection: ->{Character.all.map{|ch| [ch.name, ch.id]}},
          label: 'Персонажи'
   filter :name
   filter :age_from

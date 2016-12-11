@@ -7,7 +7,7 @@ ActiveAdmin.register Actor do
   filter :name
   filter :characters,
          as: :select,
-         collection: Character.all.map{|ch| [ch.name, ch.id]},
+         collection: ->{Character.all.map{|ch| [ch.name, ch.id]}},
          label: 'Персонажи актера'
   filter :contacts
   filter :phone

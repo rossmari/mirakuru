@@ -8,7 +8,7 @@ ActiveAdmin.register Order do
 
   filter :customer
   filter :stage, as: :select,
-          collection: Stage.all.map{|stage| [stage.address, stage.id]}
+          collection: ->{Stage.all.map{|stage| [stage.address, stage.id]}}
   filter :performance
   filter :character
   filter :status
