@@ -38,6 +38,9 @@ ru:
       order:
         one: 'Заказ'
         other: 'Заказы'
+      invitation:
+        one: 'Приглашение'
+        other: 'Приглашения'
 
     attributes:
       character:
@@ -111,6 +114,11 @@ ru:
         performance: 'Программа'
         status: 'Статус заказа'
         updated_at: 'Дата обновления'
+      invitation:
+        status: 'Статус приглашения'
+        actor: 'Аниматор'
+        character: 'Персонаж'
+        order: 'Заказ'
 
   date:
     abbr_day_names:
@@ -387,4 +395,8 @@ ru:
         success: 'Успешно завершен'
         rejected_customer: 'Отменено заказчиком'
         rejected_actor: 'Отменено исполнителем'
+    invitation:
+      statuses:
+        empty: 'Вновь созданное'
+        accepted: 'Принято'
 

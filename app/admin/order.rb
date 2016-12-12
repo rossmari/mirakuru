@@ -4,7 +4,7 @@ ActiveAdmin.register Order do
                 :status, :price, :partner_money, :animator_money,
                 :overheads, :payed, :child, :child_age, :guests_count,
                 :guests_age_from, :guests_age_to, :notice,
-                :performance_id
+                :performance_id, orders_characters_attributes: [:character_id, :id, :_destroy]
 
   filter :customer
   filter :stage, as: :select,
@@ -23,9 +23,9 @@ ActiveAdmin.register Order do
     end
     column 'Выступление' do |record|
       description = []
-      if record.character
+      if record.characters.any?
         description << 'Персонажи:'
-        description << record.character.name
+        description << record.characters.map(&:name).join('<br>')
       end
       if record.performance
         description << 'Выступление:'
@@ -67,24 +67,25 @@ ActiveAdmin.register Order do
       f.input :customer, as: :select,
         collection: Customer.all.map{|customer| [customer.name, customer.id]},
         include_blank: false
-      f.input :status, as: :select,
+      f.input :status,
+              as: :select,
               collection: Order.statuses.map{|key, _value| [t("admin.order.statuses.#{key}"), key]},
               include_blank: false
 
-      f.input :stage, as: :select,
+      f.input :stage,
+              as: :select,
               collection: Stage.all.map{|stage| [stage.address, stage.id]},
-              include_blank: true,
-              prompt: 'Площадка не выбрана'
+              include_blank: 'Площадка не выбрана'
 
       f.inputs 'Мероприятие - Выберите программу или персонажей' do
-        f.input :character, as: :select,
-                collection: Character.all.map{|character| [character.name, character.id]},
-                include_blank: false
+        f.has_many :orders_characters, new_record: true, allow_destroy: true do |c|
+          c.input :character_id, as: :select, collection: Character.all.map{|ch| [ch.name, ch.id]},
+            include_blank: false
+        end
         f.input :performance,
                 as: :select,
                 collection: Performance.all.map{|p| [p.name, p.id]},
-                include_blank: true,
-                prompt: 'Программа не выбрана'
+                include_blank: 'Программа не выбрана'
       end
 
       f.inputs 'Стоймость заказа' do
@@ -117,7 +118,11 @@ ActiveAdmin.register Order do
       row :status do |record|
         t("admin.order.statuses.#{record.status}")
       end
-      row :character
+      row 'Персонажи' do |record|
+        record.characters.map do |character|
+          link_to(character.name, admin_character_path(character))
+        end.join('<br>').html_safe
+      end
       row :performance
       row :stage
       row :address

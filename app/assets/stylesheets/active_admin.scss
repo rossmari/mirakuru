@@ -23,3 +23,16 @@
   display: inline-block;
   margin: 5px;
 }
+
+.invitation_status {
+  text-align: center;
+  padding: 5px;
+}
+
+.invitation_status.empty {
+  background-color: #abf3ff;
+}
+
+.invitation_status.accepted {
+  background-color: #c3fe44;
+}

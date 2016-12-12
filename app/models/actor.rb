@@ -10,4 +10,9 @@ class Actor < ActiveRecord::Base
 
   has_many :characters, through: :actors_characters
 
+  has_many :orders_characters
+  has_many :orders, through: :orders_characters
+
+  has_many :invitations
+
 end
