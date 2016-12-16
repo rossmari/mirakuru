@@ -41,6 +41,9 @@ ru:
       invitation:
         one: 'Приглашение'
         other: 'Приглашения'
+      invitation_event:
+        one: 'Событие'
+        other: 'События'
 
     attributes:
       character:
@@ -64,6 +67,7 @@ ru:
         address: 'Адрес'
         description: 'Особенности'
         updated_at: 'Дата обновления'
+        name: 'Название площадки'
       actor:
         name: 'Ф.И.О Аниматора'
         contacts: 'Дополнительные контактные данные'
@@ -108,17 +112,27 @@ ru:
         guests_age_to: 'Возраст гостей - до'
         payed: 'Оплачено'
         partner_money: 'Партнерские'
+        partner_payed: 'Партнерские выплачены'
         animator_money: 'Аниматору'
         overheads: 'Накладные расходы'
         notice: 'Дополнительные замечания'
         performance: 'Программа'
         status: 'Статус заказа'
         updated_at: 'Дата обновления'
+        dopnik: 'Стоймость допника'
+        performance_date: 'Дата проведения мероприятия'
+        performance_tile: 'Время начала мероприятия'
+        performance_duration: 'Продолжительность мероприятия'
       invitation:
         status: 'Статус приглашения'
         actor: 'Аниматор'
         character: 'Персонаж'
         order: 'Заказ'
+      invitation_event:
+        author: 'Автор'
+        invitation: 'Приглашение'
+        event_type: 'Тип события'
+        updated_at: 'Дата обновления'
 
   date:
     abbr_day_names:
@@ -400,3 +414,8 @@ ru:
         empty: 'Вновь созданное'
         accepted: 'Принято'
 
+    invitation_event:
+      event_types:
+        actor_removed: 'Актер снят с пригляшения'
+        actor_assigned: 'Актер назначен на приглашение'
+        status_changed: 'Статус приглашения изменился'

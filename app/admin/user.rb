@@ -25,4 +25,16 @@ ActiveAdmin.register User do
     f.actions
   end
 
+  show do |record|
+    attributes_table do
+      row :id
+      row :email
+      row :name
+      row :sign_in_count
+      row :updated_at
+    end
+
+    render partial: 'admin/common/events_table', locals: {events: record.invitation_events}
+  end
+
 end

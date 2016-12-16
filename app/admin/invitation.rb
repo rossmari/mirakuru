@@ -29,10 +29,7 @@ ActiveAdmin.register Invitation do
     end
     column :updated_at
     actions defaults: true do |record|
-      ('<br>' + [
-        link_to('Разослать всем', sent_to_all_admin_invitation_path(record), class: 'member_link'),
-        link_to('Освободить', release_admin_invitation_path(record), class: 'member_link')
-      ].join('<br>')).html_safe
+      member_actions(record)
     end
   end
 
@@ -41,7 +38,22 @@ ActiveAdmin.register Invitation do
   end
 
   member_action :release, method: :get do
+    resource.update(actor_id: nil)
+    InvitationEvent.actor_removed!(resource, current_user)
+    flash[:notice] = 'Приглашение освобождено!'
+    redirect_to collection_path
+  end
 
+  controller do
+    def update
+      @invitation = Invitation.find(params[:id])
+      @invitation.author = current_user
+      if @invitation.update(permitted_params[:invitation])
+        redirect_to admin_invitation_path(@invitation)
+      else
+        render 'edit'
+      end
+    end
   end
 
   form do |f|

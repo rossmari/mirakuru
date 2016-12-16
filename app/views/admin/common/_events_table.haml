@@ -1,0 +1,27 @@
+%table#index_table_network_connection_statuses.index_table.index{border: '0', cellpadding: '0', cellspacing: '0', paginator: 'true'}
+  %thead
+    %tr
+      %th
+        Номер События
+      %th
+        Автор события
+      %th
+        Приглашение
+      %th
+        Событие
+      %th
+        Дата создания
+  %tbody
+    - events.each do |event|
+      %tr
+        %td
+          = event.id
+        %td
+          = "Пользователь #{event.author_id}"
+        %td
+          = link_to("Приглашение ##{event.invitation.id}", admin_invitation_path(event.invitation.id))
+        %td
+          = t("admin.invitation_event.event_types.#{event.event_type}")
+        %td
+          = event.updated_at
+

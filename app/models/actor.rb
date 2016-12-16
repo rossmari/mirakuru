@@ -15,4 +15,6 @@ class Actor < ActiveRecord::Base
 
   has_many :invitations
 
+  has_many :invitation_events, as: :author
+
 end

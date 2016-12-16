@@ -59,7 +59,7 @@ ActiveAdmin.register Actor do
 
   end
 
-  show do
+  show do |record|
     attributes_table do
       row :name
       row :age
@@ -76,6 +76,8 @@ ActiveAdmin.register Actor do
       row :telegram_key
       row :updated_at
     end
+
+    render partial: 'admin/common/events_table', locals: {events: record.invitation_events}
   end
 
 end

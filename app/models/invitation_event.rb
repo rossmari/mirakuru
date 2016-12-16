@@ -1,18 +1,28 @@
 class InvitationEvent < ActiveRecord::Base
 
   belongs_to :invitation
+  belongs_to :author, polymorphic: true
 
-  # actor was changed
-  # actor can be set, or removed
-  # by himself or by admin
+  validates :invitation_id, :event_type, presence: true
+  enum event_type: [:actor_removed, :actor_assigned, :status_changed]
 
-  # status was changed
-  # by admin
-  # by system (time)
+  class << self
 
-  # invitation was deleted
-  # by admin
+    InvitationEvent.event_types.each do |event_name, value|
+      define_method "#{event_name}!" do |invitation, author|
+        create_invitation(invitation, author, value)
+      end
+    end
 
-  enum event_type: [:reject]
+    def create_invitation(invitation, author, type)
+      InvitationEvent.create(
+        {
+          invitation: invitation,
+          event_type: type,
+          author: author
+        }
+      )
+    end
 
+  end
 end

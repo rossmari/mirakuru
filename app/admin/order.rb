@@ -3,7 +3,8 @@ ActiveAdmin.register Order do
   permit_params :customer_id, :character_id, :stage_id, :address,
                 :status, :price, :partner_money, :animator_money,
                 :overheads, :payed, :child, :child_age, :guests_count,
-                :guests_age_from, :guests_age_to, :notice,
+                :guests_age_from, :guests_age_to, :notice, :partner_payed,
+                :performance_date, :performance_duration, :dopnik,
                 :performance_id, orders_characters_attributes: [:character_id, :id, :_destroy]
 
   filter :customer
@@ -74,7 +75,7 @@ ActiveAdmin.register Order do
 
       f.input :stage,
               as: :select,
-              collection: Stage.all.map{|stage| [stage.address, stage.id]},
+              collection: Stage.all.map{|stage| [stage.name, stage.id]},
               include_blank: 'Площадка не выбрана'
 
       f.inputs 'Мероприятие - Выберите программу или персонажей' do
@@ -86,13 +87,18 @@ ActiveAdmin.register Order do
                 as: :select,
                 collection: Performance.all.map{|p| [p.name, p.id]},
                 include_blank: 'Программа не выбрана'
+
+        f.input :performance_date, as: :datetime_picker
+        f.input :performance_duration
       end
 
       f.inputs 'Стоймость заказа' do
         f.input :price
         f.input :partner_money
+        f.input :partner_payed
         f.input :animator_money
         f.input :overheads
+        f.input :dopnik
         f.input :payed
       end
 
@@ -124,11 +130,15 @@ ActiveAdmin.register Order do
         end.join('<br>').html_safe
       end
       row :performance
+      row :performance_date
+      row :performance_duration
       row :stage
       row :address
       row :price
       row :partner_money
+      row :partner_payed
       row :animator_money
+      row :dopnik
       row :overheads
       row :child_age
       row :guests_count

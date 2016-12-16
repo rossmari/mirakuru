@@ -19,5 +19,6 @@ class Character < ActiveRecord::Base
   enum duration: {'15 minutes' => 1, '30 minutes' => 2, '45 minutes' => 3, '60 minutes (15 minutes +)' => 4}
 
   validates :name, :duration, presence: true
+  validates :avatar, presence: true
 
 end

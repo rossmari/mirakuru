@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161212150903) do
+ActiveRecord::Schema.define(version: 20161216111034) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(version: 20161212150903) do
     t.integer  "event_type"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.string   "author_type"
   end
 
   create_table "invitations", force: :cascade do |t|
@@ -103,8 +104,8 @@ ActiveRecord::Schema.define(version: 20161212150903) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.integer  "customer_id"
     t.integer  "character_id"
     t.integer  "performance_id"
@@ -118,10 +119,15 @@ ActiveRecord::Schema.define(version: 20161212150903) do
     t.integer  "guests_age_from"
     t.integer  "guests_age_to"
     t.text     "notice"
-    t.boolean  "payed",           default: false, null: false
+    t.boolean  "payed",                default: false, null: false
     t.integer  "partner_money"
     t.integer  "animator_money"
     t.integer  "overheads"
+    t.boolean  "partner_payed"
+    t.date     "performance_date"
+    t.integer  "performance_duration"
+    t.time     "performance_time"
+    t.integer  "dopnik"
   end
 
   create_table "orders_characters", force: :cascade do |t|
@@ -167,6 +173,7 @@ ActiveRecord::Schema.define(version: 20161212150903) do
     t.text     "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "name"
   end
 
   create_table "users", force: :cascade do |t|

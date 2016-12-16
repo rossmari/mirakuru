@@ -13,7 +13,9 @@ ActiveAdmin.register Character do
     column :id
     column :name
     column 'Аватар' do |record|
-      image_tag(record.avatar.file.url(:small_thumb))
+      if record.avatar
+        image_tag(record.avatar.file.url(:small_thumb))
+      end
     end
     column 'Возрастная группа' do |record|
       "От #{record.age_from} до #{record.age_to} лет"

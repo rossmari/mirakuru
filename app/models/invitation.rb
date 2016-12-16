@@ -10,4 +10,27 @@ class Invitation < ActiveRecord::Base
 
   validates :order, :character, presence: true
 
+  before_save :check_changed_attributes
+
+  attr_accessor :author
+
+  private
+
+  def check_changed_attributes
+    if actor_id_changed?
+      if actor_id_was.blank? && actor_id
+        InvitationEvent.actor_assigned!(self, author)
+      end
+
+      if actor_id_was && actor_id.blank?
+        InvitationEvent.actor_removed!(self, author)
+      end
+    end
+
+    if status_changed?
+      InvitationEvent.status_changed!(self, author)
+    end
+
+  end
+
 end
