@@ -1,0 +1,90 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+@import "bootstrap-datetimepicker.min";
+
+#header {
+  font-size: 11.5212px;
+}
+
+.action_link {
+  text-align: right;
+}
+
+.action_link a:link {
+  color: #0B8CC0;
+  text-decoration: none;
+  padding-right: 10px;
+}
+
+.action_link a:hover {
+  color: #0B8CC0;
+}
+
+.action_link a{
+  color: #0B8CC0;
+}
+
+.action_link .add_order_object{
+  font-size: 16pt;
+}
+
+.action_link .remove_order_object{
+  font-size: 16pt;
+  color: rgb(246, 123, 123);
+}
+
+.order_row {
+  padding-bottom: 10px;
+}
+
+.header_row {
+  padding-bottom: 5px;
+}
+
+.input_header {
+  font-weight: bold;
+  font-size: 12pt;
+}
+
+.breadcrumb {
+  padding: 0px;
+  margin-bottom: 12px;
+  list-style: none;
+  background-color: rgba(0, 0, 0, 0);
+  border-radius: 0px;
+}
+
+form input[type=text] {
+  width: 100%;
+}
+
+.submit_actions {
+  padding-top: 15px;
+  text-align: right;
+  border: 0px solid #E6E6E6;
+  border-top-width: 1px;
+  margin-top: 15px;
+}
+
+.order_object_container {
+  border: 0px solid #E6E6E6;
+  border-bottom-width: 1px;
+  padding-top: 10px;
+}
+
+.order_object {
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
+
+.order_object.top_divider {
+  border: 0px solid #E6E6E6;
+  border-top-width: 1px;
+}
+
+.order_object .header {
+  font-size: 14pt;
+  color: green;
+  font-weight: bold;
+}

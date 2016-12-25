@@ -4,7 +4,7 @@ ActiveAdmin.register Partner do
 
   filter :stage,
          as: :select,
-         collection: ->{Stage.all.map{|stage| [stage.address, stage.id]}}
+         collection: ->{Stage.all.map{|stage| [stage.name, stage.id]}}
   filter :name
   filter :contacts
 
@@ -13,7 +13,7 @@ ActiveAdmin.register Partner do
       f.input :name
       f.input :contacts
       f.input :notice
-      f.input :stage, as: :select, collection: Stage.all.map{|stage| [stage.address, stage.id]}
+      f.input :stage, as: :select, collection: Stage.all.map{|stage| [stage.name, stage.id]}
     end
     f.actions
   end

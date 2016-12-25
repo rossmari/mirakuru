@@ -57,6 +57,7 @@ ActiveAdmin.register Character do
         @character.build_avatar
       end
     end
+
   end
 
   show do

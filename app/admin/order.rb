@@ -9,7 +9,7 @@ ActiveAdmin.register Order do
 
   filter :customer
   filter :stage, as: :select,
-          collection: ->{Stage.all.map{|stage| [stage.address, stage.id]}}
+          collection: ->{Stage.all.map{|stage| [stage.name, stage.id]}}
   filter :performance
   filter :character
   filter :status
@@ -35,17 +35,7 @@ ActiveAdmin.register Order do
       description.join('<br>').html_safe
     end
     column 'Место' do |record|
-      description = []
-      if record.stage
-        description << 'Площадка:'
-        description << record.stage.description
-        description << record.stage.address
-      end
-      if record.address.present?
-        description << 'Адрес:'
-        description << record.address
-      end
-      description.join('<br>').html_safe
+      "#{record.street}, #{record.house}"
     end
     column :price
     column :payed
@@ -62,60 +52,59 @@ ActiveAdmin.register Order do
     actions
   end
 
-  form do |f|
-    f.inputs do
-      f.input :address, input_html: {placeholder: 'Необходимо указать адрес или выбрать площадку'}
-      f.input :customer, as: :select,
-        collection: Customer.all.map{|customer| [customer.name, customer.id]},
-        include_blank: false
-      f.input :status,
-              as: :select,
-              collection: Order.statuses.map{|key, _value| [t("admin.order.statuses.#{key}"), key]},
-              include_blank: false
-
-      f.input :stage,
-              as: :select,
-              collection: Stage.all.map{|stage| [stage.name, stage.id]},
-              include_blank: 'Площадка не выбрана'
-
-      f.inputs 'Мероприятие - Выберите программу или персонажей' do
-        f.has_many :orders_characters, new_record: true, allow_destroy: true do |c|
-          c.input :character_id, as: :select, collection: Character.all.map{|ch| [ch.name, ch.id]},
-            include_blank: false
-        end
-        f.input :performance,
-                as: :select,
-                collection: Performance.all.map{|p| [p.name, p.id]},
-                include_blank: 'Программа не выбрана'
-
-        f.input :performance_date, as: :datetime_picker
-        f.input :performance_duration
-      end
-
-      f.inputs 'Стоймость заказа' do
-        f.input :price
-        f.input :partner_money
-        f.input :partner_payed
-        f.input :animator_money
-        f.input :overheads
-        f.input :dopnik
-        f.input :payed
-      end
-
-      f.inputs 'Именинник' do
-        f.input :child
-        f.input :child_age
-      end
-      f.inputs 'Гости' do
-        f.input :guests_count
-        f.input :guests_age_from
-        f.input :guests_age_to
-      end
-      f.input :notice, input_html: { rows: 10, style: 'width:50%'}
-    end
-    f.actions
-  end
-
+  form partial: 'form'
+    # f.inputs do
+    #   f.input :address, input_html: {placeholder: 'Необходимо указать адрес или выбрать площадку'}
+    #   f.input :customer, as: :select,
+    #     collection: Customer.all.map{|customer| [customer.name, customer.id]},
+    #     include_blank: false
+    #   f.input :status,
+    #           as: :select,
+    #           collection: Order.statuses.map{|key, _value| [t("admin.order.statuses.#{key}"), key]},
+    #           include_blank: false
+    #
+    #   f.input :stage,
+    #           as: :select,
+    #           collection: Stage.all.map{|stage| [stage.name, stage.id]},
+    #           include_blank: 'Площадка не выбрана'
+    #
+    #   f.inputs 'Мероприятие - Выберите программу или персонажей' do
+    #     f.has_many :orders_characters, new_record: true, allow_destroy: true do |c|
+    #       c.input :character_id, as: :select, collection: Character.all.map{|ch| [ch.name, ch.id]},
+    #         include_blank: false
+    #     end
+    #     f.input :performance,
+    #             as: :select,
+    #             collection: Performance.all.map{|p| [p.name, p.id]},
+    #             include_blank: 'Программа не выбрана'
+    #
+    #     f.input :performance_date, as: :datetime_picker
+    #     f.input :performance_duration
+    #   end
+    #
+    #   f.inputs 'Стоймость заказа' do
+    #     f.input :price
+    #     f.input :partner_money
+    #     f.input :partner_payed
+    #     f.input :animator_money
+    #     f.input :overheads
+    #     f.input :dopnik
+    #     f.input :payed
+    #   end
+    #
+    #   f.inputs 'Именинник' do
+    #     f.input :child
+    #     f.input :child_age
+    #   end
+    #   f.inputs 'Гости' do
+    #     f.input :guests_count
+    #     f.input :guests_age_from
+    #     f.input :guests_age_to
+    #   end
+    #   f.input :notice, input_html: { rows: 10, style: 'width:50%'}
+    # end
+    # f.actions
+  # end
 
   show do
     attributes_table do

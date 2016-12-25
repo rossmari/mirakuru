@@ -1,0 +1,183 @@
+= stylesheet_link_tag 'order_page'
+= javascript_include_tag 'orders'
+
+= form_for [:admin, @order] do |f|
+  .container-fluid
+    .row.header_row
+
+      .col-md-1.input_header
+        Партнер
+      .col-md-1.action_link
+        = link_to new_admin_partner_path, target: '_blank', title: 'Создать партнера' do
+          %span.glyphicon.glyphicon-plus
+
+        = link_to '#', target: '_blank', title: 'Обновить список', class: 'updater', data: {name: 'partners'} do
+          %span.glyphicon.glyphicon-refresh
+
+      .col-md-1.input_header
+        Площадка
+      .col-md-1.action_link
+        = link_to new_admin_stage_path, target: '_blank', title: 'Создать площадку' do
+          %span.glyphicon.glyphicon-plus
+
+        = link_to '#', target: '_blank', title: 'Обновить список', class: 'updater', data: {name: 'stages'} do
+          %span.glyphicon.glyphicon-refresh
+
+    .row.order_row
+      .col-md-2
+        = f.collection_select :partner_id, Partner.all, :id, :name, {}, {class: 'form-control input-sm', id: 'partners_selector'}
+      .col-md-2
+        = f.collection_select :stage_id, Stage.all, :id, :name, {}, {class: 'form-control input-sm',  id: 'stages_selector'}
+
+    .row.header_row
+      .col-md-2.input_header
+        Место проведения
+    .row.header_row
+      .col-md-2
+        Улица
+      .col-md-2
+        Дом
+      .col-md-2
+        Примечание
+    .row.order_row
+      .col-md-2
+        =f.text_field :street, class: 'form-control input-sm'
+      .col-md-2
+        =f.text_field :house, class: 'form-control input-sm'
+      .col-md-2
+        =f.text_field :child_notice, class: 'form-control input-sm'
+
+    .row.header_row
+      .col-md-2.input_header
+        Заказчик
+    .row.header_row
+      .col-md-2
+        Контактное лицо
+      .col-md-2
+        Телефон
+      .col-md-2
+        Имя ребенка
+      .col-md-2
+        Источник заказа
+    .row.header_row
+      .col-md-2
+        %input.form-control.input-sm
+      .col-md-2
+        %input.form-control.input-sm
+      .col-md-2
+        =f.text_field :child, class: 'form-control input-sm'
+      .col-md-2
+        = f.select :source, Order.sources.map{|name, value| [name, value]}, {}, {class: 'form-control input-sm'}
+
+    .row.header_row
+      .col-md-2
+        возраст ребенка
+      .col-md-2
+        возраст гостей
+      .col-md-1
+        Примечание
+
+    .row.header_row
+      .col-md-2
+        =f.text_field :child_age, class: 'form-control input-sm'
+      .col-md-1
+        =f.text_field :guests_age_from, class: 'form-control input-sm'
+      .col-md-1
+        =f.text_field :guests_age_to, class: 'form-control input-sm'
+      .col-md-2
+        =f.text_field :guests_notice, class: 'form-control input-sm'
+
+    .row.header_row
+      .col-md-2
+        дата
+      .col-md-2
+        время начала
+      .col-md-1
+        продолжительность
+      .col-md-1.action_link
+        = link_to '30', '#', class: 'fast_duration', data: {value: 30}
+        = '/'
+        = link_to '45', '#', class: 'fast_duration', data: {value: 45}
+        = '/'
+        = link_to '60', '#', class: 'fast_duration', data: {value: 60}
+    .row.order_row
+      .col-md-2
+        %div.input-group.date.date_picker
+          =f.text_field :performance_date, class: 'form-control input-sm'
+          %span.input-group-addon
+            %span.glyphicon.glyphicon-calendar
+
+      .col-md-2
+        %div.input-group.date.time_picker
+          =f.text_field :performance_time, class: 'form-control input-sm'
+          %span.input-group-addon
+            %span.glyphicon.glyphicon-time
+
+      .col-md-2
+        = f.text_field :performance_duration, class: 'form-control input-sm'
+
+    .row.header_row
+      .col-md-3.input_header
+        Добавить персонаж/программу к заказу
+    .container-fluid{class: 'order_row order_object_container', id: 'order_object_container_0'}
+      .row
+        .col-md-2
+          = select_tag 'order_object_selector', options_for_select(all_order_objects), include_blank: 'Не выбрано', class: 'form-control input-sm order_object_selector', data: {object_index: 0}
+        .col-md-2.action_link
+          = link_to '#', class: 'add_order_object',  style: 'display: none', title: 'Добавить персонаж/программу' do
+            %span.glyphicon.glyphicon-plus
+          = link_to '#', class: 'remove_order_object', style: 'display: none', title: 'Исключить персонаж/программу' do
+            %span.glyphicon.glyphicon-trash
+
+    .row.header_row
+      .col-md-2.input_header
+        Финансы
+    .row.header_row
+      .col-md-1
+        Стоймость заказа
+      .col-md-1.action_link
+        = f.check_box :payed
+        оплачен
+      .col-md-1
+        Партнерские
+      .col-md-1.action_link
+        = f.check_box :partner_payed
+        оплачен
+      .col-md-1
+        Гонорар актера
+      .col-md-1.action_link
+        = link_to 'по прайсу', '#"'
+    .row.order_row
+      .col-md-2
+        = f.text_field :price
+      .col-md-2
+        = f.text_field :partner_money
+      .col-md-2
+        =f.text_field :animator_money
+
+    .row.header_row
+      .col-md-2
+        Накладные
+      .col-md-2
+        Допники
+    .row.order_row
+      .col-md-2
+        =f.text_field :overheads
+      .col-md-2
+        =f.text_field :dopnik
+
+    .row.header_row
+      .col-md-3
+        Примечание к заказу
+      .col-md-3
+        Примечание для актера
+
+    .row
+      .col-md-3
+        = f.text_area :order_notice, class: 'form-control input-sm', rows: 5
+      .col-md-3
+        = f.text_area :actor_notice, class: 'form-control input-sm', rows: 5
+
+    .row.submit_actions
+      = f.submit 'Сохранить', class: 'btn-small btn-primary'
+      = link_to 'Отмена', '#'

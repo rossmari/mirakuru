@@ -3,6 +3,23 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   resources :telegram
+
+  namespace :api do
+    resources :stages
+    resources :partners
+    resources :order_objects do
+      collection do
+        post :selector
+        post :object_container
+      end
+    end
+    resources :characters do
+      collection do
+        post :available
+      end
+    end
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

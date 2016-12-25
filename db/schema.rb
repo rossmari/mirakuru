@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161216111034) do
+ActiveRecord::Schema.define(version: 20161224140543) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,6 +101,8 @@ ActiveRecord::Schema.define(version: 20161216111034) do
     t.datetime "invitation_date"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.datetime "start"
+    t.datetime "stop"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -110,7 +112,6 @@ ActiveRecord::Schema.define(version: 20161216111034) do
     t.integer  "character_id"
     t.integer  "performance_id"
     t.integer  "stage_id"
-    t.string   "address"
     t.float    "price"
     t.integer  "status"
     t.string   "child"
@@ -118,7 +119,7 @@ ActiveRecord::Schema.define(version: 20161216111034) do
     t.integer  "guests_count"
     t.integer  "guests_age_from"
     t.integer  "guests_age_to"
-    t.text     "notice"
+    t.text     "child_notice"
     t.boolean  "payed",                default: false, null: false
     t.integer  "partner_money"
     t.integer  "animator_money"
@@ -128,6 +129,13 @@ ActiveRecord::Schema.define(version: 20161216111034) do
     t.integer  "performance_duration"
     t.time     "performance_time"
     t.integer  "dopnik"
+    t.integer  "partner_id"
+    t.string   "street"
+    t.string   "house"
+    t.integer  "source"
+    t.string   "guests_notice"
+    t.text     "order_notice"
+    t.text     "actor_notice"
   end
 
   create_table "orders_characters", force: :cascade do |t|
@@ -169,11 +177,12 @@ ActiveRecord::Schema.define(version: 20161216111034) do
   end
 
   create_table "stages", force: :cascade do |t|
-    t.string   "address"
     t.text     "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.string   "name"
+    t.string   "street"
+    t.string   "house"
   end
 
   create_table "users", force: :cascade do |t|

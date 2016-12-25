@@ -12,6 +12,7 @@ class Order < ActiveRecord::Base
   has_many :invitations
 
   enum status: [:active, :success, :rejected_customer, :rejected_actor]
+  enum sources: [:partner, :site, :commercial]
 
   validate :place_presence
   validate :performance_presence

@@ -1,6 +1,6 @@
 class Stage < ActiveRecord::Base
 
-  validates :address, :name, presence: true
+  validates :name, :street, :house, presence: true
   has_many :partners
 
 end

@@ -64,10 +64,11 @@ ru:
         avatar: 'Фотография группы'
         updated_at: 'Дата обновления'
       stage:
-        address: 'Адрес'
         description: 'Особенности'
         updated_at: 'Дата обновления'
         name: 'Название площадки'
+        house: 'Дом'
+        street: 'Улица'
       actor:
         name: 'Ф.И.О Аниматора'
         contacts: 'Дополнительные контактные данные'
