@@ -127,7 +127,6 @@ ActiveRecord::Schema.define(version: 20161224140543) do
     t.boolean  "partner_payed"
     t.date     "performance_date"
     t.integer  "performance_duration"
-    t.time     "performance_time"
     t.integer  "dopnik"
     t.integer  "partner_id"
     t.string   "street"
