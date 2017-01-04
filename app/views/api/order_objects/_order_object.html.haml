@@ -4,7 +4,7 @@
   .div{class: css_class, data: {object_id: character.id}}
     .row
       .col-md-3.header
-        = character_full_name(character)
+        = OrderObjects::Presenter.character_full_name(character)
     .row.header_row
       .col-md-1
         время начала

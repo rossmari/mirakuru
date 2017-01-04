@@ -1,6 +1,11 @@
 class Api::OrderObjectsController < ApplicationController
   include ParamsParsing
 
+  def index
+    objects = OrderObjects::Manager.new([]).present_objects
+    render json: { objects: objects }
+  end
+
   def object_container
 
     @object = extract_object(params)

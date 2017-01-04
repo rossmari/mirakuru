@@ -1,13 +1,9 @@
 - id = 1
+
 %div{id: "order_object_container_#{id}", class: 'container-fluid order_object_container order_row'}
   .row
     .col-md-2
-      %select.order_object_selector.form-control.input-sm{data: {object_index: id}, name: 'order_object_selector'}
-        %option{value: ''}
-          Не выбрано
-        - @objects.each do |object|
-          %option{value: object_value(object)}
-            = object_name(object)
+      = select_tag 'order_object_selector_0', options_for_select(OrderObjects::Presenter.all_order_objects), include_blank: 'Не выбрано', class: 'form-control input-sm order_object_selector', data: {object_index: id}
 
     .col-md-2.action_link
       %a.add_order_object{href: '#', style: 'display: none', title: 'Добавить персонаж/программу'}

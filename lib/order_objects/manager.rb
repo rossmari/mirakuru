@@ -11,16 +11,32 @@ class OrderObjects::Manager
   # { object id : [ characters ids ] }
   def preload_objects
     objects = {}
-    Character.all.each do |character|
+    Character.find_each do |character|
       objects[character] = [character.id]
     end
-    Performance.all.each do |performance|
+    Performance.find_each do |performance|
       objects[performance] = []
       performance.characters.each do |character|
         objects[performance] << character.id
       end
     end
     objects
+  end
+
+  def present_objects
+    all_objects.map do |object, characters_ids|
+      object_id = OrderObjects::Presenter.object_value(object)
+      name = OrderObjects::Presenter.object_name(object)
+      [object_id,
+       {
+        id: object_id,
+        name: name,
+        characters: characters_ids,
+        available: true,
+        class: object.class.name.downcase
+       }
+      ]
+    end.to_h
   end
 
   def available_objects

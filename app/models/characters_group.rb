@@ -7,4 +7,12 @@ class CharactersGroup < ActiveRecord::Base
 
   validates :name, uniqueness: true
 
+  after_update :update_global_store
+
+  private
+
+  def update_global_store
+    OrderObjects::GlobalStore.update_characters_descriptions
+  end
+
 end

@@ -145,6 +145,15 @@ ActiveAdmin.register Order do
     def new
       @order = Order.new
       @order.performance_date = Date.today
+      @order.performance_time = Time.now
+    end
+
+    def create
+
+    end
+
+    def edit
+
     end
 
     def update
