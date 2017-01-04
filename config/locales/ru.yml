@@ -86,7 +86,8 @@ ru:
         updated_at: 'Дата обновления'
       partner:
         name: 'Имя'
-        contacts: 'Контакты'
+        contacts: 'Контактно лицо'
+        phone: 'Контактный телефон'
         notice: 'Замечание'
         updated_at: 'Дата обновления'
         stage: 'Площадка'
@@ -410,6 +411,10 @@ ru:
         success: 'Успешно завершен'
         rejected_customer: 'Отменено заказчиком'
         rejected_actor: 'Отменено исполнителем'
+      sources:
+        partner: 'Партнер'
+        site: 'Сайт'
+        commercial: 'Реклама'
     invitation:
       statuses:
         empty: 'Вновь созданное'

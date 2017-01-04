@@ -37,10 +37,6 @@ module ActiveAdmin::OrderHelper
     "character_#{character.id}"
   end
 
-  def performance_description(performance)
-    [performance.name, ]
-  end
-
   def performance_name(performance)
     performance.name
   end

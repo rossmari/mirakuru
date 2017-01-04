@@ -5,6 +5,8 @@ ActiveAdmin.register Order do
                 :overheads, :payed, :child, :child_age, :guests_count,
                 :guests_age_from, :guests_age_to, :notice, :partner_payed,
                 :performance_date, :performance_duration, :dopnik,
+                :partner_id, :street, :house, :child_notice, :contact_name, :contact_phone,
+                :source, :guests_notice, :performance_time, :order_notice, :actor_notice,
                 :performance_id, orders_characters_attributes: [:character_id, :id, :_destroy]
 
   filter :customer
@@ -136,6 +138,19 @@ ActiveAdmin.register Order do
       row :notice
       row :updated_at
     end
+  end
+
+  controller do
+
+    def new
+      @order = Order.new
+      @order.performance_date = Date.today
+    end
+
+    def update
+      i = 3
+    end
+
   end
 
 end

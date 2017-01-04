@@ -21,4 +21,12 @@ class Character < ActiveRecord::Base
   validates :name, :duration, presence: true
   validates :avatar, presence: true
 
+  (3..100).each do |index|
+    ch = Character.last.dup
+    av = Avatar.last.dup
+    ch.avatar = av
+    ch.name = "#{index} Персонаж"
+    ch.save
+  end
+
 end

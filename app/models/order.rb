@@ -16,24 +16,25 @@ class Order < ActiveRecord::Base
 
   validate :place_presence
   validate :performance_presence
-  validates :status, :customer, presence: true
+  # validates :status, :customer, presence: true
 
   after_commit :generate_invitations
 
   private
 
   def place_presence
-    if address.blank? && stage_id.blank?
-      errors.add(:address, :blank)
-      errors.add(:stage_id, :blank)
-    end
+    # todo fix validation
+    # if address.blank? && stage_id.blank?
+    #   errors.add(:address, :blank)
+    #   errors.add(:stage_id, :blank)
+    # end
   end
 
   def performance_presence
-    if performance_id.blank? && character_id.blank?
-      errors.add(:performance_id, :blank)
-      errors.add(:character_id, :blank)
-    end
+    # if performance_id.blank? && character_id.blank?
+    #   errors.add(:performance_id, :blank)
+    #   errors.add(:character_id, :blank)
+    # end
   end
 
   def generate_invitations

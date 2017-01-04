@@ -9,27 +9,31 @@
       .col-md-1
         время начала
       .col-md-1.action_link
-        = link_to 'как в заказе', '#', class: 'start_as_in_order', data: { input_name:  "characters[#{input_index}][start]" }
+        = link_to 'как в заказе', '#', class: 'start_as_in_order', data: { input_name:  "order[characters][#{input_index}][start]" }
       .col-md-1
         время окончания
       .col-md-1.action_link
-        = link_to 'как в заказе', '#', class: 'stop_as_in_order', data: { input_name: "characters[#{input_index}][stop]"}
+        = link_to 'как в заказе', '#', class: 'stop_as_in_order', data: { input_name: "order[characters][#{input_index}][stop]"}
 
     .row.order_row
       .col-md-2
         %div.input-group.date.time_picker
-          %input{name: "characters[#{input_index}][start]", class: 'form-control input-sm'}
+          %input{name: "order[characters][#{input_index}][start]", class: 'form-control input-sm'}
           %span.input-group-addon
             %span.glyphicon.glyphicon-time
       .col-md-2
         %div.input-group.date.time_picker
-          %input{name: "characters[#{input_index}][stop]", class: 'form-control input-sm'}
+          %input{name: "order[characters][#{input_index}][stop]", class: 'form-control input-sm'}
           %span.input-group-addon
             %span.glyphicon.glyphicon-time
+
+      %input{name: "order[characters][#{input_index}][id]", class: 'form-control input-sm', type: 'hidden', value: character.id}
+      %input{name: "order[characters][#{input_index}][owner_class]", class: 'form-control input-sm', type: 'hidden', value: @object.class}
+      %input{name: "order[characters][#{input_index}][owner_id]", class: 'form-control input-sm', type: 'hidden', value: @object.id}
 
     .row.order_row
       - @actors[character.id].each do |actors|
         - actors.each do |actor_info|
           .col-md-2
-            %input{type: 'checkbox', value: '0', name: "characters[#{input_index}][actors][#{actor_info[:id]}]"}
+            %input{type: 'checkbox', value: '1', name: "order[characters][#{input_index}][actors][#{actor_info[:id]}]"}
             = actor_info[:name]

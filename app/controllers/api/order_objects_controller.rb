@@ -3,15 +3,15 @@ class Api::OrderObjectsController < ApplicationController
 
   def object_container
 
-    object = extract_object(params)
+    @object = extract_object(params)
 
     @last_index = params[:object_index].to_i
 
     @characters =
-      if object.is_a?(Character)
-        [object]
-      elsif object.is_a?(Performance)
-        object.characters
+      if @object.is_a?(Character)
+        [@object]
+      elsif @object.is_a?(Performance)
+        @object.characters
       end
 
     @actors = {}

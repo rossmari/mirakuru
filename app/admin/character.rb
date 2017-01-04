@@ -3,6 +3,8 @@ ActiveAdmin.register Character do
   permit_params :name, :duration, :characters_group_id, :avatar, :age_from, :age_to,
                 photo_attributes: [:id, :file, :_destroy], avatar_attributes: [:id, :file]
 
+  config.per_page = 15
+
   filter :name
   filter :duration
   filter :age_from

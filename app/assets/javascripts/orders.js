@@ -42,6 +42,8 @@ $(document).ready(function () {
       success: function(data) {
         $('#stages_selector').val(data.stage_id);
         $('#stages_selector').trigger('change');
+        $('#order_contact_name').prop('value', data.contact_name)
+        $('#order_contact_phone').prop('value', data.contact_phone)
       }
     });
   })
@@ -225,6 +227,10 @@ $(document).ready(function () {
       // update selectors content
       updateOrderControlButtons(count);
     })
+  });
+
+  $('.order_object_selector').select2({
+    theme: "bootstrap"
   });
 
   startTimePickers();

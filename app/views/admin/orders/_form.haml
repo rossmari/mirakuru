@@ -25,9 +25,9 @@
 
     .row.order_row
       .col-md-2
-        = f.collection_select :partner_id, Partner.all, :id, :name, {}, {class: 'form-control input-sm', id: 'partners_selector'}
+        = f.collection_select :partner_id, Partner.all, :id, :name, {prompt: 'Не выбрано'}, {class: 'form-control input-sm', id: 'partners_selector'}
       .col-md-2
-        = f.collection_select :stage_id, Stage.all, :id, :name, {}, {class: 'form-control input-sm',  id: 'stages_selector'}
+        = f.collection_select :stage_id, Stage.all, :id, :name, {prompt: 'Не выбрано'}, {class: 'form-control input-sm',  id: 'stages_selector'}
 
     .row.header_row
       .col-md-2.input_header
@@ -61,13 +61,13 @@
         Источник заказа
     .row.header_row
       .col-md-2
-        %input.form-control.input-sm
+        = f.text_field :contact_name, class: 'form-control input-sm'
       .col-md-2
-        %input.form-control.input-sm
+        = f.text_field :contact_phone, class: 'form-control input-sm'
       .col-md-2
-        =f.text_field :child, class: 'form-control input-sm'
+        = f.text_field :child, class: 'form-control input-sm'
       .col-md-2
-        = f.select :source, Order.sources.map{|name, value| [name, value]}, {}, {class: 'form-control input-sm'}
+        = f.select :source, Order.sources.map{|name, value| [t("admin.order.sources.#{name}"), value]}, {}, {class: 'form-control input-sm'}
 
     .row.header_row
       .col-md-2
@@ -103,13 +103,13 @@
     .row.order_row
       .col-md-2
         %div.input-group.date.date_picker
-          =f.text_field :performance_date, class: 'form-control input-sm'
+          =f.text_field :performance_date, value: @order.performance_date.strftime('%d.%m.%Y'), class: 'form-control input-sm'
           %span.input-group-addon
             %span.glyphicon.glyphicon-calendar
 
       .col-md-2
         %div.input-group.date.time_picker
-          =f.text_field :performance_duration, class: 'form-control input-sm'
+          =f.text_field :performance_time, class: 'form-control input-sm'
           %span.input-group-addon
             %span.glyphicon.glyphicon-time
 
