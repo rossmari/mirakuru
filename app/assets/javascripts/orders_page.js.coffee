@@ -300,6 +300,7 @@ $(document).ready ->
     addObject($(this))
     updateControlButtonsState()
     synchronizeSelectorsOptions()
+    activateSearchSelectors()
   )
   # remove selector and selected objects
   $(document).on('click', '.remove_order_object', (event) ->
