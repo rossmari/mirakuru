@@ -4,8 +4,9 @@ class Customer < ActiveRecord::Base
 
   enum customer_type: [:physical, :entity, :partner]
 
-  validate :customer_name_presence
+  # validate :customer_name_presence
   before_save :generate_partner_link
+  has_many :contacts
 
   private
 

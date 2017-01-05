@@ -44,6 +44,9 @@ ru:
       invitation_event:
         one: 'Событие'
         other: 'События'
+      contact:
+        one: 'Контакт'
+        other: 'Контакты'
 
     attributes:
       character:
@@ -134,6 +137,10 @@ ru:
         author: 'Автор'
         invitation: 'Приглашение'
         event_type: 'Тип события'
+        updated_at: 'Дата обновления'
+      contact:
+        value: 'Контакт'
+        notice: 'Описание контакта'
         updated_at: 'Дата обновления'
 
   date:

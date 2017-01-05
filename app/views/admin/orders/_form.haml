@@ -1,9 +1,16 @@
 = stylesheet_link_tag 'order_page'
-= javascript_include_tag 'orders_page'
+= javascript_include_tag 'order_page'
 
 = form_for [:admin, @order] do |f|
+  %input{name: 'order[is_new_order]', class: 'form-control input-sm',
+         value: @order.is_new_order ? 1 : 0, id: 'order_mode', type: 'hidden'}
+
+  %input{name: 'order[is_new_stage]', class: 'form-control input-sm',
+         value: @order.is_new_stage ? 1 : 0, id: 'stage_mode', type: 'hidden'}
+
   .container-fluid
-    .row.header_row
+
+    -#.row.header_row
 
       .col-md-1.input_header
         Партнер
@@ -23,69 +30,153 @@
         = link_to '#', target: '_blank', title: 'Обновить список', class: 'updater', data: {name: 'stages'} do
           %span.glyphicon.glyphicon-refresh
 
-    .row.order_row
+
+
+    -#.row.order_row
       .col-md-2
         = f.collection_select :partner_id, Partner.all, :id, :name, {prompt: 'Не выбрано'}, {class: 'form-control input-sm', id: 'partners_selector'}
-      .col-md-2
-        = f.collection_select :stage_id, Stage.all, :id, :name, {prompt: 'Не выбрано'}, {class: 'form-control input-sm',  id: 'stages_selector'}
 
+    .row
+      .col-md-8
+      .col-md-2
+        .btn-group-sm{role: 'group', aria: {label: '...'}}
+          - css_class = @order.is_new_order ? 'default' : 'primary'
+          %button{type: 'button', class: "customer_switcher btn btn-#{css_class}", data: {object: 'existing_customer', value: 0}}
+            Повторник
+          - css_class = @order.is_new_order ? 'primary' : 'default'
+          %button{type: 'button', class: "customer_switcher btn btn-#{css_class}", data: {object: 'new_customer', value: 1}}
+            Новый заказ
+      .col-md-2
+
+
+        .btn-group-sm{role: 'group', aria: {label: '...'}}
+          - css_class = @customer.physical? ? 'primary' : 'default'
+          %button{type: 'button', class: "customer_type_switcher btn btn-#{css_class}", data: {value: Customer.customer_types[:physical]}}
+            Физ. лицо
+          - css_class = @customer.physical? ? 'default' : 'primary'
+          %button{type: 'button', class: "customer_type_switcher btn btn-#{css_class}", data: {value: Customer.customer_types[:partner]}}
+            Партнер
+
+    -# ------------------------------------ Customer ----------------------------------
+    .row.header_row
+      .col-md-2.input_header
+        Информация о заказчике
+
+    .row.header_row.customer_block.new_customer{style: @order.is_new_order ? '' : 'display:none'}
+      .col-md-2
+        Заказчик
+      .col-md-2
+        Контакт
+      .col-md-2
+        Примечание к контакту
+
+    -# TODO: remove contact name, contact phone (value) from order
+    .row.header_row.customer_block.new_customer{style: @order.is_new_order ? '' : 'display:none'}
+      .col-md-2
+        %input{name: 'order[customer][name]', class: 'form-control input-sm'}
+
+        %input{name: 'order[customer][customer_type]', class: 'form-control input-sm',
+               value: Customer.customer_types[:physical], id: 'customer_type', type: 'hidden'}
+
+      .col-md-2
+        %input{name: 'order[contact][value]', class: 'form-control input-sm'}
+      .col-md-2
+        %input{name: 'order[contact][notice]', class: 'form-control input-sm'}
+
+    .row.header_row.customer_block.existing_customer{style: @order.is_new_order ? 'display:none' : ''}
+      .col-md-2
+        Заказчик
+      .col-md-2
+        Контакт
+
+    .row.order_row.customer_block.existing_customer{style: @order.is_new_order ? 'display:none' : ''}
+      .col-md-2
+        = f.collection_select :customer_id, Customer.all, :id, :name, {prompt: 'Не выбрано'}, {class: 'form-control input-sm'}
+      .col-md-2
+        = f.collection_select :contact_id, [], :id, :value, {prompt: 'Не выбрано'}, {class: 'form-control input-sm'}
+
+    -# ------------------------------------ Stage ----------------------------------
     .row.header_row
       .col-md-2.input_header
         Место проведения
-    .row.header_row
-      .col-md-2
-        Улица
-      .col-md-2
-        Дом
-      .col-md-2
-        Примечание
-    .row.order_row
-      .col-md-2
-        =f.text_field :street, class: 'form-control input-sm'
-      .col-md-2
-        =f.text_field :house, class: 'form-control input-sm'
-      .col-md-2
-        =f.text_field :child_notice, class: 'form-control input-sm'
+
+      .col-md-4
+        .btn-group-xs{role: 'group', aria: {label: '...'}}
+          - css_class = @order.is_new_stage ? 'default' : 'primary'
+          %button{type: 'button', class: "stage_switcher btn btn-#{css_class}", data: {value: '0'}}
+            площадка
+          - css_class = @order.is_new_stage ? 'primary' : 'default'
+          %button{type: 'button', class: "stage_switcher btn btn-#{css_class}", data: {value: '1'}}
+            у клиента
 
     .row.header_row
-      .col-md-2.input_header
-        Заказчик
+      .col-md-2
+        Площадка
+      .col-md-1
+        Район
+      .col-md-2
+        Улица
+      .col-md-1
+        Дом
+      .col-md-1
+        Квартира
+      .col-md-2
+        Примечание
+    .row.order_row.stage_inputs
+      .col-md-2
+        = f.collection_select :stage_id, Stage.all, :id, :name, {prompt: 'Не выбрано'}, {class: 'form-control input-sm',  id: 'stages_selector'}
+      .col-md-1
+        %input{name: 'order[stage][district]', class: 'form-control input-sm'}
+      .col-md-2
+        %input{name: 'order[stage][street]', class: 'form-control input-sm'}
+      .col-md-1
+        %input{name: 'order[stage][house]', class: 'form-control input-sm'}
+      .col-md-1
+        %input{name: 'order[stage][apartment]', class: 'form-control input-sm'}
+      .col-md-2
+        %input{name: 'order[stage][description]', class: 'form-control input-sm'}
+
+    .row.separator
+
+    -# ------------------------------------ CHILD
     .row.header_row
-      .col-md-2
-        Контактное лицо
-      .col-md-2
-        Телефон
+      .col-md-2.input_header
+        Именинник
+
+      -#.col-md-2
+        = f.select :source, Order.sources.map{|name, value| [t("admin.order.sources.#{name}"), value]}, {}, {class: 'form-control input-sm'}
+      -#.col-md-2
+        Источник заказа
+
+    .row.header_row
       .col-md-2
         Имя ребенка
       .col-md-2
-        Источник заказа
-    .row.header_row
-      .col-md-2
-        = f.text_field :contact_name, class: 'form-control input-sm'
-      .col-md-2
-        = f.text_field :contact_phone, class: 'form-control input-sm'
-      .col-md-2
-        = f.text_field :child, class: 'form-control input-sm'
-      .col-md-2
-        = f.select :source, Order.sources.map{|name, value| [t("admin.order.sources.#{name}"), value]}, {}, {class: 'form-control input-sm'}
-
-    .row.header_row
-      .col-md-2
-        возраст ребенка
-      .col-md-2
+        Дата рождения
+      -#.col-md-2
         возраст гостей
       .col-md-1
         Примечание
 
+    .row.order_row
+      .col-md-2
+        %input{name: 'order[child][name]', class: 'form-control input-sm'}
+      .col-md-2
+        %input{name: 'order[child][birthday]', class: 'form-control input-sm'}
+      .col-md-2
+        %input{name: 'order[child][notice]', class: 'form-control input-sm'}
+
     .row.header_row
       .col-md-2
-        =f.text_field :child_age, class: 'form-control input-sm'
+        Возраст гостей
+
+    .row.order_row
       .col-md-1
         =f.text_field :guests_age_from, class: 'form-control input-sm'
       .col-md-1
         =f.text_field :guests_age_to, class: 'form-control input-sm'
-      .col-md-2
-        =f.text_field :guests_notice, class: 'form-control input-sm'
+
+    .row.separator
 
     .row.header_row
       .col-md-2

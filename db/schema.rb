@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170104041006) do
+ActiveRecord::Schema.define(version: 20170105105351) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,14 @@ ActiveRecord::Schema.define(version: 20170104041006) do
     t.integer  "character_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.string   "value"
+    t.integer  "customer_id"
+    t.string   "notice"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "customers", force: :cascade do |t|
@@ -138,6 +146,7 @@ ActiveRecord::Schema.define(version: 20170104041006) do
     t.string   "contact_name"
     t.string   "contact_phone"
     t.time     "performance_time"
+    t.integer  "contact_id"
   end
 
   create_table "orders_characters", force: :cascade do |t|
@@ -186,6 +195,8 @@ ActiveRecord::Schema.define(version: 20170104041006) do
     t.string   "name"
     t.string   "street"
     t.string   "house"
+    t.integer  "district"
+    t.string   "apartment"
   end
 
   create_table "users", force: :cascade do |t|

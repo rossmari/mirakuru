@@ -8,7 +8,7 @@ ActiveAdmin.register Customer do
          collection: ->{Customer.customer_types.map{|key, _value| [I18n.t("admin.customer.customer_types.#{key}"), _value]}}
   filter :name
   filter :company_name
-  filter :contact
+  # filter :contact
   filter :updated_at
 
   index do
@@ -18,7 +18,7 @@ ActiveAdmin.register Customer do
     end
     column :name
     column :company_name
-    column :contact
+    # column :contact
     column :discount do |record|
       "#{record.discount} %"
     end
@@ -42,7 +42,7 @@ ActiveAdmin.register Customer do
               include_blank: false
       f.input :name
       f.input :company_name
-      f.input :contact
+      # f.input :contact
       f.input :notice
       f.input :discount
       f.input :customer_name
@@ -58,7 +58,7 @@ ActiveAdmin.register Customer do
       end
       row :name
       row :company_name
-      row :contact
+      # row :contact
       row :notice
       row :discount do |record|
         "#{record.discount.to_f} %"

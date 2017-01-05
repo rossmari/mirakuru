@@ -1,5 +1,7 @@
 class Order < ActiveRecord::Base
 
+  attr_accessor :is_new_order, :is_new_stage
+
   belongs_to :customer
   belongs_to :performance
   belongs_to :stage

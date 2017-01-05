@@ -7,7 +7,8 @@ ActiveAdmin.register Order do
                 :performance_date, :performance_duration, :dopnik,
                 :partner_id, :street, :house, :child_notice, :contact_name, :contact_phone,
                 :source, :guests_notice, :performance_time, :order_notice, :actor_notice,
-                :performance_id, orders_characters_attributes: [:character_id, :id, :_destroy]
+                :performance_id, orders_characters_attributes: [:character_id, :id, :_destroy],
+                contact: [:value, :notice]
 
   filter :customer
   filter :stage, as: :select,
@@ -144,12 +145,26 @@ ActiveAdmin.register Order do
 
     def new
       @order = Order.new
+      @order.is_new_order = false
+      @order.is_new_stage = true
+
+      if @order.is_new_order
+        @customer = Customer.new
+        @contact = Contact.new
+      else
+        @customer = Customer.last
+        @contact = @customer.contacts.last
+      end
       @order.performance_date = Date.today
       @order.performance_time = Time.now
     end
 
     def create
-
+      # customer_constructor = OrderCustomerConstructor.new(order_params)
+      # customer_constructor.process!
+      stage_constructor = OrderStageConstructor.new(order_params)
+      stage_constructor.process!
+      redirect_to admin_orders_path
     end
 
     def edit
@@ -158,6 +173,16 @@ ActiveAdmin.register Order do
 
     def update
       i = 3
+    end
+
+    def order_params
+      params.require(:order).permit(
+                              :is_new_order, :is_new_stage,
+                              :stage_id, :customer_id, :contact_id,
+                              customer: [:name, :customer_type],
+                              contact: [:value, :notice],
+                              stage: [:district, :street, :house, :apartment, :description]
+      )
     end
 
   end

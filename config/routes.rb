@@ -18,6 +18,7 @@ Rails.application.routes.draw do
         post :available
       end
     end
+    resources :contacts
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
