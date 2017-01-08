@@ -21,6 +21,9 @@ ActiveAdmin.register Actor do
       image_tag(record.avatar.file.url(:middle_thumb))
     end
     column :contacts
+    column :characters do |record|
+      record.characters.map(&:name).join(',')
+    end
     column :age
     column :phone
     column :updated_at
@@ -45,9 +48,24 @@ ActiveAdmin.register Actor do
   end
 
   controller do
+
     def new
       @actor = Actor.new
       @actor.build_avatar
+    end
+
+    def create
+      @actor = Actor.new(actor_params)
+      if @actor.save
+        redirect_to admin_actor_path(@actor)
+      else
+        unless @actor.build_avatar
+          if @actor.errors[:avatar]
+            @actor.avatar.errors.add(:file, :blank)
+          end
+        end
+        render 'new'
+      end
     end
 
     def edit
@@ -55,6 +73,11 @@ ActiveAdmin.register Actor do
       unless @actor.avatar
         @actor.build_avatar
       end
+    end
+
+    def actor_params
+      params.require(:actor).permit(:name, :contacts, :age, :telegram_key, :phone,
+      avatar_attributes: [:id, :file], actors_characters_attributes: [:id, :character_id, :actor_id, :_destroy])
     end
 
   end

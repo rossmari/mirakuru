@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       end
     end
     resources :contacts
+    resources :actors
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

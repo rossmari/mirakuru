@@ -94,3 +94,19 @@ form input[type=text] {
   padding-top: 10px;
   margin-bottom: 15px;
 }
+
+span.actor_name {
+  padding-left: 10px;
+}
+
+span.actor_name.disabled {
+  color: grey;
+}
+
+span.actor_name.occupied {
+  color: red;
+}
+
+span.actor_name.almost_occupied {
+  color: #ff8100;
+}

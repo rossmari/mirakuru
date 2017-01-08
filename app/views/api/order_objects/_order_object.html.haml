@@ -15,6 +15,11 @@
       .col-md-1.action_link
         = link_to 'как в заказе', '#', class: 'stop_as_in_order', data: { input_name: "order[characters][#{input_index}][stop]"}
 
+      .col-md-1
+        стоймость
+      .col-md-1.action_link
+        = link_to 'оплачено', '#', class: 'stop_as_in_order', data: { input_name: "order[characters][#{input_index}][stop]"}
+
     .row.order_row
       .col-md-2
         %div.input-group.date.time_picker

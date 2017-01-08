@@ -2,8 +2,59 @@ $(document).ready ->
   orderObjects = {}
   selectedValues = {}
   charactersCollection = {}
-  selectorIdCounter = 0
+  selectorIdCounter = 1
   objectIndexCounter = 0
+  actorsList = {}
+  performanceStart = null
+  performanceStop = null
+
+  getPerformanceStart = ->
+    date = moment($('#order_performance_date').prop('value'), "DD-MM-YYYY")
+    time = moment($('#order_performance_time').prop('value'),  'hh:mm')
+    date.set({hours: time.hour(), minutes: time.minute()})
+    date
+
+  getPerformanceStop = ->
+    duration = $('#order_performance_duration').prop('value')
+    date = getPerformanceStart()
+    date.add(duration, 'minutes')
+    date
+
+  isActorCloseToOccupied = (invitation) ->
+    invitationStop = moment(invitation.stop).add(60, 'F')
+    invitationStart = moment(invitation.start).add(-60, 'minutes')
+    invitationStart < performanceStart && performanceStop < invitationStop
+
+  isActorOccupied = (invitation) ->
+    invitationStop = moment(invitation.stop)
+    invitationStart = moment(invitation.start)
+    invitationStart < performanceStart && performanceStop < invitationStop
+
+  prepareActorsCheckBoxes = (characterIndex, characterId) ->
+    $.map(actorsList, (actor, actorIndex) ->
+      extraSettings = ''
+      spanClass = ''
+      checkBoxName = 'order[characters][' + characterIndex + '][actors][' + actorIndex + ']'
+      isActorAvailable = $.inArray(characterId, actor.characters) > -1
+
+      if actor.invitations.length > 0
+        $.each(actor.invitations, (index, invitation) ->
+          if isActorOccupied(invitation)
+            spanClass = 'occupied'
+            return true
+          if isActorCloseToOccupied(invitation)
+            spanClass = 'almost_occupied'
+        )
+
+      if !isActorAvailable
+        extraSettings = extraSettings + 'disabled="true"'
+        spanClass = 'disabled'
+
+      '<div class="col-md-2">' +
+        '<input type="checkbox" value="1" name="' + checkBoxName + '"' + extraSettings + '/>' +
+          '<span class="actor_name ' + spanClass + '">' + actor.name + '</span>' +
+      '</div>'
+    ).join(' ')
 
   addObject = (element) ->
     container = element.closest('.order_object_container')
@@ -11,20 +62,16 @@ $(document).ready ->
     $(objectSelectTemplate(selectorIdCounter)).insertAfter($(container).closest('.order_object_container'))
 
   copyStartTime = (element) ->
-    time = $('#order_performance_time').prop('value')
     inputName = element.data('inputName')
-    $('input[name="' + inputName + '"]').prop('value', time)
+    $('input[name="' + inputName + '"]').prop('value', performanceStart.format('LT'))
 
   copyStopTime = (element) ->
-    time = moment('2016-01-01 ' + $('#order_performance_time').prop('value'))
-    duration = $('#order_performance_duration').prop('value')
-    newTime = time.add(duration, 'minutes').format('LT')
     inputName = element.data('inputName')
-    $('input[name="' + inputName + '"]').prop('value', newTime)
+    $('input[name="' + inputName + '"]').prop('value', performanceStop.format('LT'))
 
   objectSelectTemplate = (selectorIndex) ->
 
-    '<div id="order_object_container_' + selectorIndex + '" class="container-fluid order_object_container order_row">' +
+    '<div class="container-fluid order_object_container order_row" id="order_object_container_' + selectorIndex + '">' +
       '<div class="row">' +
         '<div class="col-md-2">' +
           '<select name="order_object_selector" id="order_object_selector' + selectorIndex + '" class="form-control input-sm order_object_selector" data-object-index="' + selectorIndex + '">' +
@@ -77,6 +124,7 @@ $(document).ready ->
       else
         'order_object top_divider'
     characterName = character.name
+    actorsCheckBoxes = prepareActorsCheckBoxes(index, character.id)
 
     '<div data-object-id=' + character.id + '" class="' + cssClass + '">' +
       '<div class="row">' +
@@ -93,7 +141,17 @@ $(document).ready ->
         '<div class="col-md-1 action_link">' +
           '<a href="#" class="stop_as_in_order" data-input-name="order[characters][' + index + '][stop]">как в заказе</a>' +
         '</div>' +
+        '<div class="col-md-1">стоймость</div>' +
+          '<div class="col-md-1 action_link">' +
+          '<input type="checkbox" value="1" name="order[partner_payed]" id="order_partner_payed"> оплачено' +
+        '</div>' +
+        '<div class="col-md-1">гонорар актера</div>' +
+          '<div class="col-md-1 action_link">' +
+            '<a href="#" class="price_by_list" data-input-name="order[characters][' + index + '][animator_money]">по прайсу</a>' +
+          '</div>' +
+        '<div class="col-md-1">накладные</div>' +
       '</div>' +
+
       '<div class="row order_row">' +
         '<div class="col-md-2">' +
           '<div class="input-group date time_picker">' +
@@ -107,36 +165,96 @@ $(document).ready ->
             '<span class="input-group-addon"><span class="glyphicon glyphicon-time" /></span>' +
           '</div>' +
         '</div>' +
+        '<div class="col-md-2">' +
+          '<input name="order[characters][' + index + '][price]" class="form-control input-sm" />' +
+        '</div>' +
+        '<div class="col-md-2">' +
+          '<input name="order[characters][' + index + '][animator_money]" class="form-control input-sm" />' +
+        '</div>' +
+        '<div class="col-md-2">' +
+          '<input name="order[characters][' + index + '][overheads]" class="form-control input-sm" />' +
+        '</div>' +
       '</div>' +
+
+      '<div class="row header_row">' +
+        '<div class="col-md-3">Примечание к заказу</div>' +
+        '<div class="col-md-3">Информация для актера</div>' +
+      '</div>' +
+      '<div class="row order_row">' +
+        '<div class="col-md-3">' +
+          '<textarea name="order[characters][' + index + '][order_notice]" class="form-control input-sm" />' +
+        '</div>' +
+        '<div class="col-md-3">' +
+          '<textarea name="order[characters][' + index + '][order_notice]" class="form-control input-sm" />' +
+        '</div>' +
+      '</div>' +
+      '<div class="row separator"></div>' +
+      '<div class="row order_row">' +
+        '<div class="col-md-3 input_header">Назначение актера ' +
+          '<span class="com-md-3 header">' +
+            characterName +
+          '</span>' +
+        '</div>' +
+      '</div>' +
+      '<div>' + actorsCheckBoxes +
     '</div>' +
     '<input name="order[characters][' + index + '][id]" class="form-control input-sm" type="hidden" value="character.id">' +
     '<input name="order[characters][' + index + '][owner_class]" class="form-control input-sm" type="hidden" value="@object.class">' +
     '<input name="order[characters][' + index + '][owner_id]" class="form-control input-sm" type="hidden" value="@object.id">'
 
   showAllDeleteButtons = ->
-    $.each($('.remove_order_object'), (index, element) ->
-      $(element).show();
+    deleteButtons = visibleContainers().find('.remove_order_object')
+    $.each(deleteButtons, (index, button) ->
+      $(button).show();
     )
 
   hideAllAddButtons = ->
-    $.each($('.add_order_object'), (index, element) ->
-      $(element).hide()
+    addButtons = visibleContainers().find('.add_order_object')
+    $.each(addButtons, (index, button) ->
+      $(button).hide()
     )
 
   showLastAddButton = ->
-    $('.add_order_object').last().show()
+    addButtons = visibleContainers().find('.add_order_object')
+    addButtons.last().show()
 
   hideLastDeleteButton = ->
-    $('.remove_order_object').last().hide()
+    deleteButtons = visibleContainers().find('.remove_order_object')
+    deleteButtons.last().hide()
 
   startTimePickers = ->
-    $('.time_picker').datetimepicker({locale: 'ru', format: 'LT'})
+    $('.time_picker').datetimepicker({
+      locale: 'ru',
+      format: 'LT'
+    }).on('dp.change', (event) ->
+      targetId = $(event.currentTarget).find('input').prop('id')
+      if targetId == 'order_performance_time'
+        performanceStart = getPerformanceStart()
+        performanceStop = getPerformanceStop()
+        console.log('Start: ' + performanceStart + ', stop: ' + performanceStop)
+    )
 
   startDatePickers = ->
     $('.date_picker').datetimepicker({
       locale: 'ru',
-      format: 'DD.MM.YYYY',
-    })
+      format: 'DD.MM.YYYY'
+    }).on('dp.change', (event) ->
+      targetId = $(event.currentTarget).find('input').prop('id')
+      if targetId == 'order_performance_date'
+        performanceStart = getPerformanceStart()
+        performanceStop = getPerformanceStop()
+        console.log('Start: ' + performanceStart + ', stop: ' + performanceStop)
+    )
+
+  preloadActors = ->
+    $.ajax
+      type: 'GET'
+      url: '/api/actors'
+      format: 'JSON'
+      success: (data) ->
+        actorsList = data.actors
+        console.log('Preload actors objects list ---')
+        console.log(actorsList)
 
   preloadOrderObjects = ->
     $.ajax
@@ -218,14 +336,17 @@ $(document).ready ->
     )
     objects
 
+  visibleContainers = ->
+    $('.order_object_container:visible')
+
   availableSelectBoxes = ->
-    $.grep($('.order_object_selector'), (index, element) ->
+    selectors = visibleContainers().find('.order_object_selector')
+    $.grep(selectors, (index, element) ->
       $(element).prop('value') == ''
     ).length
 
   updateControlButtonsState = ->
     availbleObjCount = availableObjectsCount()
-    selectorsCount = $('.order_object_selector').length
     availableSelectors = availableSelectBoxes()
 
     console.log 'Available. Objects: ' + availbleObjCount + ', selectors: ' + availableSelectors
@@ -245,7 +366,7 @@ $(document).ready ->
     else
       hideAllAddButtons()
       showAllDeleteButtons()
-    if selectorsCount == 1
+    if availableSelectors == 1
       hideLastDeleteButton()
 
   readPageInitialState = ->
@@ -293,6 +414,7 @@ $(document).ready ->
     event.preventDefault();
     value = $(event.currentTarget).data('value');
     $('#order_performance_duration').prop('value', value)
+    $('#order_performance_duration').trigger('change')
   )
   # add new selector, to select objects (performances or characters)
   $(document).on('click', '.add_order_object', (event) ->
@@ -326,12 +448,18 @@ $(document).ready ->
       $('#order_contact_phone').prop('value', data.contact_phone)
     )
   )
-
+  # change start, stop when duration is changed
+  $('#order_performance_duration').on('change', (event) ->
+    performanceStart = getPerformanceStart()
+    performanceStop = getPerformanceStop()
+    console.log('Start: ' + performanceStart + ', stop: ' + performanceStop)
+  )
   # ======================= Initial State
   preloadOrderObjects()
   activateSearchSelectors()
   startTimePickers()
   preloadCharacters()
+  preloadActors()
   startDatePickers()
 
   readPageInitialState()

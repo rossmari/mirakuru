@@ -8,7 +8,7 @@ class Invitation < ActiveRecord::Base
 
   enum status: [:empty, :accepted]
 
-  validates :order, :character, presence: true
+  validates :character, presence: true #:order,
 
   before_save :check_changed_attributes
 
