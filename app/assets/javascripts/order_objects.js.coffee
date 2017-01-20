@@ -34,7 +34,7 @@ $(document).ready ->
     $.map(actorsList, (actor, actorIndex) ->
       extraSettings = ''
       spanClass = ''
-      checkBoxName = 'order[characters][' + characterIndex + '][actors][' + actorIndex + ']'
+      checkBoxName = 'order[invitations][' + characterIndex + '][actors][' + actor.id + ']'
       isActorAvailable = $.inArray(characterId, actor.characters) > -1
 
       if actor.invitations.length > 0
@@ -52,7 +52,7 @@ $(document).ready ->
 
       '<div class="col-md-2">' +
         '<input type="checkbox" value="1" name="' + checkBoxName + '"' + extraSettings + '/>' +
-          '<span class="actor_name ' + spanClass + '">' + actor.name + '</span>' +
+        '<span class="actor_name ' + spanClass + '">' + actor.name + '</span>' +
       '</div>'
     ).join(' ')
 
@@ -114,7 +114,7 @@ $(document).ready ->
     element.find('option').remove()
     element.append(options)
 
-  characterInvitationTemplate = (indexInList, character) ->
+  characterInvitationTemplate = (indexInList, character, ownerObject) ->
     objectIndexCounter = objectIndexCounter + 1
     # todo : remove
     index = objectIndexCounter
@@ -125,6 +125,8 @@ $(document).ready ->
         'order_object top_divider'
     characterName = character.name
     actorsCheckBoxes = prepareActorsCheckBoxes(index, character.id)
+    ownerClass = ownerObject.class
+    ownerId = ownerObject.instance_id
 
     '<div data-object-id=' + character.id + '" class="' + cssClass + '">' +
       '<div class="row">' +
@@ -135,19 +137,19 @@ $(document).ready ->
       '<div class="row header_row">' +
         '<div class="col-md-1">время начала</div>' +
         '<div class="col-md-1 action_link">' +
-          '<a href="#" class="start_as_in_order" data-input-name="order[characters][' + index + '][start]">как в заказе</a>' +
+          '<a href="#" class="start_as_in_order" data-input-name="order[invitations][' + index + '][start]">как в заказе</a>' +
         '</div>' +
         '<div class="col-md-1">время окончания</div>' +
         '<div class="col-md-1 action_link">' +
-          '<a href="#" class="stop_as_in_order" data-input-name="order[characters][' + index + '][stop]">как в заказе</a>' +
+          '<a href="#" class="stop_as_in_order" data-input-name="order[invitations][' + index + '][stop]">как в заказе</a>' +
         '</div>' +
         '<div class="col-md-1">стоймость</div>' +
           '<div class="col-md-1 action_link">' +
-          '<input type="checkbox" value="1" name="order[partner_payed]" id="order_partner_payed"> оплачено' +
+          '<input type="checkbox" value="1" name="order[invitations][' + index + '][partner_payed]" id="order_partner_payed"> оплачено' +
         '</div>' +
         '<div class="col-md-1">гонорар актера</div>' +
           '<div class="col-md-1 action_link">' +
-            '<a href="#" class="price_by_list" data-input-name="order[characters][' + index + '][animator_money]">по прайсу</a>' +
+            '<a href="#" class="price_by_list" data-input-name="order[invitations][' + index + '][animator_money]">по прайсу</a>' +
           '</div>' +
         '<div class="col-md-1">накладные</div>' +
       '</div>' +
@@ -155,24 +157,24 @@ $(document).ready ->
       '<div class="row order_row">' +
         '<div class="col-md-2">' +
           '<div class="input-group date time_picker">' +
-            '<input name="order[characters][' + index + '][start]" class="form-control input-sm" />' +
+            '<input name="order[invitations][' + index + '][start]" class="form-control input-sm" value="' + moment(performanceStart).format('LT') + '"/>' +
             '<span class="input-group-addon"><span class="glyphicon glyphicon-time" /></span>' +
           '</div>' +
         '</div>' +
         '<div class="col-md-2">' +
           '<div class="input-group date time_picker">' +
-            '<input name="order[characters][' + index + '][stop]" class="form-control input-sm" />' +
+            '<input name="order[invitations][' + index + '][stop]" class="form-control input-sm" value="' + moment(performanceStop).format('LT') + '"/>' +
             '<span class="input-group-addon"><span class="glyphicon glyphicon-time" /></span>' +
           '</div>' +
         '</div>' +
         '<div class="col-md-2">' +
-          '<input name="order[characters][' + index + '][price]" class="form-control input-sm" />' +
+          '<input name="order[invitations][' + index + '][price]" class="form-control input-sm" />' +
         '</div>' +
         '<div class="col-md-2">' +
-          '<input name="order[characters][' + index + '][animator_money]" class="form-control input-sm" />' +
+          '<input name="order[invitations][' + index + '][animator_money]" class="form-control input-sm" />' +
         '</div>' +
         '<div class="col-md-2">' +
-          '<input name="order[characters][' + index + '][overheads]" class="form-control input-sm" />' +
+          '<input name="order[invitations][' + index + '][overheads]" class="form-control input-sm" />' +
         '</div>' +
       '</div>' +
 
@@ -182,13 +184,12 @@ $(document).ready ->
       '</div>' +
       '<div class="row order_row">' +
         '<div class="col-md-3">' +
-          '<textarea name="order[characters][' + index + '][order_notice]" class="form-control input-sm" />' +
+          '<textarea name="order[invitations][' + index + '][order_notice]" class="form-control input-sm" />' +
         '</div>' +
         '<div class="col-md-3">' +
-          '<textarea name="order[characters][' + index + '][order_notice]" class="form-control input-sm" />' +
+          '<textarea name="order[invitations][' + index + '][actor_notice]" class="form-control input-sm" />' +
         '</div>' +
       '</div>' +
-      '<div class="row separator"></div>' +
       '<div class="row order_row">' +
         '<div class="col-md-3 input_header">Назначение актера ' +
           '<span class="com-md-3 header">' +
@@ -196,11 +197,15 @@ $(document).ready ->
           '</span>' +
         '</div>' +
       '</div>' +
-      '<div>' + actorsCheckBoxes +
-    '</div>' +
-    '<input name="order[characters][' + index + '][id]" class="form-control input-sm" type="hidden" value="character.id">' +
-    '<input name="order[characters][' + index + '][owner_class]" class="form-control input-sm" type="hidden" value="@object.class">' +
-    '<input name="order[characters][' + index + '][owner_id]" class="form-control input-sm" type="hidden" value="@object.id">'
+      '<div class="row order_row">' +
+        actorsCheckBoxes +
+      '</div>' +
+      '<input name="order[invitations][' + index + '][character_id]" class="form-control input-sm" type="hidden" value="' + character.id + '">' +
+      '<input name="order[invitations][' + index + '][owner_class]" class="form-control input-sm" type="hidden" value="' + ownerClass + '">' +
+      '<input name="order[invitations][' + index + '][owner_id]" class="form-control input-sm" type="hidden" value="' + ownerId + '">' +
+      '<div class="row separator"></div>' +
+    '</div>'
+
 
   showAllDeleteButtons = ->
     deleteButtons = visibleContainers().find('.remove_order_object')
@@ -247,36 +252,19 @@ $(document).ready ->
     )
 
   preloadActors = ->
-    $.ajax
-      type: 'GET'
-      url: '/api/actors'
-      format: 'JSON'
-      success: (data) ->
-        actorsList = data.actors
-        console.log('Preload actors objects list ---')
-        console.log(actorsList)
+    actorsSerialized = $('#actors_serialized').prop('value')
+    actorsList = JSON.parse(actorsSerialized)
 
   preloadOrderObjects = ->
-    $.ajax
-      type: 'GET'
-      url: '/api/order_objects'
-      format: 'JSON'
-      success: (data) ->
-        orderObjects = data.objects
-        console.log('Preload orders objects list ---')
-        console.log(orderObjects)
+    objectsSerialized= $('#objects_serialized').prop('value')
+    orderObjects = JSON.parse(objectsSerialized)
 
   preloadCharacters = ->
-    $.ajax
-      type: 'GET'
-      url: '/api/characters'
-      format: 'JSON'
-      success: (data) ->
-        $.map(data.characters, (element) ->
-          charactersCollection[element.id] = element
-        )
-        console.log('Preload characters list ---')
-        console.log(charactersCollection)
+    charactersSerialized = $('#characters_serialized').prop('value')
+    characters = JSON.parse(charactersSerialized)
+    $.map(characters, (element) ->
+      charactersCollection[element.id] = element
+    )
 
   loadStage = (element, callback) ->
     stageId = element.prop('value');
@@ -298,7 +286,6 @@ $(document).ready ->
     $('.order_object_selector').select2({theme: "bootstrap"})
 
   markSelectedOrderObjects = (value, objectId) ->
-    objectClass = orderObjects[objectId].class
     characters = orderObjects[objectId].characters
     $.each(characters, (index, character) ->
       $.each(orderObjects, (index, orderObject) ->
@@ -342,7 +329,7 @@ $(document).ready ->
   availableSelectBoxes = ->
     selectors = visibleContainers().find('.order_object_selector')
     $.grep(selectors, (index, element) ->
-      $(element).prop('value') == ''
+      $(element).prop('value') == undefined
     ).length
 
   updateControlButtonsState = ->
@@ -369,8 +356,16 @@ $(document).ready ->
     if availableSelectors == 1
       hideLastDeleteButton()
 
+  activateMasks = ->
+    $("#contact_value").mask("+9 (999) 999 99 99");
+
   readPageInitialState = ->
     # TODO : load page in Edit mode
+
+  setPerformanceStartAndStop = ->
+    performanceStart = getPerformanceStart()
+    performanceStop = getPerformanceStop()
+    console.log('Start: ' + performanceStart + ', stop: ' + performanceStop)
 
   # ======================= events
   # after we select value in order objects selector
@@ -391,7 +386,7 @@ $(document).ready ->
       markSelectedOrderObjects(false, newObjectId)
       $(container).find('.order_object').remove();
       $.each(orderObjects[newObjectId].characters, (index, characterId) ->
-        $(container).append(characterInvitationTemplate(index, charactersCollection[characterId]))
+        $(container).append(characterInvitationTemplate(index, charactersCollection[characterId], orderObjects[newObjectId]))
       )
       startTimePickers();
 
@@ -450,9 +445,7 @@ $(document).ready ->
   )
   # change start, stop when duration is changed
   $('#order_performance_duration').on('change', (event) ->
-    performanceStart = getPerformanceStart()
-    performanceStop = getPerformanceStop()
-    console.log('Start: ' + performanceStart + ', stop: ' + performanceStop)
+    setPerformanceStartAndStop()
   )
   # ======================= Initial State
   preloadOrderObjects()
@@ -461,5 +454,7 @@ $(document).ready ->
   preloadCharacters()
   preloadActors()
   startDatePickers()
+  activateMasks()
 
-  readPageInitialState()
+  updateControlButtonsState()
+  setPerformanceStartAndStop()

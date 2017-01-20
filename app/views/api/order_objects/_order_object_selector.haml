@@ -1,12 +1,20 @@
-- id = 1
-
 %div{id: "order_object_container_#{id}", class: 'container-fluid order_object_container order_row'}
   .row
     .col-md-2
-      = select_tag 'order_object_selector_0', options_for_select(OrderObjects::Presenter.all_order_objects), include_blank: 'Не выбрано', class: 'form-control input-sm order_object_selector', data: {object_index: id}
+      = select_tag 'order_object_selector_0',
+        options_for_select(Order::Objects::Presenter.all_order_objects, Order::Objects::Presenter.object_value(object)),
+        include_blank: 'Не выбрано', class: 'form-control input-sm order_object_selector',
+        data: {object_index: id}
 
     .col-md-2.action_link
       %a.add_order_object{href: '#', style: 'display: none', title: 'Добавить персонаж/программу'}
         %span.glyphicon.glyphicon-plus
       %a.remove_order_object{href: '#', style: 'display: none', title: 'Исключить персонаж/программу'}
         %span.glyphicon.glyphicon-trash
+
+  - if @order.persisted?
+    - invitations = @manager.owner_uniq_invitations(object)
+    - if invitations.any?
+      - invitations.each_with_index do |invitation, index|
+        = render partial: 'api/order_objects/order_object', locals: {index: index + id * 100,
+        invitation: invitation, owner: object}

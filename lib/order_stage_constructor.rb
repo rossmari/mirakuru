@@ -1,6 +1,6 @@
 class OrderStageConstructor
 
-  attr_accessor :is_new_stage, :params
+  attr_accessor :is_new_stage, :params, :stage
 
   def initialize(params)
     @params = params
@@ -11,6 +11,13 @@ class OrderStageConstructor
   def process!
     process_stage
     save
+  end
+
+  def cut_params
+    %i(is_new_stage stage stage_id).each do |key|
+      params.delete(key)
+    end
+    params
   end
 
   private

@@ -1,44 +1,91 @@
-- @characters.each_with_index do |character, index|
-  - input_index = @last_index + index
-  - css_class = index.zero? ? 'order_object' : 'order_object top_divider'
-  .div{class: css_class, data: {object_id: character.id}}
-    .row
-      .col-md-3.header
-        = OrderObjects::Presenter.character_full_name(character)
-    .row.header_row
-      .col-md-1
-        время начала
-      .col-md-1.action_link
-        = link_to 'как в заказе', '#', class: 'start_as_in_order', data: { input_name:  "order[characters][#{input_index}][start]" }
-      .col-md-1
-        время окончания
-      .col-md-1.action_link
-        = link_to 'как в заказе', '#', class: 'stop_as_in_order', data: { input_name: "order[characters][#{input_index}][stop]"}
+- character = invitation.character
 
-      .col-md-1
-        стоймость
-      .col-md-1.action_link
-        = link_to 'оплачено', '#', class: 'stop_as_in_order', data: { input_name: "order[characters][#{input_index}][stop]"}
+.div{class: 'order_object', data: {object_id: invitation.id}}
+  .row
+    .col-md-3.header
+      = Order::Objects::Presenter.character_full_name(character)
+  .row.header_row
+    .col-md-1
+      время начала
 
-    .row.order_row
+    .col-md-1.action_link
+      = link_to 'как в заказе', '#', class: 'start_as_in_order',
+      data: { input_name:  "order[invitations][#{index}][start]" }
+
+    .col-md-1
+      время окончания
+
+    .col-md-1.action_link
+      = link_to 'как в заказе', '#', class: 'stop_as_in_order',
+      data: { input_name: "order[invitations][#{index}][stop]"}
+
+    .col-md-1
+      стоймость
+
+    .col-md-1.action_link
+      %input{type: 'checkbox', value: invitation.partner_payed ? '1' : '0',
+        name: "order[invitations][#{index}][partner_payed]", checked: invitation.partner_payed}
+      оплачено
+
+    .col-md-1
+      гонорар актера
+
+    .col-md-1.action_link
+      = link_to 'по прайсу', '#', class: 'stop_as_in_order'
+
+    .col-md-2
+      накладные
+
+  .row.order_row
+    .col-md-2
+      %div.input-group.date.time_picker
+        %input{name: "order[invitations][#{index}][start]", class: 'form-control input-sm',
+        value: invitation.start.strftime('%H:%M')}
+        %span.input-group-addon
+          %span.glyphicon.glyphicon-time
+
+    .col-md-2
+      %div.input-group.date.time_picker
+        %input{name: "order[invitations][#{index}][stop]", class: 'form-control input-sm',
+        value: invitation.stop.strftime('%H:%M')}
+        %span.input-group-addon
+          %span.glyphicon.glyphicon-time
+
+    .col-md-2
+      %input{name: "order[invitations][#{index}][price]", class: 'form-control input-sm',
+      value: invitation.price}
+
+    .col-md-2
+      %input{name: "order[invitations][#{index}][animator_money]", class: 'form-control input-sm',
+      value: invitation.animator_money}
+
+    .col-md-2
+      %input{name: "order[invitations][#{index}][overheads]", class: 'form-control input-sm',
+      value: invitation.overheads}
+
+    %input{name: "order[invitations][#{index}][character_id]", class: 'form-control input-sm', type: 'hidden',
+    value: character.id}
+    %input{name: "order[invitations][#{index}][owner_class]", class: 'form-control input-sm', type: 'hidden',
+    value: owner.class}
+    %input{name: "order[invitations][#{index}][owner_id]", class: 'form-control input-sm', type: 'hidden',
+    value: owner.id}
+
+  .row.header_row
+    .col-md-3
+      Примечание к заказу
+    .col-md-3
+      Информация для актера
+  .row.order_row
+    .col-md-3
+      = text_area_tag "order[invitations][#{index}][order_notice]", invitation.order_notice,
+      class: 'form-control input-sm', size: 20
+    .col-md-3
+      = text_area_tag "order[invitations][#{index}][actor_notice]", invitation.actor_notice,
+      class: 'form-control input-sm', size: 20
+
+  .row.order_row
+    - Actor.find_each do |actor|
       .col-md-2
-        %div.input-group.date.time_picker
-          %input{name: "order[characters][#{input_index}][start]", class: 'form-control input-sm'}
-          %span.input-group-addon
-            %span.glyphicon.glyphicon-time
-      .col-md-2
-        %div.input-group.date.time_picker
-          %input{name: "order[characters][#{input_index}][stop]", class: 'form-control input-sm'}
-          %span.input-group-addon
-            %span.glyphicon.glyphicon-time
-
-      %input{name: "order[characters][#{input_index}][id]", class: 'form-control input-sm', type: 'hidden', value: character.id}
-      %input{name: "order[characters][#{input_index}][owner_class]", class: 'form-control input-sm', type: 'hidden', value: @object.class}
-      %input{name: "order[characters][#{input_index}][owner_id]", class: 'form-control input-sm', type: 'hidden', value: @object.id}
-
-    .row.order_row
-      - @actors[character.id].each do |actors|
-        - actors.each do |actor_info|
-          .col-md-2
-            %input{type: 'checkbox', value: '1', name: "order[characters][#{input_index}][actors][#{actor_info[:id]}]"}
-            = actor_info[:name]
+        - invited = @manager.actor_invited?(actor, owner, character)
+        = check_box_tag "order[invitations][#{index}][actors][#{actor.id}]", 1, invited
+        = actor.name

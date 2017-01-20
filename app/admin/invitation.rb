@@ -34,14 +34,30 @@ ActiveAdmin.register Invitation do
   end
 
   member_action :sent_to_all, method: :get do
+    # TODO : add implementation
+    # sent to all actors in this order
+    # move this to order ???
+  end
 
+  member_action :repeat_sent, method: :get do
+    # TODO : add implementation
+    # sent message again to Actor from this invitation
+  end
+
+  member_action :dismiss, method: :get do
+    # TODO : disable this invitation,
+    # sent message to Actor that he was disabled
+  end
+
+  member_action :change_status, method: :get do
+    # TODO : ???
   end
 
   member_action :release, method: :get do
-    resource.update(actor_id: nil)
-    InvitationEvent.actor_removed!(resource, current_user)
-    flash[:notice] = 'Приглашение освобождено!'
-    redirect_to collection_path
+    # resource.update(actor_id: nil)
+    # InvitationEvent.actor_removed!(resource, current_user)
+    # flash[:notice] = 'Приглашение освобождено!'
+    # redirect_to collection_path
   end
 
   controller do
@@ -54,23 +70,24 @@ ActiveAdmin.register Invitation do
         render 'edit'
       end
     end
+
+    def destroy
+      @invitation = Invitation.find(params[:id])
+      @invitation.delete
+    end
   end
 
   form do |f|
     f.inputs do
-      f.input :order,
-              as: :select,
-              collection: Order.all.map{|order| ["Заказ #{order.id}", order.id]},
-              input_html: { disabled: true }
-      f.input :character, as: :select,
-              collection: Character.all.map{|character| [character.name, character.id]},
-              input_html: { disabled: true }
-      f.input :actor, as: :select,
-        collection: Actor.all.map{|actor| [actor.name, actor.id]},
-        include_blank: 'Аниматор не выбран'
-      f.input :status, as: :select,
-        collection: Invitation.statuses.map{|key, _value| [t("admin.invitation.statuses.#{key}"), key]},
-        include_blank: false
+      f.input :start, as: :datepicker
+      f.input :stop, as: :datepicker
+      f.input :corrector
+      f.input :actor_notice
+      f.input :order_notice
+      f.input :price
+      f.input :animator_money
+      f.input :overheads
+      f.input :partner_payed
     end
     f.actions
   end

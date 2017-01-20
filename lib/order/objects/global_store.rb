@@ -1,4 +1,4 @@
-class OrderObjects::GlobalStore
+class Order::Objects::GlobalStore
 
   class << self
     def update_characters_descriptions
@@ -7,11 +7,13 @@ class OrderObjects::GlobalStore
     end
 
     def groups_keys
-      @@groups_keys
+      # @@groups_keys
+      CharactersGroup.pluck('id')
     end
 
     def groups
-      @@groups
+      # @@groups
+      CharactersGroup.pluck('id, name').to_h
     end
 
   end

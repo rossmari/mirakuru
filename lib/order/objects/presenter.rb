@@ -1,4 +1,4 @@
-class OrderObjects::Presenter
+class Order::Objects::Presenter
 
   class << self
 
@@ -45,20 +45,20 @@ class OrderObjects::Presenter
 
     def character_full_name(character)
       group_name =
-      if group_exist?(character.characters_group_id)
-        get_group_description(character.characters_group_id)
-      else
-        'Без группы'
-      end
+        if group_exist?(character.characters_group_id)
+          get_group_description(character.characters_group_id)
+        else
+          'Без группы'
+        end
       "#{group_name} / #{character.name}"
     end
 
     def group_exist?(group_id)
-      OrderObjects::GlobalStore.groups_keys.include?(group_id)
+      Order::Objects::GlobalStore.groups_keys.include?(group_id)
     end
 
     def get_group_description(group_id)
-      OrderObjects::GlobalStore.groups[group_id]
+      Order::Objects::GlobalStore.groups[group_id]
     end
 
   end

@@ -1,6 +1,10 @@
 = stylesheet_link_tag 'order_page'
 = javascript_include_tag 'order_page'
 
+%input{name: 'objects_serialized', value: @resource_manager.objects, id: 'objects_serialized', type: 'hidden'}
+%input{name: 'characters_serialized', value: @resource_manager.characters, id: 'characters_serialized', type: 'hidden'}
+%input{name: 'actors_serialized', value: @resource_manager.actors, id: 'actors_serialized', type: 'hidden'}
+
 = form_for [:admin, @order] do |f|
   %input{name: 'order[is_new_order]', class: 'form-control input-sm',
          value: @order.is_new_order ? 1 : 0, id: 'order_mode', type: 'hidden'}
@@ -10,35 +14,8 @@
 
   .container-fluid
 
-    -#.row.header_row
-
-      .col-md-1.input_header
-        Партнер
-      .col-md-1.action_link
-        = link_to new_admin_partner_path, target: '_blank', title: 'Создать партнера' do
-          %span.glyphicon.glyphicon-plus
-
-        = link_to '#', target: '_blank', title: 'Обновить список', class: 'updater', data: {name: 'partners'} do
-          %span.glyphicon.glyphicon-refresh
-
-      .col-md-1.input_header
-        Площадка
-      .col-md-1.action_link
-        = link_to new_admin_stage_path, target: '_blank', title: 'Создать площадку' do
-          %span.glyphicon.glyphicon-plus
-
-        = link_to '#', target: '_blank', title: 'Обновить список', class: 'updater', data: {name: 'stages'} do
-          %span.glyphicon.glyphicon-refresh
-
-
-
-    -#.row.order_row
-      .col-md-2
-        = f.collection_select :partner_id, Partner.all, :id, :name, {prompt: 'Не выбрано'}, {class: 'form-control input-sm', id: 'partners_selector'}
-
     .row
-      .col-md-8
-      .col-md-2
+      .col-md-2.order_row
         .btn-group-sm{role: 'group', aria: {label: '...'}}
           - css_class = @order.is_new_order ? 'default' : 'primary'
           %button{type: 'button', class: "customer_switcher btn btn-#{css_class}", data: {object: 'existing_customer', value: 0}}
@@ -50,11 +27,14 @@
 
 
         .btn-group-sm{role: 'group', aria: {label: '...'}}
-          - css_class = @customer.physical? ? 'primary' : 'default'
-          %button{type: 'button', class: "customer_type_switcher btn btn-#{css_class}", data: {value: Customer.customer_types[:physical]}}
+          - css_class = @manager.customer.physical? ? 'primary' : 'default'
+          %button{type: 'button', class: "customer_type_switcher btn btn-#{css_class}",
+            data: {value: Customer.customer_types[:physical]}}
             Физ. лицо
-          - css_class = @customer.physical? ? 'default' : 'primary'
-          %button{type: 'button', class: "customer_type_switcher btn btn-#{css_class}", data: {value: Customer.customer_types[:partner]}}
+
+          - css_class = @manager.customer.physical? ? 'default' : 'primary'
+          %button{type: 'button', class: "customer_type_switcher btn btn-#{css_class}",
+            data: {value: Customer.customer_types[:partner]}}
             Партнер
 
     -# ------------------------------------ Customer ----------------------------------
@@ -79,7 +59,7 @@
                value: Customer.customer_types[:physical], id: 'customer_type', type: 'hidden'}
 
       .col-md-2
-        %input{name: 'order[contact][value]', class: 'form-control input-sm'}
+        %input{name: 'order[contact][value]', class: 'form-control input-sm', id: 'contact_value'}
       .col-md-2
         %input{name: 'order[contact][notice]', class: 'form-control input-sm'}
 
@@ -96,9 +76,11 @@
 
     .row.order_row.customer_block.existing_customer{style: @order.is_new_order ? 'display:none' : ''}
       .col-md-2
-        = f.collection_select :customer_id, Customer.all, :id, :name, {prompt: 'Не выбрано'}, {class: 'form-control input-sm'}
+        = f.collection_select :customer_id, Customer.all, :id, :name, {prompt: 'Не выбрано'},
+        {class: 'form-control input-sm'}
       .col-md-2
-        = f.collection_select :contact_id, [], :id, :value, {prompt: 'Не выбрано'}, {class: 'form-control input-sm'}
+        = f.collection_select :contact_id, Contact.where(customer_id: @manager.contact.customer_id), :id, :description,
+        {prompt: 'Не выбрано', selected: @manager.contact.id}, {class: 'form-control input-sm'}
 
     -# ------------------------------------ Stage ----------------------------------
     .row.header_row
@@ -131,7 +113,11 @@
       .col-md-2
         = f.collection_select :stage_id, Stage.all, :id, :name, {prompt: 'Не выбрано'}, {class: 'form-control input-sm',  id: 'stages_selector'}
       .col-md-1
-        %input{name: 'order[stage][district]', class: 'form-control input-sm'}
+        %select{class: 'form-control input-sm', id: 'stages_selector', name: 'order[stage_id]'}
+          - District.all.each do |district|
+            %option{value: "#{district.id}"}
+              = district.name
+
       .col-md-2
         %input{name: 'order[stage][street]', class: 'form-control input-sm'}
       .col-md-1
@@ -142,16 +128,18 @@
         %input{name: 'order[stage][description]', class: 'form-control input-sm'}
 
     .row.separator
-
+    -# ------------------------------------ ORDER SOURCE
+    .row.header_row
+      .col-md-2
+        Источник заказа
+    .row.order_row
+      .col-md-2
+        = f.select :source, Order.sources.map{|k, _value| [t("admin.order.sources.#{k}"), k]}, {}, class: 'form-control input-sm'
+    .row.separator
     -# ------------------------------------ CHILD
     .row.header_row
       .col-md-2.input_header
         Именинник
-
-      -#.col-md-2
-        = f.select :source, Order.sources.map{|name, value| [t("admin.order.sources.#{name}"), value]}, {}, {class: 'form-control input-sm'}
-      -#.col-md-2
-        Источник заказа
 
     .row.header_row
       .col-md-2
@@ -165,11 +153,15 @@
 
     .row.order_row
       .col-md-2
-        %input{name: 'order[child][name]', class: 'form-control input-sm'}
+        = f.text_field :child_name, class: 'form-control input-sm'
       .col-md-2
-        %input{name: 'order[child][birthday]', class: 'form-control input-sm'}
+        .input-group.date.date_picker
+          = f.text_field :child_birthday, value: @order.child_birthday.strftime('%d.%m.%Y'), class: 'form-control input-sm'
+          %span.input-group-addon
+            %span.glyphicon.glyphicon-calendar
+
       .col-md-2
-        %input{name: 'order[child][notice]', class: 'form-control input-sm'}
+        = f.text_field :child_notice, class: 'form-control input-sm'
 
     .row.header_row
       .col-md-2
@@ -210,12 +202,17 @@
             %span.glyphicon.glyphicon-time
 
       .col-md-2
-        = f.text_field :performance_duration, class: 'form-control input-sm'
+        = f.text_field :performance_duration, class: 'form-control input-sm', value: @order.performance_duration || 60
 
     .row.header_row
       .col-md-3.input_header
         Добавить персонаж/программу к заказу
-    = render partial: 'api/order_objects/order_object_selector'
+    - if @order.persisted?
+      - @manager.owners.each_with_index do |object, index|
+        = render partial: 'api/order_objects/order_object_selector', locals: {id: index, object: object}
+    - else
+      = render partial: 'api/order_objects/order_object_selector', locals: {id: 1, object: nil}
+
 
     .row.separator
 

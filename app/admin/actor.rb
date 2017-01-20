@@ -18,7 +18,9 @@ ActiveAdmin.register Actor do
     column :id
     column :name
     column 'Аватар' do |record|
-      image_tag(record.avatar.file.url(:middle_thumb))
+      if record.avatar
+        image_tag(record.avatar.file.url(:middle_thumb))
+      end
     end
     column :contacts
     column :characters do |record|
@@ -89,7 +91,9 @@ ActiveAdmin.register Actor do
       row :phone
       row :contacts
       row :avatar do |record|
-        image_tag record.avatar.file.url(:middle_thumb)
+        if record.avatar
+          image_tag record.avatar.file.url(:middle_thumb)
+        end
       end
       row t('admin.characters_list') do |record|
         record.characters.map do |character|

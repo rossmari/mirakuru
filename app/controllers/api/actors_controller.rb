@@ -3,7 +3,7 @@ class Api::ActorsController < ApplicationController
   def index
     @actors = Actor.all
     if params[:character_id].present?
-      @actors = @actors.where()
+      # @actors = @actors.where()
       @actors = @actors.joins(:characters).where('characters.id = ?', params[:character_id])
     end
     @invitations = @actors.map do |actor|

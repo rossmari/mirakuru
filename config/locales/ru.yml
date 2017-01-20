@@ -133,6 +133,15 @@ ru:
         actor: 'Аниматор'
         character: 'Персонаж'
         order: 'Заказ'
+        start: 'Начало'
+        stop: 'Конец'
+        partner_payed: 'партнерские выплачены'
+        price: 'стоймость'
+        animator_money: 'гонорар актера'
+        overheads: 'накладные расходы'
+        order_notice: 'Замечание к заказу'
+        actor_notice: 'Замечание актеру'
+        corrector: 'Корректор'
       invitation_event:
         author: 'Автор'
         invitation: 'Приглашение'
@@ -424,8 +433,13 @@ ru:
         commercial: 'Реклама'
     invitation:
       statuses:
-        empty: 'Вновь созданное'
+        sent: 'Отправлено'
         accepted: 'Принято'
+        received: 'Получено'
+        read: 'Прочитано'
+        denied: 'Отказ'
+        set_by_admin: 'Установлено адм.'
+        removed_by_admin: 'Снято адм.'
 
     invitation_event:
       event_types:

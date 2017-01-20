@@ -6,13 +6,17 @@ class Invitation < ActiveRecord::Base
 
   has_many :invitation_events
 
-  enum status: [:empty, :accepted]
+  enum status: [:sent, :received, :read, :accepted, :denied, :set_by_admin, :removed_by_admin]
 
-  validates :character, presence: true #:order,
+  validates :character, :order, presence: true
 
-  before_save :check_changed_attributes
+  before_save :check_changed_attributes, :prepare_owner_class
 
   attr_accessor :author
+
+  def owner
+    owner_class.constantize.find(owner_id)
+  end
 
   private
 
@@ -31,6 +35,10 @@ class Invitation < ActiveRecord::Base
       InvitationEvent.status_changed!(self, author)
     end
 
+  end
+
+  def prepare_owner_class
+    self.owner_class = owner_class.capitalize
   end
 
 end

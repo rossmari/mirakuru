@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170108092319) do
+ActiveRecord::Schema.define(version: 20170120145618) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,6 +92,12 @@ ActiveRecord::Schema.define(version: 20170108092319) do
     t.datetime "updated_at",    null: false
   end
 
+  create_table "districts", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "invitation_events", force: :cascade do |t|
     t.integer  "invitation_id"
     t.integer  "author_id"
@@ -105,11 +111,20 @@ ActiveRecord::Schema.define(version: 20170108092319) do
     t.integer  "character_id"
     t.integer  "actor_id"
     t.integer  "order_id"
-    t.integer  "status",       default: 0, null: false
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.integer  "status",         default: 0,     null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.datetime "start"
     t.datetime "stop"
+    t.boolean  "partner_payed",  default: false, null: false
+    t.integer  "price"
+    t.integer  "animator_money"
+    t.integer  "overheads"
+    t.text     "order_notice"
+    t.string   "owner_class"
+    t.integer  "owner_id"
+    t.text     "actor_notice"
+    t.integer  "corrector",      default: 0
   end
 
   create_table "orders", force: :cascade do |t|
@@ -120,9 +135,8 @@ ActiveRecord::Schema.define(version: 20170108092319) do
     t.integer  "performance_id"
     t.integer  "stage_id"
     t.float    "price"
-    t.integer  "status"
-    t.string   "child"
-    t.integer  "child_age"
+    t.integer  "status",               default: 0
+    t.string   "child_name"
     t.integer  "guests_count"
     t.integer  "guests_age_from"
     t.integer  "guests_age_to"
@@ -146,6 +160,7 @@ ActiveRecord::Schema.define(version: 20170108092319) do
     t.string   "contact_phone"
     t.time     "performance_time"
     t.integer  "contact_id"
+    t.date     "child_birthday"
   end
 
   create_table "orders_characters", force: :cascade do |t|

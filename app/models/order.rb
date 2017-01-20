@@ -14,11 +14,13 @@ class Order < ActiveRecord::Base
   has_many :invitations
 
   enum status: [:active, :success, :rejected_customer, :rejected_actor]
-  enum sources: [:partner, :site, :commercial]
+  enum source: [:partner, :site, :commercial]
 
   validate :place_presence
   validate :performance_presence
   # validates :status, :customer, presence: true
+
+  belongs_to :contact
 
   after_commit :generate_invitations
 

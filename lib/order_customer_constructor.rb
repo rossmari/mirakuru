@@ -1,6 +1,6 @@
 class OrderCustomerConstructor
 
-  attr_accessor :is_new_order, :params
+  attr_accessor :is_new_order, :params, :contact, :customer
 
   def initialize(params)
     @params = params
@@ -13,6 +13,13 @@ class OrderCustomerConstructor
     process_contact
     process_customer
     save
+  end
+
+  def cut_params
+    %i(is_new_order contact contact_id customer_id customer).each do |key|
+      params.delete(key)
+    end
+    params
   end
 
   private

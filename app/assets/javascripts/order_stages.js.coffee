@@ -8,9 +8,11 @@ $(document).ready ->
   updateStageInputs = (stageType) ->
     if stageType == 0
       $('.stage_inputs').find('input').prop('disabled', true)
+      $('.stage_inputs').find('select').prop('disabled', true)
       $('#stages_selector').prop('disabled', false)
     else
       $('.stage_inputs').find('input').prop('disabled', false)
+      $('.stage_inputs').find('select').prop('disabled', false)
       $('#stages_selector').prop('disabled', true)
 
   updateStageTypeValue = (stageType) ->
@@ -26,4 +28,4 @@ $(document).ready ->
   )
 
   # ============= Initial state
-  updateStageInputs($('#stage_mode').prop('value'))
+  updateStageInputs(parseInt($('#stage_mode').prop('value')))
