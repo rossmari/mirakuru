@@ -169,13 +169,13 @@ $(document).ready ->
           '</div>' +
         '</div>' +
         '<div class="col-md-2">' +
-          '<input name="order[invitations][' + index + '][price]" class="form-control input-sm" />' +
+          '<input name="order[invitations][' + index + '][price]" value="0" class="form-control input-sm invitation_price" />' +
         '</div>' +
         '<div class="col-md-2">' +
-          '<input name="order[invitations][' + index + '][animator_money]" class="form-control input-sm" />' +
+          '<input name="order[invitations][' + index + '][animator_money]" value="0" class="form-control input-sm invitation_animator_money" />' +
         '</div>' +
         '<div class="col-md-2">' +
-          '<input name="order[invitations][' + index + '][overheads]" class="form-control input-sm" />' +
+          '<input name="order[invitations][' + index + '][overheads]" value="0" class="form-control input-sm invitation_overheads" />' +
         '</div>' +
       '</div>' +
 
@@ -448,6 +448,7 @@ $(document).ready ->
   $('#order_performance_duration').on('change', (event) ->
     setPerformanceStartAndStop()
   )
+
   # ======================= Initial State
   preloadOrderObjects()
   activateSearchSelectors()
