@@ -12,7 +12,7 @@ class Order::NewManager
   def prepare_order
     @order = Order.new
     @order.is_new_order = false
-    @order.is_new_stage = true
+    @order.is_new_stage = false
     @order.child_birthday = Date.today
     @order.performance_date = Date.today
     @order.performance_time = Time.now

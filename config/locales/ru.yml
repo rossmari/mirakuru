@@ -47,6 +47,9 @@ ru:
       contact:
         one: 'Контакт'
         other: 'Контакты'
+      customers_stage:
+        one: 'Площадка заказчика'
+        other: 'Площадки заказчика'
 
     attributes:
       character:
@@ -100,7 +103,7 @@ ru:
         company_name: 'Название компании'
         contact: 'Контакты'
         notice: 'Примечание'
-        discount: 'Скидка партнера'
+        discount: 'Скидка партнера (%)'
         partner_link: 'Ссылка партнера'
         customer_name: 'Имя (для ссылки, латиница)'
         updated_at: 'Дата обновления'

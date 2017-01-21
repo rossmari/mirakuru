@@ -2,6 +2,7 @@ $(document).ready ->
   orderObjects = {}
   selectedValues = {}
   charactersCollection = {}
+  stagesCollection = {}
   selectorIdCounter = 1
   objectIndexCounter = 0
   actorsList = {}
@@ -328,8 +329,8 @@ $(document).ready ->
 
   availableSelectBoxes = ->
     selectors = visibleContainers().find('.order_object_selector')
-    $.grep(selectors, (index, element) ->
-      $(element).prop('value') == undefined
+    $.grep(selectors, (element, index) ->
+      $(element).prop('value') == ""
     ).length
 
   updateControlButtonsState = ->

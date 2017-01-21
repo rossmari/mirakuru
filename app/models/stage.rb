@@ -4,6 +4,9 @@ class Stage < ActiveRecord::Base
   validates :name, :street, :house, presence: true
   has_many :partners
 
+  has_many :customers_stages
+  has_many :customers, through: :customers_stages
+
   private
 
   def generate_name

@@ -4,6 +4,7 @@
 %input{name: 'objects_serialized', value: @resource_manager.objects, id: 'objects_serialized', type: 'hidden'}
 %input{name: 'characters_serialized', value: @resource_manager.characters, id: 'characters_serialized', type: 'hidden'}
 %input{name: 'actors_serialized', value: @resource_manager.actors, id: 'actors_serialized', type: 'hidden'}
+%input{name: 'stages_serialized', value: @resource_manager.stages, id: 'stages_serialized', type: 'hidden'}
 
 = form_for [:admin, @order] do |f|
   %input{name: 'order[is_new_order]', class: 'form-control input-sm',
@@ -87,6 +88,7 @@
       .col-md-2.input_header
         Место проведения
 
+    .row
       .col-md-4
         .btn-group-xs{role: 'group', aria: {label: '...'}}
           - css_class = @order.is_new_stage ? 'default' : 'primary'
@@ -94,7 +96,9 @@
             площадка
           - css_class = @order.is_new_stage ? 'primary' : 'default'
           %button{type: 'button', class: "stage_switcher btn btn-#{css_class}", data: {value: '1'}}
-            у клиента
+            на дому
+          %button{type: 'button', class: 'stage_switcher btn btn-default', data: {value: '2'}}
+            у заказчика
 
     .row.header_row
       .col-md-2

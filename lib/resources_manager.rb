@@ -1,11 +1,13 @@
 class ResourcesManager
 
-  attr_reader :actors, :characters, :objects
+  attr_reader :actors, :characters, :objects,
+              :stages
 
   def initialize
     @actors = get_actors.to_json
     @characters = get_characters.to_json
     @objects = get_objects.to_json
+    @stages = get_stages.to_json
   end
 
   def get_actors
@@ -32,6 +34,17 @@ class ResourcesManager
       {
         name: Order::Objects::Presenter.object_name(character),
         id: character.id
+      }
+    end
+  end
+
+  def get_stages
+    Stage.all.map do |stage|
+      {
+        description: stage.description,
+        id: stage.id,
+        name: stage.name,
+        customers: stage.customers.ids
       }
     end
   end

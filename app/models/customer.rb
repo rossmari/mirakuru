@@ -7,6 +7,9 @@ class Customer < ActiveRecord::Base
   # validate :customer_name_presence
   before_save :generate_partner_link
   has_many :contacts
+  has_many :customers_stages
+  has_many :stages, through: :customers_stages
+  accepts_nested_attributes_for :customers_stages, allow_destroy: true
 
   private
 
