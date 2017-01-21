@@ -8,11 +8,22 @@ $(document).ready ->
       price = parseInt($(element).find('.invitation_price').prop('value'))
       animatorPrice = parseInt($(element).find('.invitation_animator_money').prop('value'))
       overheads = parseInt($(element).find('.invitation_overheads').prop('value'))
-      totalPrice = totalPrice + (price - animatorPrice - overheads)
+
+      # means do not add outcome to total price
+      if $('#exclude_outcome').prop('checked')
+        totalPrice = totalPrice + price
+      else
+        totalPrice = totalPrice + (price - animatorPrice - overheads)
     )
     additionalExpense = parseInt($('#order_dopnik').prop('value'))
-    console.log(totalPrice - additionalExpense)
-    totalPrice - additionalExpense
+    result = 0
+    # include or not in total price additional expense
+    if $('#exclude_additional_expense').prop('checked')
+      result = totalPrice
+    else
+      result = totalPrice - additionalExpense
+
+    result
 
   # calculate rubls by percents
   calculatePartnerAmount = (percents) ->
@@ -95,5 +106,13 @@ $(document).ready ->
   )
 
   $(document).on('keyup', '.invitation_overheads', (event) ->
+    updatePartnerMoney()
+  )
+
+  $('#exclude_outcome').on('change',  (event) ->
+    updatePartnerMoney()
+  )
+
+  $('#exclude_additional_expense').on('change', (event) ->
     updatePartnerMoney()
   )
