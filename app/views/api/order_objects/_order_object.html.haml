@@ -52,15 +52,15 @@
           %span.glyphicon.glyphicon-time
 
     .col-md-2
-      %input{name: "order[invitations][#{index}][price]", class: 'form-control input-sm',
+      %input{name: "order[invitations][#{index}][price]", class: 'form-control input-sm invitation_price',
       value: invitation.price}
 
     .col-md-2
-      %input{name: "order[invitations][#{index}][animator_money]", class: 'form-control input-sm',
+      %input{name: "order[invitations][#{index}][animator_money]", class: 'form-control input-sm invitation_animator_money',
       value: invitation.animator_money}
 
     .col-md-2
-      %input{name: "order[invitations][#{index}][overheads]", class: 'form-control input-sm',
+      %input{name: "order[invitations][#{index}][overheads]", class: 'form-control input-sm invitation_overheads',
       value: invitation.overheads}
 
     %input{name: "order[invitations][#{index}][character_id]", class: 'form-control input-sm', type: 'hidden',

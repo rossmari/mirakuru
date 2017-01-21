@@ -131,6 +131,10 @@ ru:
         performance_date: 'Дата проведения мероприятия'
         performance_tile: 'Время начала мероприятия'
         performance_duration: 'Продолжительность мероприятия'
+        additional_expense: 'Допник'
+        order_calculations_notice: 'Замечание по допнику'
+        exclude_additional_expense: 'Партнерские без допника'
+        exclude_outcome: 'Допник по прибыли'
       invitation:
         status: 'Статус приглашения'
         actor: 'Аниматор'

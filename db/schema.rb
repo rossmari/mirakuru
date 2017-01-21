@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170121080107) do
+ActiveRecord::Schema.define(version: 20170121114310) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -135,39 +135,31 @@ ActiveRecord::Schema.define(version: 20170121080107) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.integer  "customer_id"
-    t.integer  "character_id"
-    t.integer  "performance_id"
     t.integer  "stage_id"
-    t.float    "price"
-    t.integer  "status",               default: 0
+    t.integer  "status",                     default: 0
     t.string   "child_name"
-    t.integer  "guests_count"
     t.integer  "guests_age_from"
     t.integer  "guests_age_to"
     t.text     "child_notice"
-    t.boolean  "payed",                default: false, null: false
-    t.integer  "partner_money"
-    t.integer  "animator_money"
-    t.integer  "overheads"
+    t.float    "partner_money"
+    t.float    "additional_expense"
     t.boolean  "partner_payed"
     t.date     "performance_date"
     t.integer  "performance_duration"
-    t.integer  "dopnik"
     t.integer  "partner_id"
     t.string   "street"
     t.string   "house"
     t.integer  "source"
     t.string   "guests_notice"
-    t.text     "order_notice"
-    t.text     "actor_notice"
-    t.string   "contact_name"
-    t.string   "contact_phone"
     t.time     "performance_time"
     t.integer  "contact_id"
     t.date     "child_birthday"
+    t.string   "order_calculations_notice"
+    t.boolean  "exclude_additional_expense", default: false, null: false
+    t.boolean  "exclude_outcome",            default: false, null: false
   end
 
   create_table "orders_characters", force: :cascade do |t|

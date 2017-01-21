@@ -15,7 +15,7 @@ $(document).ready ->
       else
         totalPrice = totalPrice + (price - animatorPrice - overheads)
     )
-    additionalExpense = parseInt($('#order_dopnik').prop('value'))
+    additionalExpense = parseInt($('#additional_expense').prop('value'))
     result = 0
     # include or not in total price additional expense
     if $('#exclude_additional_expense').prop('checked')
@@ -116,3 +116,5 @@ $(document).ready ->
   $('#exclude_additional_expense').on('change', (event) ->
     updatePartnerMoney()
   )
+
+  updateAndSetPartnerPercents()

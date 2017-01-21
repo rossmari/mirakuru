@@ -117,7 +117,7 @@
       .col-md-2
         = f.collection_select :stage_id, Stage.all, :id, :name, {prompt: 'Не выбрано'}, {class: 'form-control input-sm',  id: 'stages_selector'}
       .col-md-1
-        %select{class: 'form-control input-sm', id: 'stages_selector', name: 'order[stage_id]'}
+        %select{class: 'form-control input-sm', id: 'district_selector', name: 'order[stage][district]'}
           - District.all.each do |district|
             %option{value: "#{district.id}"}
               = district.name
@@ -245,14 +245,14 @@
 
 
       .col-md-2
-        %input{type: 'checkbox', id: 'exclude_additional_expense', name: 'order[exclude_additional_expense]'}
-          не считать допники на партнерских
+        = f.check_box :exclude_additional_expense, id: 'exclude_additional_expense', value: @order.exclude_additional_expense
+        не считать допники на партнерских
         %br
-        %input{type: 'checkbox', id: 'exclude_outcome', name: 'order[exclude_outcome]'}
-          процент от прибыли
+        = f.check_box :exclude_outcome, id: 'exclude_outcome', value: @order.exclude_outcome
+        процент от прибыли
         %br
-        %input{type: 'checkbox', name: 'order[partner_payed]'}
-          партнерские оплачены
+        = f.check_box :partner_payed, value: @order.partner_payed
+        партнерские оплачены
 
       .col-md-3
         .row.header_row
@@ -263,11 +263,11 @@
         .row.order_row
           .col-md-6
             .input-group
-              = f.text_field :dopnik, value: @order.dopnik || 0, class: 'form-control input-sm'
+              = f.text_field :additional_expense, value: @order.additional_expense || 0, class: 'form-control input-sm', id: 'additional_expense'
               %span.input-group-addon
                 %span.glyphicon.glyphicon-rub
           .col-md-6
-            = f.text_field :order_notice, class: 'form-control input-sm'
+            = f.text_field :order_calculations_notice, class: 'form-control input-sm'
 
     .row.submit_actions
       = f.submit 'Сохранить', class: 'btn-small btn-primary'
