@@ -1,0 +1,56 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+.price_table {
+  margin: auto;
+  width: inherit;
+}
+
+thead th {
+  background: #e8e7e7;
+  font-weight: normal;
+  font-size: 11pt;
+  text-align: center;
+}
+
+input {
+  width: 100px;
+  align-content: center;
+  text-align: end;
+  margin: auto;
+  padding-right: 10px;
+  border-width: 0px;
+  background-color: #e8fef5;
+}
+
+.inputs_td {
+  background-color: #e8fef5;
+  width: 100px;
+}
+
+tr {
+  height: 40px;
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid;
+}
+
+table tr td {
+  vertical-align: middle;
+  text-align: right;
+  border: 1px solid black;
+}
+
+.minutes {
+  text-align: center;
+  max-width: 50px;
+}
+
+.animator_cell {
+  width: 150px;
+}
+
+.dotted_bottom {
+  border: 0px dashed black;
+  border-bottom-width: 1px;
+}

@@ -1,0 +1,40 @@
+= stylesheet_link_tag 'price_page'
+= javascript_include_tag 'price_list_update'
+
+- animators_count = (1..5)
+%table.price_table
+  %thead
+    %th
+      время
+    %th
+    - animators_count.each do |count|
+      %th
+        = "цена #{count} аниматор"
+      %th
+        = 'ЗП аниматора'
+
+
+  %tbody
+    - minutes = @price_positions.pluck(:minutes).uniq.sort
+    - minutes.each do |minutes|
+      %tr
+        %td.minutes
+          = minutes
+        %td.minutes
+          .div
+            партнера
+          .div
+            открытая
+          .div
+            эксклюзив
+
+        - animators_count.each do |count|
+          - @price_positions.select{|p| p.minutes == minutes && p.animators_count == count}.each do |position|
+            %td.inputs_td
+              %input{name: "partner_price_#{position.id}", value: position.partner_price, class: 'dotted_bottom'}
+              %input{name: "open_price_#{position.id}", value: position.open_price, class: 'dotted_bottom'}
+              %input{name: "exclusive_price_#{position.id}", value: position.exclusive_price}
+            %td.inputs_td
+              %input{name: "partner_salary_#{position.id}", value: position.partner_salary, class: 'dotted_bottom'}
+              %input{name: "open_salary_#{position.id}", value: position.open_salary, class: 'dotted_bottom'}
+              %input{name: "exclusive_salary_#{position.id}", value: position.exclusive_salary}

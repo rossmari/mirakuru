@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170121114310) do
+ActiveRecord::Schema.define(version: 20170122072443) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -199,6 +199,21 @@ ActiveRecord::Schema.define(version: 20170121114310) do
     t.datetime "updated_at", null: false
     t.string   "cover_type"
     t.integer  "cover_id"
+  end
+
+  create_table "price_positions", force: :cascade do |t|
+    t.integer  "minutes"
+    t.float    "animator_price",   default: 0.0
+    t.float    "animator_salary",  default: 0.0
+    t.integer  "animators_count"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.float    "partner_price",    default: 0.0
+    t.float    "open_price",       default: 0.0
+    t.float    "exclusive_price",  default: 0.0
+    t.float    "partner_salary",   default: 0.0
+    t.float    "open_salary",      default: 0.0
+    t.float    "exclusive_salary", default: 0.0
   end
 
   create_table "stages", force: :cascade do |t|

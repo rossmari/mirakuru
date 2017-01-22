@@ -50,6 +50,9 @@ ru:
       customers_stage:
         one: 'Площадка заказчика'
         other: 'Площадки заказчика'
+      price_position:
+        one: 'Позиция прайс листа'
+        other: 'Позиции прайс листа'
 
     attributes:
       character:
@@ -158,6 +161,16 @@ ru:
         value: 'Контакт'
         notice: 'Описание контакта'
         updated_at: 'Дата обновления'
+      price_position:
+        animators_count: 'Кол-во аниматоро'
+        updated_at: 'Дата обновления'
+        minutes: 'Время'
+        partner_price: 'Партнерская цена за 1 аниматора'
+        open_price: 'Открытая цена за 1 аниматора'
+        exclusive_price: 'Эксклюзивная цена за 1 аниматора'
+        partner_salary: 'ЗП партнерская'
+        open_salary: 'ЗП открытая'
+        exclusive_salary: 'ЗП эксклюзив'
 
   date:
     abbr_day_names:
