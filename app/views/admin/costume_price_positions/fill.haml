@@ -1,0 +1,34 @@
+= stylesheet_link_tag 'price_page'
+= javascript_include_tag 'costume_price_list_update'
+
+- costume_count = (1..5)
+%table.price_table
+  %thead
+    %th
+      время
+    %th
+    - costume_count.each do |count|
+      %th
+        = "цена #{count} костюмов"
+
+
+  %tbody
+    - minutes = @price_positions.pluck(:minutes).uniq.sort
+    - minutes.each do |minutes|
+      %tr
+        %td.minutes
+          = minutes
+        %td.minutes
+          .div
+            партнера
+          .div
+            открытая
+          .div
+            эксклюзив
+
+        - costume_count.each do |count|
+          - @price_positions.select{|p| p.minutes == minutes && p.costume_count == count}.each do |position|
+            %td.inputs_td
+              %input{name: "partner_#{position.id}", value: position.partner, class: 'dotted_bottom'}
+              %input{name: "open_#{position.id}", value: position.open, class: 'dotted_bottom'}
+              %input{name: "exclusive_#{position.id}", value: position.exclusive}

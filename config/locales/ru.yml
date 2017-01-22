@@ -53,6 +53,9 @@ ru:
       price_position:
         one: 'Позиция прайс листа'
         other: 'Позиции прайс листа'
+      costume_price_position:
+        one: 'Прайс листа костюмов'
+        other: 'Прайс листы костюмов'
 
     attributes:
       character:
@@ -171,6 +174,13 @@ ru:
         partner_salary: 'ЗП партнерская'
         open_salary: 'ЗП открытая'
         exclusive_salary: 'ЗП эксклюзив'
+      costume_price_position:
+        costume_count: 'Кол-во костюмов'
+        updated_at: 'Дата обновления'
+        minutes: 'Время'
+        partner: 'Цена партнера'
+        open: 'Цена открытая'
+        exclusive: 'Цена эксклюзив'
 
   date:
     abbr_day_names:

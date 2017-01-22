@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170122072443) do
+ActiveRecord::Schema.define(version: 20170122080339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,16 @@ ActiveRecord::Schema.define(version: 20170122072443) do
     t.string   "notice"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "costume_price_positions", force: :cascade do |t|
+    t.integer  "minutes"
+    t.integer  "costume_count"
+    t.float    "partner",       default: 0.0
+    t.float    "open",          default: 0.0
+    t.float    "exclusive",     default: 0.0
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "customers", force: :cascade do |t|

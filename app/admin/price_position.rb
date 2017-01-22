@@ -1,5 +1,8 @@
 ActiveAdmin.register PricePosition do
 
+  permit_params :minutes, :animators_count, :partner_price, :open_price,
+                :exclusive_price, :partner_salary, :open_salary, :exclusive_salary
+
   index do
     column :id
     column :minutes
@@ -51,7 +54,8 @@ ActiveAdmin.register PricePosition do
     end
 
     def position_params
-      params.require(:price_position).permit(:minutes)
+      params.require(:price_position).permit(:minutes, :animators_count, :partner_price, :open_price,
+                                             :exclusive_price, :partner_salary, :open_salary, :exclusive_salary)
     end
   end
 
