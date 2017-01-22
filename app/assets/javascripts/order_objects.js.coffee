@@ -16,7 +16,7 @@ $(document).ready ->
     date
 
   getPerformanceStop = ->
-    duration = $('#order_performance_duration').prop('value')
+    duration = $('#order_performance_duration').val()
     date = getPerformanceStart()
     date.add(duration, 'minutes')
     date
@@ -409,7 +409,7 @@ $(document).ready ->
   $('.fast_duration').on('click', (event) ->
     event.preventDefault();
     value = $(event.currentTarget).data('value');
-    $('#order_performance_duration').prop('value', value)
+    $('#order_performance_duration').val(value)
     $('#order_performance_duration').trigger('change')
   )
   # add new selector, to select objects (performances or characters)

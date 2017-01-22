@@ -195,7 +195,8 @@
     .row.order_row
       .col-md-2
         %div.input-group.date.date_picker
-          =f.text_field :performance_date, value: @order.performance_date.strftime('%d.%m.%Y'), class: 'form-control input-sm'
+          =f.text_field :performance_date, value: @order.performance_date.strftime('%d.%m.%Y'),
+            class: 'form-control input-sm'
           %span.input-group-addon
             %span.glyphicon.glyphicon-calendar
 
@@ -206,7 +207,8 @@
             %span.glyphicon.glyphicon-time
 
       .col-md-2
-        = f.text_field :performance_duration, class: 'form-control input-sm', value: @order.performance_duration || 60
+        =f.select :performance_duration, [15, 30, 45, 60, 90, 120, 180].map{|i| ["#{i} минут", i]}, {},
+          class: 'form-control input-sm', value: @order.performance_duration || 60
 
     .row.header_row
       .col-md-3.input_header
