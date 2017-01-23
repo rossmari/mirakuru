@@ -4,3 +4,4 @@
 #= require order_contacts
 #= require jquery.maskedinput.min
 #= require price_calculation
+#= require order_validation

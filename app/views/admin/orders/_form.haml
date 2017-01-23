@@ -6,7 +6,7 @@
 %input{name: 'actors_serialized', value: @resource_manager.actors, id: 'actors_serialized', type: 'hidden'}
 %input{name: 'stages_serialized', value: @resource_manager.stages, id: 'stages_serialized', type: 'hidden'}
 
-= form_for [:admin, @order] do |f|
+= form_for [:admin, @order], html: {id: 'order_form'} do |f|
   %input{name: 'order[is_new_order]', class: 'form-control input-sm',
          value: @order.is_new_order ? 1 : 0, id: 'order_mode', type: 'hidden'}
 
@@ -55,14 +55,17 @@
     .row.header_row.customer_block.new_customer{style: @order.is_new_order ? '' : 'display:none'}
       .col-md-2
         %input{name: 'order[customer][name]', class: 'form-control input-sm'}
+        .error_container
 
         %input{name: 'order[customer][customer_type]', class: 'form-control input-sm',
                value: Customer.customer_types[:physical], id: 'customer_type', type: 'hidden'}
 
       .col-md-2
         %input{name: 'order[contact][value]', class: 'form-control input-sm', id: 'contact_value'}
+        .error_container
       .col-md-2
         %input{name: 'order[contact][notice]', class: 'form-control input-sm'}
+        .error_container
 
     .row.header_row.customer_block.existing_customer{style: @order.is_new_order ? 'display:none' : ''}
       .col-md-2
@@ -82,6 +85,7 @@
       .col-md-2
         = f.collection_select :contact_id, Contact.where(customer_id: @manager.contact.customer_id), :id, :description,
         {prompt: 'Не выбрано', selected: @manager.contact.id}, {class: 'form-control input-sm'}
+        .error_container
 
     -# ------------------------------------ Stage ----------------------------------
     .row.header_row

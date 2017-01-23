@@ -22,6 +22,11 @@ Rails.application.routes.draw do
     resources :actors
     resources :price_positions
     resources :costume_price_positions
+    resources :orders do
+      collection do
+        post :validate
+      end
+    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

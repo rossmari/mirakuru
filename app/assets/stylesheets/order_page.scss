@@ -118,3 +118,14 @@ span.actor_name.almost_occupied {
 .partner_amount_radio.selected {
   background-color: #b0d8ff;
 }
+
+.error_container {
+  font-size: 13px;
+  color: red;
+  font-style: italic;
+  text-align: center;
+}
+
+.with_error {
+  border-color: red;
+}
