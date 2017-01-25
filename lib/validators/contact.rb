@@ -1,4 +1,4 @@
-class Order::Validators::Contact
+class Validators::Contact
 
   attr_accessor :is_new_order, :params, :errors
 

@@ -1,7 +1,7 @@
 class Stage < ActiveRecord::Base
 
   before_validation :generate_name
-  validates :name, :street, :house, presence: true
+  validates :district, :street, :house, :apartment, presence: true
   has_many :partners
 
   has_many :customers_stages

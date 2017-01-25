@@ -119,13 +119,21 @@ span.actor_name.almost_occupied {
   background-color: #b0d8ff;
 }
 
-.error_container {
+.error_message {
   font-size: 13px;
   color: red;
   font-style: italic;
   text-align: center;
 }
 
+.actors_error {
+  text-align: left;
+}
+
 .with_error {
+  border-color: red;
+}
+
+form input[type=text].with_error {
   border-color: red;
 }

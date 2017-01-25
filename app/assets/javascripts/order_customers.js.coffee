@@ -51,6 +51,7 @@ $(document).ready ->
       optionFromContact(contact)
     )
     selector.append(newContactsOptions)
+    selector.trigger('change')
 
   # ============= events
   # change customer select mode - new customer fields or existing customer selectors

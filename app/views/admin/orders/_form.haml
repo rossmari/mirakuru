@@ -53,19 +53,21 @@
 
     -# TODO: remove contact name, contact phone (value) from order
     .row.header_row.customer_block.new_customer{style: @order.is_new_order ? '' : 'display:none'}
-      .col-md-2
+
+      .col-md-2.error_container
         %input{name: 'order[customer][name]', class: 'form-control input-sm'}
-        .error_container
+        .error_message
 
         %input{name: 'order[customer][customer_type]', class: 'form-control input-sm',
                value: Customer.customer_types[:physical], id: 'customer_type', type: 'hidden'}
 
-      .col-md-2
+      .col-md-2.error_container
         %input{name: 'order[contact][value]', class: 'form-control input-sm', id: 'contact_value'}
-        .error_container
-      .col-md-2
+        .error_message
+
+      .col-md-2.error_container
         %input{name: 'order[contact][notice]', class: 'form-control input-sm'}
-        .error_container
+        .error_message
 
     .row.header_row.customer_block.existing_customer{style: @order.is_new_order ? 'display:none' : ''}
       .col-md-2
@@ -79,13 +81,16 @@
           %span.glyphicon.glyphicon-refresh
 
     .row.order_row.customer_block.existing_customer{style: @order.is_new_order ? 'display:none' : ''}
-      .col-md-2
+
+      .col-md-2.error_container
         = f.collection_select :customer_id, Customer.all, :id, :name, {prompt: 'Не выбрано'},
         {class: 'form-control input-sm'}
-      .col-md-2
+        .error_message
+
+      .col-md-2.error_container
         = f.collection_select :contact_id, Contact.where(customer_id: @manager.contact.customer_id), :id, :description,
         {prompt: 'Не выбрано', selected: @manager.contact.id}, {class: 'form-control input-sm'}
-        .error_container
+        .error_message
 
     -# ------------------------------------ Stage ----------------------------------
     .row.header_row
@@ -118,20 +123,29 @@
       .col-md-2
         Примечание
     .row.order_row.stage_inputs
-      .col-md-2
+
+      .col-md-2.error_container
         = f.collection_select :stage_id, Stage.all, :id, :name, {prompt: 'Не выбрано'}, {class: 'form-control input-sm',  id: 'stages_selector'}
+        .error_message
+
       .col-md-1
         %select{class: 'form-control input-sm', id: 'district_selector', name: 'order[stage][district]'}
           - District.all.each do |district|
             %option{value: "#{district.id}"}
               = district.name
 
-      .col-md-2
+      .col-md-2.error_container
         %input{name: 'order[stage][street]', class: 'form-control input-sm'}
-      .col-md-1
+        .error_message
+
+      .col-md-1.error_container
         %input{name: 'order[stage][house]', class: 'form-control input-sm'}
-      .col-md-1
+        .error_message
+
+      .col-md-1.error_container
         %input{name: 'order[stage][apartment]', class: 'form-control input-sm'}
+        .error_message
+
       .col-md-2
         %input{name: 'order[stage][description]', class: 'form-control input-sm'}
 
@@ -160,26 +174,33 @@
         Примечание
 
     .row.order_row
-      .col-md-2
+
+      .col-md-2.error_container
         = f.text_field :child_name, class: 'form-control input-sm'
-      .col-md-2
+        .error_message
+
+      .col-md-2.error_container
         .input-group.date.date_picker
           = f.text_field :child_birthday, value: @order.child_birthday.strftime('%d.%m.%Y'), class: 'form-control input-sm'
           %span.input-group-addon
             %span.glyphicon.glyphicon-calendar
+        .error_message
 
-      .col-md-2
+      .col-md-2.error_container
         = f.text_field :child_notice, class: 'form-control input-sm'
+        .error_message
 
     .row.header_row
       .col-md-2
         Возраст гостей
 
     .row.order_row
-      .col-md-1
+      .col-md-1.error_container
         =f.text_field :guests_age_from, class: 'form-control input-sm'
-      .col-md-1
+        .error_message
+      .col-md-1.error_container
         =f.text_field :guests_age_to, class: 'form-control input-sm'
+        .error_message
 
     .row.separator
 
@@ -197,18 +218,20 @@
         = '/'
         = link_to '60', '#', class: 'fast_duration', data: {value: 60}
     .row.order_row
-      .col-md-2
+      .col-md-2.error_container
         %div.input-group.date.date_picker
           =f.text_field :performance_date, value: @order.performance_date.strftime('%d.%m.%Y'),
             class: 'form-control input-sm'
           %span.input-group-addon
             %span.glyphicon.glyphicon-calendar
+        .error_message
 
-      .col-md-2
+      .col-md-2.error_container
         %div.input-group.date.time_picker
           =f.text_field :performance_time, class: 'form-control input-sm'
           %span.input-group-addon
             %span.glyphicon.glyphicon-time
+        .error_message
 
       .col-md-2
         =f.select :performance_duration, [15, 30, 45, 60, 90, 120, 180].map{|i| ["#{i} минут", i]}, {},
@@ -267,14 +290,16 @@
           .col-md-6
             Примечание
         .row.order_row
-          .col-md-6
+          .col-md-6.error_container
             .input-group
               = f.text_field :additional_expense, value: @order.additional_expense || 0, class: 'form-control input-sm', id: 'additional_expense'
               %span.input-group-addon
                 %span.glyphicon.glyphicon-rub
+            .error_message
+
           .col-md-6
             = f.text_field :order_calculations_notice, class: 'form-control input-sm'
 
     .row.submit_actions
-      = f.submit 'Сохранить', class: 'btn-small btn-primary'
+      = f.submit 'Сохранить', class: 'btn-small btn-primary', id: 'submit_order_btn'
       = link_to 'Отмена', '#'

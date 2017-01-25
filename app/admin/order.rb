@@ -140,7 +140,8 @@ ActiveAdmin.register Order do
       @order.save
       invitations_constructor = OrderInvitationsConstructor.new(invitation_params, @order)
       invitations_constructor.process!
-      i = 3
+
+      redirect_to admin_order_path(@order)
     end
 
     def update
@@ -166,7 +167,8 @@ ActiveAdmin.register Order do
       # todo : change invitations some how
       invitations_constructor = OrderInvitationsConstructor.new(invitation_params, @order)
       invitations_constructor.process!
-      i = 3
+
+      redirect_to admin_order_path(@order)
     end
 
     def order_params

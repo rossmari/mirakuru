@@ -37,27 +37,32 @@
       накладные
 
   .row.order_row
-    .col-md-2
+
+    .col-md-2.error_container
       %div.input-group.date.time_picker
         %input{name: "order[invitations][#{index}][start]", class: 'form-control input-sm',
         value: invitation.start.strftime('%H:%M')}
         %span.input-group-addon
           %span.glyphicon.glyphicon-time
+      .error_message
 
-    .col-md-2
+    .col-md-2.error_container
       %div.input-group.date.time_picker
         %input{name: "order[invitations][#{index}][stop]", class: 'form-control input-sm',
         value: invitation.stop.strftime('%H:%M')}
         %span.input-group-addon
           %span.glyphicon.glyphicon-time
+      .error_message
 
-    .col-md-2
+    .col-md-2.error_container
       %input{name: "order[invitations][#{index}][price]", class: 'form-control input-sm invitation_price',
-      value: invitation.price}
+        value: invitation.price}
+      .error_message
 
-    .col-md-2
+    .col-md-2.error_container
       %input{name: "order[invitations][#{index}][animator_money]", class: 'form-control input-sm invitation_animator_money',
-      value: invitation.animator_money}
+        value: invitation.animator_money}
+      .error_message
 
     .col-md-2
       %input{name: "order[invitations][#{index}][overheads]", class: 'form-control input-sm invitation_overheads',
@@ -82,6 +87,11 @@
     .col-md-3
       = text_area_tag "order[invitations][#{index}][actor_notice]", invitation.actor_notice,
       class: 'form-control input-sm', size: 20
+
+  .row.order_row
+    .error_container.col-md-3
+      %div{name: "order[invitations][#{index}][actors]"}
+      %div.error_message.actors_error
 
   .row.order_row
     - Actor.find_each do |actor|

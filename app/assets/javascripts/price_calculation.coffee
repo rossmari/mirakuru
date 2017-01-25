@@ -93,7 +93,7 @@ $(document).ready ->
     updateAndSetPartnerPercents()
   )
 
-  $('#order_dopnik').on('keyup', (event) ->
+  $('#additional_expense').on('keyup', (event) ->
     updatePartnerMoney()
   )
 

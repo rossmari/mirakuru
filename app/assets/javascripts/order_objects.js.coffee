@@ -74,10 +74,12 @@ $(document).ready ->
 
     '<div class="container-fluid order_object_container order_row" id="order_object_container_' + selectorIndex + '">' +
       '<div class="row">' +
-        '<div class="col-md-2">' +
+        '<div class="col-md-2 error_container">' +
           '<select name="order_object_selector" id="order_object_selector' + selectorIndex + '" class="form-control input-sm order_object_selector" data-object-index="' + selectorIndex + '">' +
-          availableOptions() +
+            availableOptions() +
           '</select>' +
+          '<div name="order[invitations]/>' +
+          '<div class="error_message actors_error" />' +
         '</div>' +
         '<div class="col-md-2 action_link">' +
           '<a class="add_order_object" href="#" style="display:none" title="Добавить персонаж/программу">' +
@@ -156,26 +158,31 @@ $(document).ready ->
       '</div>' +
 
       '<div class="row order_row">' +
-        '<div class="col-md-2">' +
+        '<div class="col-md-2 error_container">' +
           '<div class="input-group date time_picker">' +
             '<input name="order[invitations][' + index + '][start]" class="form-control input-sm" value="' + moment(performanceStart).format('LT') + '"/>' +
             '<span class="input-group-addon"><span class="glyphicon glyphicon-time" /></span>' +
           '</div>' +
+          '<div class="error_message"></div>' +
         '</div>' +
-        '<div class="col-md-2">' +
+        '<div class="col-md-2 error_container">' +
           '<div class="input-group date time_picker">' +
             '<input name="order[invitations][' + index + '][stop]" class="form-control input-sm" value="' + moment(performanceStop).format('LT') + '"/>' +
             '<span class="input-group-addon"><span class="glyphicon glyphicon-time" /></span>' +
           '</div>' +
+          '<div class="error_message"></div>' +
         '</div>' +
-        '<div class="col-md-2">' +
+        '<div class="col-md-2 error_container">' +
           '<input name="order[invitations][' + index + '][price]" value="0" class="form-control input-sm invitation_price" />' +
+          '<div class="error_message"></div>' +
         '</div>' +
-        '<div class="col-md-2">' +
+        '<div class="col-md-2 error_container">' +
           '<input name="order[invitations][' + index + '][animator_money]" value="0" class="form-control input-sm invitation_animator_money" />' +
+          '<div class="error_message"></div>' +
         '</div>' +
-        '<div class="col-md-2">' +
+        '<div class="col-md-2 error_container">' +
           '<input name="order[invitations][' + index + '][overheads]" value="0" class="form-control input-sm invitation_overheads" />' +
+          '<div class="error_message"></div>' +
         '</div>' +
       '</div>' +
 
@@ -193,9 +200,15 @@ $(document).ready ->
       '</div>' +
       '<div class="row order_row">' +
         '<div class="col-md-3 input_header">Назначение актера ' +
-          '<span class="com-md-3 header">' +
+          '<span class="header">' +
             characterName +
           '</span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="row order_row">' +
+        '<div class="error_container col-md-3">' +
+          '<div name="order[invitations][' + index + '][actors]"/>' +
+          '<div class="error_message actors_error" />' +
         '</div>' +
       '</div>' +
       '<div class="row order_row">' +
@@ -382,7 +395,8 @@ $(document).ready ->
 
     # if new value blank
     if newObjectId == ''
-      # TODO: do we need this branch ?
+      console.log('empty character?')
+      $(container).find('.order_object').remove();
     else
       markSelectedOrderObjects(false, newObjectId)
       $(container).find('.order_object').remove();

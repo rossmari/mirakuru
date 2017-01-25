@@ -1,10 +1,13 @@
 %div{id: "order_object_container_#{id}", class: 'container-fluid order_object_container order_row'}
   .row
-    .col-md-2
+    .col-md-2.error_container
       = select_tag 'order_object_selector_0',
         options_for_select(Order::Objects::Presenter.all_order_objects, Order::Objects::Presenter.object_value(object)),
         include_blank: 'Не выбрано', class: 'form-control input-sm order_object_selector',
         data: {object_index: id}
+
+      %div{name: 'order[invitations]'}
+      %div.error_message
 
     .col-md-2.action_link
       %a.add_order_object{href: '#', style: 'display: none', title: 'Добавить персонаж/программу'}

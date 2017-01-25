@@ -8,7 +8,8 @@ class Invitation < ActiveRecord::Base
 
   enum status: [:sent, :received, :read, :accepted, :denied, :set_by_admin, :removed_by_admin]
 
-  validates :character, :order, presence: true
+  validates :character, :start, :stop, :animator_money, :price,
+            :overheads, :actor_id, presence: true
 
   before_save :check_changed_attributes, :prepare_owner_class
 
