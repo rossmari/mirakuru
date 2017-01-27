@@ -1,0 +1,92 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+@import "bootstrap-datetimepicker.min";
+
+.hours_lent {
+  display: inline-block;
+}
+
+.hour_selector {
+  display: inline-block;
+  width: 80px;
+  background: #d2e89e;
+  text-align: center;
+  height: 30px;
+  vertical-align: baseline;
+  font-size: 12pt;
+  line-height: 30px;
+  margin: 5px;
+  cursor: pointer;
+  -webkit-box-shadow: 5px 5px 5px 0px rgba(179,179,179,1);
+  -moz-box-shadow: 5px 5px 5px 0px rgba(179,179,179,1);
+  box-shadow: 5px 5px 5px 0px rgba(179,179,179,1);
+}
+
+.hour_selector.selected {
+  background: #8ed368;
+}
+
+.header_row {
+  font-size: 16pt;
+  font-weight: bold;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+.top_header {
+  padding-top: 20px;
+  font-size: 18pt;
+  color: #9d9d9d;
+}
+
+.content_row {
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.content_row_sm {
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+.calendar {
+  background: #f6f6ff;
+  border: 1px solid #ededff;
+}
+
+.unselectable {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+
+  /*
+    Introduced in IE 10.
+    See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+  */
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.performance_container {
+  padding: 10px 5px 5px 5px;
+  border: 1px solid #c2bebe;
+}
+
+.performance_container .image {
+  text-align: center;
+}
+
+.performance_container .name {
+  font-size: 16pt;
+}
+
+.performance_container .text {
+  padding-top: 15px;
+  font-size: 12pt
+}
+
+.input_header {
+  font-size: 14pt;
+}
+

@@ -234,7 +234,7 @@
         .error_message
 
       .col-md-2
-        =f.select :performance_duration, [15, 30, 45, 60, 90, 120, 180].map{|i| ["#{i} минут", i]}, {},
+        =f.select :performance_duration, Duration::AVAILABLE_DURATIONS.map{|i| ["#{i} минут", i]}, {},
           class: 'form-control input-sm', value: @order.performance_duration || 60
 
     .row.header_row

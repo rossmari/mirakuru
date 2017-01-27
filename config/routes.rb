@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   resources :telegram
+  resources :orders
 
   namespace :api do
     resources :stages

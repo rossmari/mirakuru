@@ -1,0 +1,73 @@
+.container
+
+  .row.top_header.header_row
+    .col-md-12
+      = "#{@partner.name}."
+      Выбор анимационной программы
+
+  .row.header_row
+    .col-md-7
+      Выберите дату и время для бронирования
+
+  .row.content_row_sm
+    .col-md-3
+      Дата
+    .col-md-3
+      Продолжительность
+
+  .row.content_row
+    .col-md-3
+      %div{class: 'calendar', id: 'calendar'}
+
+    .col-md-3
+      = select_tag :performance_duration, options_for_select(Duration::AVAILABLE_DURATIONS.map{|i| ["#{i} минут", i]}),
+        {class: 'form-control'}
+
+  .row.content_row
+    .col-md-5
+      %input{name: '', class: 'form-control', placeholder: 'Поиск по персонажам'}
+
+    .col-md-2
+      %button.form-control.btn-primary
+        %span.glyphicon.glyphicon-search
+        Найт
+
+
+  .row.header_row
+    .col-md-7
+      Выберите желаемое время проведения программы
+
+  .row
+    .col-md-12.hours_lent
+      - (7..24).each do |hour|
+        %div{class: 'hour_selector unselectable', data: {hour: hour}}
+          = "#{hour}:00"
+
+  .row.header_row
+    .col-md-7
+      Выберите
+      = link_to 'персонажа', '#'
+      ,
+      = link_to 'программу', '#'
+      или
+      = link_to 'дворовой праздник', '#'
+
+  .row.header_row
+    .col-md-3
+      = link_to 'Программы', '#'
+
+  .row
+    - @performances.each do |performance|
+      = render partial: 'performance', locals: {performance: performance}
+
+  .row.header_row
+    .col-md-3
+      = link_to 'Персонажи', '#'
+
+  .row
+    - @characters.each do |character|
+      = render partial: 'character'
+
+  .row.header_row
+    .col-md-3
+      = link_to 'Фиксики', '#'
