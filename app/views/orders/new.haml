@@ -52,22 +52,25 @@
       или
       = link_to 'дворовой праздник', '#'
 
-  .row.header_row
-    .col-md-3
-      = link_to 'Программы', '#'
+  .characters_list
+    .row.header_row
+      .col-md-3
+        = link_to 'Программы', '#'
 
-  .row
-    - @performances.each do |performance|
-      = render partial: 'performance', locals: {performance: performance}
+    .row
+      - @performances.each do |performance|
+        = render partial: 'performance', locals: {performance: performance}
 
-  .row.header_row
-    .col-md-3
-      = link_to 'Персонажи', '#'
+    .row.header
+      .col-md-3
+        = link_to 'Персонажи', '#'
 
-  .row
+    - @characters_with_groups.each do |group_id, characters|
+      .row
+        .col-md-3.subheader
+          = link_to CharactersGroup.find_by(id: group_id).name, '#'
+      - characters.each do |character|
+        = render partial: 'performance', locals: {performance: character}
+
     - @characters.each do |character|
-      = render partial: 'character'
-
-  .row.header_row
-    .col-md-3
-      = link_to 'Фиксики', '#'
+      = render partial: 'performance', locals: {performance: character}

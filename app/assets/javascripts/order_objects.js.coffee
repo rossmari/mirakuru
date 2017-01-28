@@ -93,11 +93,15 @@ $(document).ready ->
     '</div>'
 
   availableOptions = ->
-    options = ['<option value="">Не выбрано</option>']
+    options = []
+    options.push(emptyOption())
     $.each(availableObjects(), (index, object) ->
       options.push(optionFromObject(object))
     )
     options
+
+  emptyOption = ->
+    '<option value="">Не выбрано</option>'
 
   optionFromObject = (object) ->
     '<option value="' + object.id + '">' + object.name + '</option>'
@@ -111,9 +115,10 @@ $(document).ready ->
 
   synchronizeSelectorOptions = (element) ->
     value = element.prop('value')
-    return if value == ''
     options = availableOptions()
-    options.push(optionFromObject(orderObjects[value]))
+
+    if value != ''
+      options.push(optionFromObject(orderObjects[value]))
     element.find('option').remove()
     element.append(options)
 
@@ -397,7 +402,10 @@ $(document).ready ->
     if newObjectId == ''
       console.log('empty character?')
       $(container).find('.order_object').remove();
+      if previousObjectId != ''
+        markSelectedOrderObjects(true, previousObjectId)
     else
+      # change availability of new object to false
       markSelectedOrderObjects(false, newObjectId)
       $(container).find('.order_object').remove();
       $.each(orderObjects[newObjectId].characters, (index, characterId) ->

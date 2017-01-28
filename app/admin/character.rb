@@ -1,6 +1,6 @@
 ActiveAdmin.register Character do
 
-  permit_params :name, :duration, :characters_group_id, :avatar, :age_from, :age_to,
+  permit_params :name, :duration, :characters_group_id, :avatar, :age_from, :age_to, :description,
                 photo_attributes: [:id, :file, :_destroy], avatar_attributes: [:id, :file]
 
   config.per_page = 15
@@ -43,6 +43,7 @@ ActiveAdmin.register Character do
       f.has_many :photo, new_record: true, allow_destroy: true, heading: 'Дополнительные фотографии' do |c|
         c.input :file, hint: photo_hint(c.object)
       end
+      f.input :description
     end
     f.actions
   end
@@ -68,6 +69,7 @@ ActiveAdmin.register Character do
       row :duration
       row :age_from
       row :age_to
+      row :description
       row :character_group do |record|
         if record.characters_group
           record.characters_group.name

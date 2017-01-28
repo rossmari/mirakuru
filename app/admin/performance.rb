@@ -1,7 +1,8 @@
 ActiveAdmin.register Performance do
 
   permit_params :name, :description, photo_attributes: [:id, :file, :_destroy],
-                avatar_attributes: [:id, :file], performances_characters_attributes: [:id, :character_id, :performances_id, :_destroy]
+                avatar_attributes: [:id, :file],
+                performances_characters_attributes: [:id, :character_id, :performances_id, :_destroy]
 
   filter :name
   filter :description
