@@ -45,6 +45,10 @@ ActiveAdmin.register Order do
 
   form partial: 'form'
 
+  action_item :view, only: :show do
+    link_to 'Отправить всем', '#'
+  end
+
   show do |order|
     attributes_table do
       row :customer

@@ -23,16 +23,6 @@
       = select_tag :performance_duration, options_for_select(Duration::AVAILABLE_DURATIONS.map{|i| ["#{i} минут", i]}),
         {class: 'form-control'}
 
-  .row.content_row
-    .col-md-5
-      %input{name: '', class: 'form-control', placeholder: 'Поиск по персонажам'}
-
-    .col-md-2
-      %button.form-control.btn-primary
-        %span.glyphicon.glyphicon-search
-        Найт
-
-
   .row.header_row
     .col-md-7
       Выберите желаемое время проведения программы
@@ -43,7 +33,33 @@
         %div{class: 'hour_selector unselectable', data: {hour: hour}}
           = "#{hour}:00"
 
+  -#.row.content_row
+    .col-md-5
+      %input{name: '', class: 'form-control', placeholder: 'Поиск по персонажам'}
+
+    .col-md-2
+      %button.form-control.btn-primary
+        %span.glyphicon.glyphicon-search
+        Найт
+
   .row.header_row
+    .col-md-7
+      Выберите
+      = link_to 'программу', '#'
+      ,
+      = link_to 'персонажа', '#'
+      или
+      = link_to 'дворовой праздник', '#'
+
+  .row.content_row
+    .col-md-6
+      = select_tag :object, options_for_select(@objects),
+        {class: 'form-control', id: 'objects_selector', include_blank: 'Не выбрано'}
+    .col-md-6
+      = select_tag :object, options_for_select([['Нет персонажей для выбора', 0]]),
+        {class: 'form-control', id: 'characters_selector'}
+
+  -#.row.header_row
     .col-md-7
       Выберите
       = link_to 'персонажа', '#'
@@ -53,24 +69,24 @@
       = link_to 'дворовой праздник', '#'
 
   .characters_list
-    .row.header_row
+    -#.row.header_row
       .col-md-3
         = link_to 'Программы', '#'
 
-    .row
+    -#.row
       - @performances.each do |performance|
         = render partial: 'performance', locals: {performance: performance}
 
-    .row.header
+    -#.row.header
       .col-md-3
         = link_to 'Персонажи', '#'
 
-    - @characters_with_groups.each do |group_id, characters|
+    -#- @characters_with_groups.each do |group_id, characters|
       .row
         .col-md-3.subheader
           = link_to CharactersGroup.find_by(id: group_id).name, '#'
       - characters.each do |character|
         = render partial: 'performance', locals: {performance: character}
 
-    - @characters.each do |character|
+    -#- @characters.each do |character|
       = render partial: 'performance', locals: {performance: character}

@@ -463,6 +463,7 @@ ru:
         commercial: 'Реклама'
     invitation:
       statuses:
+        empty: 'Новое'
         sent: 'Отправлено'
         accepted: 'Принято'
         received: 'Получено'
@@ -470,9 +471,14 @@ ru:
         denied: 'Отказ'
         set_by_admin: 'Установлено адм.'
         removed_by_admin: 'Снято адм.'
+      events:
+        sent_invitation: 'Отправить'
+        set_actor: 'Назначить актера'
+        close_invitation: 'Отменить'
 
     invitation_event:
       event_types:
         actor_removed: 'Актер снят с пригляшения'
         actor_assigned: 'Актер назначен на приглашение'
         status_changed: 'Статус приглашения изменился'
+

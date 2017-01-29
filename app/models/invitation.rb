@@ -6,7 +6,23 @@ class Invitation < ActiveRecord::Base
 
   has_many :invitation_events
 
-  enum status: [:sent, :received, :read, :accepted, :denied, :set_by_admin, :removed_by_admin]
+  enum status: [:empty, :sent, :received, :read, :accepted, :denied, :set_by_admin, :removed_by_admin, :closed]
+
+  state_machine :status, initial: :empty do
+
+    event :sent_invitation do
+      transition [:empty, :denied] => :sent
+    end
+
+    event :set_actor do
+      transition all - [:accepted, :closed] => :set_by_admin
+    end
+
+    event :close_invitation do
+      transition all => :closed
+    end
+
+  end
 
   validates :character, :start, :stop, :animator_money, :price,
             :overheads, :actor_id, presence: true

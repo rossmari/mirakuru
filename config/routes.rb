@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     resources :characters do
       collection do
         post :available
+        post :partner_container
       end
     end
     resources :contacts
@@ -28,6 +29,8 @@ Rails.application.routes.draw do
         post :validate
       end
     end
+    resources :characters_groups
+    resources :performances
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -39,7 +39,8 @@ ActiveAdmin.register Invitation do
     # move this to order ???
   end
 
-  member_action :repeat_sent, method: :get do
+  member_action :fire_event, method: :get do
+    event = params[:event_name]
     # TODO : add implementation
     # sent message again to Actor from this invitation
   end
