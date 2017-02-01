@@ -3,7 +3,10 @@ class Telegram::Callbacks::RetrieveCode
   class << self
 
     def perform(response)
-      "Ваш код: #{response.from.id}"
+      {
+        text: "Ваш код: #{response.from.id}",
+        type: type
+      }
     end
 
     def type

@@ -1,6 +1,5 @@
 class Telegram::Messages::Processor
 
-
   PROCESSORS_LIST = {
     registration: Telegram::Messages::Registration,
     already_registered: Telegram::Messages::AlreadyRegistered,

@@ -1,4 +1,4 @@
-class Telegram::Messages::Start
+class Telegram::Callbacks::Start
 
   class << self
 
@@ -6,14 +6,14 @@ class Telegram::Messages::Start
       {
         header: '- Главное меню - ',
         buttons: [
-          # Telegram::Bot::Types::InlineKeyboardButton.new(text: 'Мои мероприятия', callback_data: 'my_invitations'),
           Telegram::Bot::Types::InlineKeyboardButton.new(
             {
               text: 'Мероприятия',
               callback_data: { processor: 'invitations' }.to_json
             }
           )
-        ]
+        ],
+        type: type
       }
     end
 
@@ -22,4 +22,5 @@ class Telegram::Messages::Start
     end
 
   end
+
 end

@@ -7,11 +7,15 @@ class Stage < ActiveRecord::Base
   has_many :customers_stages
   has_many :customers, through: :customers_stages
 
+  def address
+    "#{street} / #{house} / #{apartment}"
+  end
+
   private
 
   def generate_name
     if name.blank?
-      self.name = "#{street} / #{house} / #{apartment}"
+      self.name = address
     end
   end
 
