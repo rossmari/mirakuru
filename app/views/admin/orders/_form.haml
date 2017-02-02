@@ -241,10 +241,14 @@
       .col-md-3.input_header
         Добавить персонаж/программу к заказу
     - if @order.persisted?
-      - @manager.owners.each_with_index do |object, index|
-        = render partial: 'api/order_objects/order_object_selector', locals: {id: index, object: object}
+      - if @manager.owners.any?
+        - @manager.owners.each_with_index do |object, index|
+          = render partial: 'object_selector', locals: {id: index, object: object}
+      - else
+        = render partial: 'object_selector', locals: {id: 1, object: nil}
+
     - else
-      = render partial: 'api/order_objects/order_object_selector', locals: {id: 1, object: nil}
+      = render partial: 'object_selector', locals: {id: 1, object: nil}
 
 
     .row.separator

@@ -5,9 +5,9 @@ $(document).ready ->
   calculateTotalPrice = ->
     totalPrice = 0
     $.each($('.order_object'), (index, element) ->
-      price = parseInt($(element).find('.invitation_price').prop('value'))
-      animatorPrice = parseInt($(element).find('.invitation_animator_money').prop('value'))
-      overheads = parseInt($(element).find('.invitation_overheads').prop('value'))
+      price = parseInt($(element).find('.position_price').prop('value'))
+      animatorPrice = parseInt($(element).find('.position_animator_money').prop('value'))
+      overheads = parseInt($(element).find('.position_overheads').prop('value'))
 
       # means do not add outcome to total price
       if $('#exclude_outcome').prop('checked')
@@ -97,15 +97,15 @@ $(document).ready ->
     updatePartnerMoney()
   )
 
-  $(document).on('keyup', '.invitation_price', (event) ->
+  $(document).on('keyup', '.position_price', (event) ->
     updatePartnerMoney()
   )
 
-  $(document).on('keyup', '.invitation_animator_money', (event) ->
+  $(document).on('keyup', '.position_animator_money', (event) ->
     updatePartnerMoney()
   )
 
-  $(document).on('keyup', '.invitation_overheads', (event) ->
+  $(document).on('keyup', '.position_overheads', (event) ->
     updatePartnerMoney()
   )
 

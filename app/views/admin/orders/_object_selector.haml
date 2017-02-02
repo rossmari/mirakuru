@@ -16,8 +16,8 @@
         %span.glyphicon.glyphicon-trash
 
   - if @order.persisted?
-    - invitations = @manager.owner_uniq_invitations(object)
-    - if invitations.any?
-      - invitations.each_with_index do |invitation, index|
-        = render partial: 'api/order_objects/order_object', locals: {index: index + id * 100,
-        invitation: invitation, owner: object}
+    - positions = @manager.owner_positions(object)
+    - if positions.any?
+      - positions.each_with_index do |position, index|
+        = render partial: 'object', locals: {index: index + id * 100,
+        position: position, owner: object}

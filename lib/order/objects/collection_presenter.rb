@@ -13,7 +13,7 @@ class Order::Objects::CollectionPresenter
           name: name,
           characters: characters_ids,
           available: true,
-          class: object.class.name.downcase
+          class: object.class.name
          }
         ]
       end.to_h

@@ -10,24 +10,49 @@ class Order::EditManager
     load_order
     load_customer
     load_contacts
-    load_invitation_owners
+    load_position_owners
   end
 
-  def owner_uniq_invitations(owner)
-    result = owner_invitations(owner)
-    result.group_by(&:character_id).map{|_character_id, invitations| invitations.first}
+  def owner_positions(owner)
+    positions.select do |position|
+      position.owner == owner
+    end
   end
 
   def character_actors(character)
     Actor.by_character(character)
   end
 
-  def actor_invited?(actor, owner, character)
-    owner_invitations(owner).select{|i| i.character_id == character.id}.map(&:actor_id).include?(actor.id)
+  def actor_invited?(actor, position)
+    !actor_invitation(actor, position).nil?
   end
 
-  def load_invitation_owners
-    @owners = invitations.map(&:owner).uniq
+  def actor_occupied?(actor, position)
+    # todo : search only accepted invitations
+    # positions for interaction must have same character
+    # belongs to another order
+    positions = actor.invitations.map{|i| i.position}
+                  .select{|p| p.character_id == position.character_id}
+                  .reject{|p| p.order_id == order.id}
+    positions.each do |occupied_position|
+      if (occupied_position.start - position.stop) * (occupied_position.start - position.stop) >= 0
+        return true
+      end
+    end
+    false
+  end
+
+  def actor_blocked?(actor, position)
+    !actor.characters.ids.include?(position.character_id)
+  end
+
+  def actor_invitation(actor, position)
+    invitations = position.invitations
+    invitations.detect{|i| i.actor_id == actor.id}
+  end
+
+  def load_position_owners
+    @owners = positions.map(&:owner).uniq
   end
 
   def load_order
@@ -46,17 +71,11 @@ class Order::EditManager
     @contact = @order.contact
   end
 
-  def invitations
-    if @order
-      @order.invitations
+  def positions
+    if order
+      order.positions
     else
       []
-    end
-  end
-
-  def owner_invitations(owner)
-    invitations.select do |invitation|
-      invitation.owner == owner
     end
   end
 

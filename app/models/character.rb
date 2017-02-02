@@ -15,6 +15,7 @@ class Character < ActiveRecord::Base
   has_many :performances, through: :performances_characters
 
   has_many :invitations
+  has_many :positions
 
   enum duration: {'15 minutes' => 1, '30 minutes' => 2, '45 minutes' => 3, '60 minutes (15 minutes +)' => 4}
 

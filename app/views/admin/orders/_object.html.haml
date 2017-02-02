@@ -1,0 +1,138 @@
+- character = position.character
+
+.div{class: 'order_object', data: {object_id: position.id}}
+  .row
+    .col-md-3.header
+      = Order::Objects::Presenter.character_full_name(character)
+  .row.header_row
+    .col-md-1
+      время начала
+
+    .col-md-1.action_link
+      = link_to 'как в заказе', '#', class: 'start_as_in_order',
+      data: { input_name:  "order[positions][#{index}][start]" }
+
+    .col-md-1
+      время окончания
+
+    .col-md-1.action_link
+      = link_to 'как в заказе', '#', class: 'stop_as_in_order',
+      data: { input_name: "order[positions][#{index}][stop]"}
+
+    .col-md-1
+      стоймость
+
+    .col-md-1.action_link
+      %input{type: 'checkbox', name: "order[positions][#{index}][payed]", checked: position.payed}
+      оплачено
+
+    .col-md-1
+      гонорар актера
+
+    .col-md-1.action_link
+      = link_to 'по прайсу', '#', class: 'stop_as_in_order'
+
+    .col-md-2
+      накладные
+
+  .row.order_row
+
+    .col-md-2.error_container
+      %div.input-group.date.time_picker
+        %input{name: "order[positions][#{index}][start]", class: 'form-control input-sm',
+        value: position.start.strftime('%H:%M')}
+        %span.input-group-addon
+          %span.glyphicon.glyphicon-time
+      .error_message
+
+    .col-md-2.error_container
+      %div.input-group.date.time_picker
+        %input{name: "order[positions][#{index}][stop]", class: 'form-control input-sm',
+        value: position.stop.strftime('%H:%M')}
+        %span.input-group-addon
+          %span.glyphicon.glyphicon-time
+      .error_message
+
+    .col-md-2.error_container
+      %input{name: "order[positions][#{index}][price]", class: 'form-control input-sm position_price',
+        value: position.price}
+      .error_message
+
+    .col-md-2.error_container
+      %input{name: "order[positions][#{index}][animator_money]", class: 'form-control input-sm position_animator_money',
+        value: position.animator_money}
+      .error_message
+
+    .col-md-2
+      %input{name: "order[positions][#{index}][overheads]", class: 'form-control input-sm position_overheads',
+      value: position.overheads}
+
+    %input{name: "order[positions][#{index}][character_id]", class: 'form-control input-sm', type: 'hidden',
+    value: character.id}
+    %input{name: "order[positions][#{index}][owner_class]", class: 'form-control input-sm', type: 'hidden',
+    value: owner.class}
+    %input{name: "order[positions][#{index}][owner_id]", class: 'form-control input-sm', type: 'hidden',
+    value: owner.id}
+
+  .row.header_row
+    .col-md-3
+      Примечание к заказу
+    .col-md-3
+      Информация для актера
+  .row.order_row
+    .col-md-3
+      = text_area_tag "order[positions][#{index}][order_notice]", position.order_notice,
+      class: 'form-control input-sm', size: 20
+    .col-md-3
+      = text_area_tag "order[positions][#{index}][actor_notice]", position.actor_notice,
+      class: 'form-control input-sm', size: 20
+
+  .row.order_row
+    .error_container.col-md-3
+      %div{name: "order[positions][#{index}][actors]"}
+      %div.error_message.actors_error
+
+
+  - Actor.all.each_slice(3) do |slice|
+    .row.order_row
+      - slice.each do |actor|
+        - invited = @manager.actor_invited?(actor, position)
+        - invitation = @manager.actor_invitation(actor, position)
+        - occupied = @manager.actor_occupied?(actor, position)
+        - blocked = @manager.actor_blocked?(actor, position)
+
+        - if occupied
+          %div{class: 'col-md-2 actor_name occupied'}
+            = check_box_tag "order[positions][#{index}][actors][#{actor.id}][checked]", 1, invited, disabled: true
+            %span{title: 'Актер занят на другом заказе'}
+              = actor.name
+          .col-md-1.actor_corrector.occupied
+            %input{ class: 'form-control input-sm', name: "order[positions][#{index}][actors][#{actor.id}][corrector]",
+            value: 0.0, title: 'Актер занят на другом заказе', disabled: true}
+
+        - elsif invited
+          %div{class: 'col-md-2 actor_name invited'}
+            = check_box_tag "order[positions][#{index}][actors][#{actor.id}][checked]", 1, invited
+            %span{title: 'Актер уже приглашен'}
+              = actor.name
+          .col-md-1.actor_corrector
+            %input{ class: 'form-control input-sm', name: "order[positions][#{index}][actors][#{actor.id}][corrector]",
+            value: invitation.corrector, title: 'Корректор'}
+
+        - elsif blocked
+          %div{class: 'col-md-2 actor_name blocked'}
+            = check_box_tag "order[positions][#{index}][actors][#{actor.id}][checked]", 1, invited, disabled: true
+            %span{title: 'Актер не подходит на эту роль'}
+              = actor.name
+          .col-md-1.actor_corrector.blocked
+            %input{ class: 'form-control input-sm', name: "order[positions][#{index}][actors][#{actor.id}][corrector]",
+            value: 0.0, title: 'Корректор', disabled: true}
+
+        - else
+          %div{class: 'col-md-2 actor_name'}
+            = check_box_tag "order[positions][#{index}][actors][#{actor.id}][checked]", 1, invited
+            %span{title: 'Актер доступен для выбора'}
+              = actor.name
+          .col-md-1.actor_corrector
+            %input{ class: 'form-control input-sm', name: "order[positions][#{index}][actors][#{actor.id}][corrector]",
+            value: 0.0, title: 'Корректор актера'}

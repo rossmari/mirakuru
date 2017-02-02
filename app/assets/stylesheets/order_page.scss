@@ -137,3 +137,47 @@ span.actor_name.almost_occupied {
 form input[type=text].with_error {
   border-color: red;
 }
+
+// actor name block with span inside
+.actor_name {
+  text-align: left;
+  line-height: 30px;
+  width: 200px;
+}
+
+.actor_name.occupied span {
+  color: orange;
+}
+
+.actor_name.invited span {
+  color: #084a0e;
+}
+
+.actor_name.blocked span {
+  color: #b6b5b5;
+}
+
+//---------------------------------------
+
+.actor_corrector {
+  margin-right: 20px;
+  border: 0px solid #f0effa;
+  border-right-width: 1px;
+}
+
+// actor corrector input
+.actor_corrector input {
+  border-color: #c8e3ff;
+  text-align: center;
+}
+
+.actor_corrector.occupied input {
+  border-color: orange;
+  text-align: center;
+}
+
+.actor_corrector.blocked input {
+  border-color: #d9d9d9;
+  text-align: center;
+}
+

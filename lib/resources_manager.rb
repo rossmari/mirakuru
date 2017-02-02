@@ -24,8 +24,8 @@ class ResourcesManager
 
   def actors_invitations
     Actor.all.map do |actor|
-      actor_invitations = Invitation.accepted.where(actor_id: actor.id).where('start > ?', DateTime.now)
-      [actor.id, actor_invitations.map{|i| {start: i.start, stop: i.stop}}]
+      actor_invitations = Invitation.accepted.where(actor_id: actor.id).select{|i| i.order.start > DateTime.now}
+      [actor.id, actor_invitations.map{|i| {start: i.position.start, stop: i.position.stop}}]
     end.to_h
   end
 

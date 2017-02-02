@@ -21,21 +21,21 @@ $(document).ready ->
     date.add(duration, 'minutes')
     date
 
-  isActorCloseToOccupied = (invitation) ->
-    invitationStop = moment(invitation.stop).add(60, 'F')
-    invitationStart = moment(invitation.start).add(-60, 'minutes')
-    invitationStart < performanceStart && performanceStop < invitationStop
+  isActorCloseToOccupied = (position) ->
+    positionStop = moment(position.stop).add(60, 'F')
+    positionStart = moment(position.start).add(-60, 'minutes')
+    positionStart < performanceStart && performanceStop < positionStop
 
-  isActorOccupied = (invitation) ->
-    invitationStop = moment(invitation.stop)
-    invitationStart = moment(invitation.start)
-    invitationStart < performanceStart && performanceStop < invitationStop
+  isActorOccupied = (position) ->
+    positionStop = moment(position.stop)
+    positionStart = moment(position.start)
+    positionStart < performanceStart && performanceStop < positionStop
 
   prepareActorsCheckBoxes = (characterIndex, characterId) ->
-    $.map(actorsList, (actor, actorIndex) ->
+    htmlBlocks = $.map(actorsList, (actor, actorIndex) ->
       extraSettings = ''
       spanClass = ''
-      checkBoxName = 'order[invitations][' + characterIndex + '][actors][' + actor.id + ']'
+      baseName = 'order[positions][' + characterIndex + '][actors][' + actor.id + ']'
       isActorAvailable = $.inArray(characterId, actor.characters) > -1
 
       if actor.invitations.length > 0
@@ -48,14 +48,25 @@ $(document).ready ->
         )
 
       if !isActorAvailable
-        extraSettings = extraSettings + 'disabled="true"'
-        spanClass = 'disabled'
+        extraSettings = extraSettings + ' disabled="true"'
+        spanClass = ' disabled'
 
-      '<div class="col-md-2">' +
-        '<input type="checkbox" value="1" name="' + checkBoxName + '"' + extraSettings + '/>' +
+      '<div class="col-md-2 actor_name">' +
+        '<input type="checkbox" value="1" name="' + baseName + '[checked]"' + extraSettings + '/>' +
         '<span class="actor_name ' + spanClass + '">' + actor.name + '</span>' +
+      '</div>' +
+      '<div class="col-md-1 actor_corrector">' +
+        '<input title="Корректор" class="form-control input-sm" value="0.0" name="' + baseName + '[corrector]"' + extraSettings + '/>' +
       '</div>'
-    ).join(' ')
+    )
+    rows = ''
+    while(htmlBlocks.length > 0)
+      row =
+        '<div class="row order_row">' +
+          htmlBlocks.splice(0, 3).join(' ') +
+        '</div>'
+      rows = rows + row
+    rows
 
   addObject = (element) ->
     container = element.closest('.order_object_container')
@@ -78,7 +89,7 @@ $(document).ready ->
           '<select name="order_object_selector" id="order_object_selector' + selectorIndex + '" class="form-control input-sm order_object_selector" data-object-index="' + selectorIndex + '">' +
             availableOptions() +
           '</select>' +
-          '<div name="order[invitations]/>' +
+          '<div name="order[positions]/>' +
           '<div class="error_message actors_error" />' +
         '</div>' +
         '<div class="col-md-2 action_link">' +
@@ -122,7 +133,7 @@ $(document).ready ->
     element.find('option').remove()
     element.append(options)
 
-  characterInvitationTemplate = (indexInList, character, ownerObject) ->
+  characterPositionTemplate = (indexInList, character, ownerObject) ->
     objectIndexCounter = objectIndexCounter + 1
     # todo : remove
     index = objectIndexCounter
@@ -145,19 +156,19 @@ $(document).ready ->
       '<div class="row header_row">' +
         '<div class="col-md-1">время начала</div>' +
         '<div class="col-md-1 action_link">' +
-          '<a href="#" class="start_as_in_order" data-input-name="order[invitations][' + index + '][start]">как в заказе</a>' +
+          '<a href="#" class="start_as_in_order" data-input-name="order[positions][' + index + '][start]">как в заказе</a>' +
         '</div>' +
         '<div class="col-md-1">время окончания</div>' +
         '<div class="col-md-1 action_link">' +
-          '<a href="#" class="stop_as_in_order" data-input-name="order[invitations][' + index + '][stop]">как в заказе</a>' +
+          '<a href="#" class="stop_as_in_order" data-input-name="order[positions][' + index + '][stop]">как в заказе</a>' +
         '</div>' +
         '<div class="col-md-1">стоймость</div>' +
           '<div class="col-md-1 action_link">' +
-          '<input type="checkbox" value="1" name="order[invitations][' + index + '][partner_payed]" id="order_partner_payed"> оплачено' +
+          '<input type="checkbox" value="1" name="order[positions][' + index + '][payed]" id="order_partner_payed"> оплачено' +
         '</div>' +
         '<div class="col-md-1">гонорар актера</div>' +
           '<div class="col-md-1 action_link">' +
-            '<a href="#" class="price_by_list" data-input-name="order[invitations][' + index + '][animator_money]">по прайсу</a>' +
+            '<a href="#" class="price_by_list" data-input-name="order[positions][' + index + '][animator_money]">по прайсу</a>' +
           '</div>' +
         '<div class="col-md-1">накладные</div>' +
       '</div>' +
@@ -165,28 +176,28 @@ $(document).ready ->
       '<div class="row order_row">' +
         '<div class="col-md-2 error_container">' +
           '<div class="input-group date time_picker">' +
-            '<input name="order[invitations][' + index + '][start]" class="form-control input-sm" value="' + moment(performanceStart).format('LT') + '"/>' +
+            '<input name="order[positions][' + index + '][start]" class="form-control input-sm" value="' + moment(performanceStart).format('LT') + '"/>' +
             '<span class="input-group-addon"><span class="glyphicon glyphicon-time" /></span>' +
           '</div>' +
           '<div class="error_message"></div>' +
         '</div>' +
         '<div class="col-md-2 error_container">' +
           '<div class="input-group date time_picker">' +
-            '<input name="order[invitations][' + index + '][stop]" class="form-control input-sm" value="' + moment(performanceStop).format('LT') + '"/>' +
+            '<input name="order[positions][' + index + '][stop]" class="form-control input-sm" value="' + moment(performanceStop).format('LT') + '"/>' +
             '<span class="input-group-addon"><span class="glyphicon glyphicon-time" /></span>' +
           '</div>' +
           '<div class="error_message"></div>' +
         '</div>' +
         '<div class="col-md-2 error_container">' +
-          '<input name="order[invitations][' + index + '][price]" value="0" class="form-control input-sm invitation_price" />' +
+          '<input name="order[positions][' + index + '][price]" value="0" class="form-control input-sm position_price" />' +
           '<div class="error_message"></div>' +
         '</div>' +
         '<div class="col-md-2 error_container">' +
-          '<input name="order[invitations][' + index + '][animator_money]" value="0" class="form-control input-sm invitation_animator_money" />' +
+          '<input name="order[positions][' + index + '][animator_money]" value="0" class="form-control input-sm position_animator_money" />' +
           '<div class="error_message"></div>' +
         '</div>' +
         '<div class="col-md-2 error_container">' +
-          '<input name="order[invitations][' + index + '][overheads]" value="0" class="form-control input-sm invitation_overheads" />' +
+          '<input name="order[positions][' + index + '][overheads]" value="0" class="form-control input-sm position_overheads" />' +
           '<div class="error_message"></div>' +
         '</div>' +
       '</div>' +
@@ -197,10 +208,10 @@ $(document).ready ->
       '</div>' +
       '<div class="row order_row">' +
         '<div class="col-md-3">' +
-          '<textarea name="order[invitations][' + index + '][order_notice]" class="form-control input-sm" />' +
+          '<textarea name="order[positions][' + index + '][order_notice]" class="form-control input-sm" />' +
         '</div>' +
         '<div class="col-md-3">' +
-          '<textarea name="order[invitations][' + index + '][actor_notice]" class="form-control input-sm" />' +
+          '<textarea name="order[positions][' + index + '][actor_notice]" class="form-control input-sm" />' +
         '</div>' +
       '</div>' +
       '<div class="row order_row">' +
@@ -212,16 +223,16 @@ $(document).ready ->
       '</div>' +
       '<div class="row order_row">' +
         '<div class="error_container col-md-3">' +
-          '<div name="order[invitations][' + index + '][actors]"/>' +
+          '<div name="order[positions][' + index + '][actors]"/>' +
           '<div class="error_message actors_error" />' +
         '</div>' +
       '</div>' +
       '<div class="row order_row">' +
         actorsCheckBoxes +
       '</div>' +
-      '<input name="order[invitations][' + index + '][character_id]" class="form-control input-sm" type="hidden" value="' + character.id + '">' +
-      '<input name="order[invitations][' + index + '][owner_class]" class="form-control input-sm" type="hidden" value="' + ownerClass + '">' +
-      '<input name="order[invitations][' + index + '][owner_id]" class="form-control input-sm" type="hidden" value="' + ownerId + '">' +
+      '<input name="order[positions][' + index + '][character_id]" class="form-control input-sm" type="hidden" value="' + character.id + '">' +
+      '<input name="order[positions][' + index + '][owner_class]" class="form-control input-sm" type="hidden" value="' + ownerClass + '">' +
+      '<input name="order[positions][' + index + '][owner_id]" class="form-control input-sm" type="hidden" value="' + ownerId + '">' +
       '<div class="row separator"></div>' +
     '</div>'
 
@@ -409,7 +420,7 @@ $(document).ready ->
       markSelectedOrderObjects(false, newObjectId)
       $(container).find('.order_object').remove();
       $.each(orderObjects[newObjectId].characters, (index, characterId) ->
-        $(container).append(characterInvitationTemplate(index, charactersCollection[characterId], orderObjects[newObjectId]))
+        $(container).append(characterPositionTemplate(index, charactersCollection[characterId], orderObjects[newObjectId]))
       )
       startTimePickers();
 

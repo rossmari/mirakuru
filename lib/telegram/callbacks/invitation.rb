@@ -19,7 +19,7 @@ class Telegram::Callbacks::Invitation
         Telegram::Bot::Types::InlineKeyboardButton.new(
           {
             text: 'Отказаться от заказа',
-            callback_data: {processor: 'cancel_invitation', data: {id: invitation.id}}.to_json
+            callback_data: {processor: 'refuse_invitation', data: {id: invitation.id}}.to_json
           }
         ),
         Telegram::Bot::Types::InlineKeyboardButton.new(

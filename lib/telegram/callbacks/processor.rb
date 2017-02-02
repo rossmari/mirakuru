@@ -5,7 +5,9 @@ class Telegram::Callbacks::Processor
     undefined: Telegram::Callbacks::Undefined,
     invitations: Telegram::Callbacks::Invitations,
     invitation: Telegram::Callbacks::Invitation,
-    start: Telegram::Callbacks::Start
+    start: Telegram::Callbacks::Start,
+    refuse_invitation: Telegram::Callbacks::RefuseInvitation,
+    free_invitations: Telegram::Callbacks::FreeInvitations
   }
 
   class << self

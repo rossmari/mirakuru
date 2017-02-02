@@ -12,6 +12,7 @@ class Order < ActiveRecord::Base
   has_many :characters, through: :orders_characters
 
   has_many :invitations
+  has_many :positions
 
   enum status: [:active, :success, :rejected_customer, :rejected_actor]
   enum source: [:partner, :site, :commercial]

@@ -7,10 +7,12 @@ ActiveAdmin.register Invitation do
   index do
     column :id
     column :order_id do |record|
-      link_to("Заказ #{record.order_id}", admin_order_path(record.order))
+      order = record.position.order
+      link_to("Заказ #{order.id}", admin_order_path(order))
     end
     column :character do |record|
-      link_to(record.character.name, admin_character_path(record.character))
+      character = record.position.character
+      link_to(character.name, admin_character_path(character))
     end
     column :actor do |record|
       if record.actor
@@ -25,7 +27,8 @@ ActiveAdmin.register Invitation do
       </div>".html_safe
     end
     column 'Дата последней отправки' do |record|
-      record.invitation_date ? record.invitation_date : 'Еще не отправлено'
+      'TODO (in progress)'
+      # record.invitation_date ? record.invitation_date : 'Еще не отправлено'
     end
     column :updated_at
     actions defaults: true do |record|

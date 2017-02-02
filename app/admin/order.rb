@@ -80,21 +80,23 @@ ActiveAdmin.register Order do
       row :exclude_outcome
       row :updated_at
 
-      table_for order.invitations do
-        # column :id
+      table_for order.positions do
         column 'Выступление' do |record|
           Order::Objects::Presenter.object_name(record.owner)
         end
         column :character
-        column :actor do |invitation|
-          link_to invitation.actor.name, admin_actor_path(invitation.actor)
+        column 'Приглашения' do |record|
+          record.invitations.map do |invitation|
+            "#{invitation.id}, #{invitation.actor.name} , #{invitation.corrector}"
+          end.join('<br>').html_safe
         end
         column :status do |record|
           t("admin.invitation.statuses.#{record.status}")
         end
-        column :start
-        column :stop
-        column :partner_payed
+        column :time do |record|
+          "#{record.start.strftime('%d %b, %H:%M')} - #{record.stop.strftime('%H:%M')}"
+        end
+        column :payed
         column :price do |record|
           "#{record.price} р."
         end
@@ -104,9 +106,6 @@ ActiveAdmin.register Order do
         column :overheads do |record|
           "#{record.overheads} р."
         end
-        column :corrector
-        # column :order_notice
-        # column :actor_notice
         column :actions do |record|
           render partial: 'custom_links', locals: {record: record}
         end
@@ -136,14 +135,14 @@ ActiveAdmin.register Order do
       stage_constructor = OrderStageConstructor.new(order_params)
       stage_constructor.process!
       order_params = stage_constructor.cut_params
-      invitation_params = order_params.delete(:invitations)
+      positions_params = order_params.delete(:positions)
       @order = Order.new(order_params)
       @order.contact = customer_constructor.contact
       @order.customer = customer_constructor.customer
       @order.stage = stage_constructor.stage
       @order.save
-      invitations_constructor = OrderInvitationsConstructor.new(invitation_params, @order)
-      invitations_constructor.process!
+      positions_constructor = OrderPositionsConstructor.new(positions_params, @order)
+      positions_constructor.process!
 
       redirect_to admin_order_path(@order)
     end
@@ -155,7 +154,7 @@ ActiveAdmin.register Order do
       stage_constructor = OrderStageConstructor.new(order_params)
       stage_constructor.process!
       order_params = stage_constructor.cut_params
-      invitation_params = order_params.delete(:invitations)
+      invitation_params = order_params.delete(:positions)
       @order = Order.find(params[:id])
       @order.assign_attributes(order_params)
       if @order.contact != customer_constructor.contact
@@ -168,9 +167,8 @@ ActiveAdmin.register Order do
         @order.stage = stage_constructor.stage
       end
       @order.save
-      # todo : change invitations some how
-      invitations_constructor = OrderInvitationsConstructor.new(invitation_params, @order)
-      invitations_constructor.process!
+      positions_constructor = OrderPositionsConstructor.new(invitation_params, @order)
+      positions_constructor.process!
 
       redirect_to admin_order_path(@order)
     end
