@@ -1,9 +1,0 @@
--#- events = record.status_events
--#
--#- events.each do |event|
--#  - case event
--#    - when :set_actor
--#      = link_to(t("admin.invitation.events.#{event}"), '#')
--#    - else
--#      = link_to(t("admin.invitation.events.#{event}"), fire_event_admin_invitation_path(event_name: event))
--#  %br

@@ -80,36 +80,7 @@ ActiveAdmin.register Order do
       row :exclude_outcome
       row :updated_at
 
-      table_for order.positions do
-        column 'Выступление' do |record|
-          Order::Objects::Presenter.object_name(record.owner)
-        end
-        column :character
-        column 'Приглашения' do |record|
-          record.invitations.map do |invitation|
-            "#{invitation.id}, #{invitation.actor.name} , #{invitation.corrector}"
-          end.join('<br>').html_safe
-        end
-        column :status do |record|
-          t("admin.invitation.statuses.#{record.status}")
-        end
-        column :time do |record|
-          "#{record.start.strftime('%d %b, %H:%M')} - #{record.stop.strftime('%H:%M')}"
-        end
-        column :payed
-        column :price do |record|
-          "#{record.price} р."
-        end
-        column :animator_money do |record|
-          "#{record.animator_money} р."
-        end
-        column :overheads do |record|
-          "#{record.overheads} р."
-        end
-        column :actions do |record|
-          render partial: 'custom_links', locals: {record: record}
-        end
-      end
+      render partial: 'positions', locals: {positions: order.positions}
     end
   end
 

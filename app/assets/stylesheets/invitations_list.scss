@@ -1,0 +1,58 @@
+.positions_list thead th {
+  text-align: center;
+}
+
+.positions_list tbody td {
+  text-align: center;
+}
+
+.invitations_list {
+  display: inline-block;
+}
+
+.invitation_block {
+  display: flex;
+  justify-content: center;
+}
+
+.invitation_block.not_last {
+  border: 0px solid #dfdada;
+  border-bottom-width: 1px;
+}
+
+.invitation_block.head {
+  border: 0px solid #dfdada;
+  border-bottom-width: 1px;
+  text-align: center;
+  color: #918787;
+}
+
+.invitations_list .actor_name {
+  align-self: center;
+  font-size: 11pt;
+  min-width: 150px;
+}
+
+.invitations_list .actor_status {
+  align-self: center;
+  font-size: 11pt;
+  min-width: 150px;
+}
+
+.invitations_list .actor_corrector {
+  align-self: center;
+  font-size: 11pt;
+  width: 150px;
+}
+
+.invitations_list .actor_actions {
+  display: inline-block;
+  width: 150px;
+  font-size: 11pt;
+  text-align: left;
+  width: 180px;
+}
+
+.invitations_list .actor_actions a {
+  text-decoration: none;
+}
