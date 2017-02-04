@@ -18,10 +18,14 @@ ActiveAdmin.register Customer do
       t("admin.customer.customer_types.#{record.customer_type}")
     end
     column :company_name
-    # column :contact
-    column :discount do |record|
-      "#{record.discount} %"
+    column 'Контакты' do |record|
+      record.contacts.map do |contact|
+        link_to(contact.description, admin_contact_path(contact))
+      end.join('<br>').html_safe
     end
+    # column :discount do |record|
+    #   "#{record.discount} %"
+    # end
     column :partner_link do |record|
       if record.partner?
         url = "#{admin_root_url}/#{record.partner_link}"
@@ -61,7 +65,11 @@ ActiveAdmin.register Customer do
       end
       row :name
       row :company_name
-      # row :contact
+      row 'Контакты' do |record|
+        record.contacts.map do |contact|
+          link_to(contact.description, admin_contact_path(contact))
+        end.join('<br>').html_safe
+      end
       row :notice
       row :discount do |record|
         "#{record.discount.to_f} %"
