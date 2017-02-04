@@ -12,11 +12,11 @@ ActiveAdmin.register Customer do
   filter :updated_at
 
   index do
-    column :id
+    id_column
+    column :name
     column :customer_type do |record|
       t("admin.customer.customer_types.#{record.customer_type}")
     end
-    column :name
     column :company_name
     # column :contact
     column :discount do |record|

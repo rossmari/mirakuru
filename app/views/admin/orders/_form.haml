@@ -5,6 +5,7 @@
 %input{name: 'characters_serialized', value: @resource_manager.characters, id: 'characters_serialized', type: 'hidden'}
 %input{name: 'actors_serialized', value: @resource_manager.actors, id: 'actors_serialized', type: 'hidden'}
 %input{name: 'stages_serialized', value: @resource_manager.stages, id: 'stages_serialized', type: 'hidden'}
+%input{name: 'customer_serialized', value: @resource_manager.customers, id: 'customer_serialized', type: 'hidden'}
 
 = form_for [:admin, @order], html: {id: 'order_form'} do |f|
   %input{name: 'order[is_new_order]', class: 'form-control input-sm',
@@ -33,7 +34,7 @@
             data: {value: Customer.customer_types[:physical]}}
             Физ. лицо
 
-          - css_class = @manager.customer.physical? ? 'default' : 'primary'
+          - css_class = @manager.customer.partner? ? 'primary' : 'default'
           %button{type: 'button', class: "customer_type_switcher btn btn-#{css_class}",
             data: {value: Customer.customer_types[:partner]}}
             Партнер
@@ -59,7 +60,7 @@
         .error_message
 
         %input{name: 'order[customer][customer_type]', class: 'form-control input-sm',
-               value: Customer.customer_types[:physical], id: 'customer_type', type: 'hidden'}
+               value: Customer.customer_types[@manager.customer.customer_type], id: 'customer_type', type: 'hidden'}
 
       .col-md-2.error_container
         %input{name: 'order[contact][value]', class: 'form-control input-sm', id: 'contact_value'}
@@ -84,7 +85,7 @@
 
       .col-md-2.error_container
         = f.collection_select :customer_id, Customer.all, :id, :name, {prompt: 'Не выбрано'},
-        {class: 'form-control input-sm'}
+        {class: 'form-control input-sm', id: 'customer_selector'}
         .error_message
 
       .col-md-2.error_container

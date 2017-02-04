@@ -4,7 +4,6 @@ $(document).ready ->
   preloadStages = ->
     stagesSerialized = $('#stages_serialized').prop('value')
     stagesCollection = JSON.parse(stagesSerialized)
-    console.log(stagesCollection)
 
   updateStageSwitchButtons = (button) ->
     $('.stage_switcher').prop('class', 'stage_switcher btn btn-default')

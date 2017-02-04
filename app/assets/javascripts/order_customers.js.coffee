@@ -9,6 +9,7 @@ $(document).ready ->
   updateCustomerTypeValue = (element) ->
     typeValue = element.data('value')
     $('#customer_type').prop('value', typeValue)
+    refreshCustomersList()
 
   updateCustomerModeValue = (element) ->
     modeValue = element.data('value')
@@ -30,14 +31,7 @@ $(document).ready ->
         callback(data.contacts)
 
   preloadCustomers = ->
-    $.ajax
-      type: 'GET'
-      url: '/api/customers'
-      format: 'JSON'
-      success: (data) ->
-        customersList = data.customers
-        console.log('Preload customers list ---')
-        console.log(customersList)
+    customersList = JSON.parse($('#customer_serialized').prop('value'))
 
   optionFromContact = (contact) ->
     '<option value="' + contact.id + '">' + contact.name + '</option>'
@@ -52,6 +46,28 @@ $(document).ready ->
     )
     selector.append(newContactsOptions)
     selector.trigger('change')
+
+  updateCustomersSelectorOptions = (customers) ->
+    selector = $('#customer_selector')
+    # remove old options
+    selector.find('option').remove()
+    # add new options
+    newCustomersOptions = $.map(customers, (customer) ->
+      optionFromContact(customer)
+    )
+    selector.append(newCustomersOptions)
+    selector.trigger('change')
+
+  filterCustomer = (type) ->
+    $.grep(customersList, (customer) ->
+      customer.type == parseInt(type)
+    )
+
+  refreshCustomersList = ->
+    customerType = $('#customer_type').prop('value')
+    console.log('Type: ' + customerType)
+    customers = filterCustomer(customerType)
+    updateCustomersSelectorOptions(customers)
 
   # ============= events
   # change customer select mode - new customer fields or existing customer selectors
@@ -71,4 +87,7 @@ $(document).ready ->
     customerId = $(this).prop('value')
     loadCustomerContacts(customerId, updateContactSelectorOptions)
   )
+
   # ============= initial state
+  preloadCustomers()
+  refreshCustomersList()

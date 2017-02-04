@@ -8,7 +8,7 @@ $(document).ready ->
       data: data,
       url: '/api/costume_price_positions/' + itemId
       success: (data) ->
-      console.log('Sent!')
+        console.log('Sent!')
 
 
   $('input').on('focusout', (event) ->

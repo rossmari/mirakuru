@@ -266,7 +266,6 @@ $(document).ready ->
       if targetId == 'order_performance_time'
         performanceStart = getPerformanceStart()
         performanceStop = getPerformanceStop()
-        console.log('Start: ' + performanceStart + ', stop: ' + performanceStop)
     )
 
   startDatePickers = ->
@@ -278,7 +277,6 @@ $(document).ready ->
       if targetId == 'order_performance_date'
         performanceStart = getPerformanceStart()
         performanceStop = getPerformanceStop()
-        console.log('Start: ' + performanceStart + ', stop: ' + performanceStop)
     )
 
   preloadActors = ->
@@ -314,6 +312,7 @@ $(document).ready ->
 
   activateSearchSelectors = ->
     $('.order_object_selector').select2({theme: "bootstrap"})
+    $('#customer_selector').select2({theme: "bootstrap"})
 
   markSelectedOrderObjects = (value, objectId) ->
     characters = orderObjects[objectId].characters
@@ -321,7 +320,6 @@ $(document).ready ->
       $.each(orderObjects, (index, orderObject) ->
         if $.inArray(character, orderObject.characters) > -1
           orderObjects[orderObject.id].available = value
-          console.log('Update Availability: ' + orderObject.id + ', set to: ' + value)
       )
     )
 
@@ -366,8 +364,6 @@ $(document).ready ->
     availbleObjCount = availableObjectsCount()
     availableSelectors = availableSelectBoxes()
 
-    console.log 'Available. Objects: ' + availbleObjCount + ', selectors: ' + availableSelectors
-
     if availbleObjCount > 1
       showAllDeleteButtons()
       hideAllAddButtons()
@@ -387,7 +383,7 @@ $(document).ready ->
       hideLastDeleteButton()
 
   activateMasks = ->
-    $("#contact_value").mask("+9 (999) 999 99 99");
+    $("#contact_value").mask("+7 (999) 999 99 99");
 
   readPageInitialState = ->
     # TODO : load page in Edit mode
@@ -395,14 +391,12 @@ $(document).ready ->
   setPerformanceStartAndStop = ->
     performanceStart = getPerformanceStart()
     performanceStop = getPerformanceStop()
-    console.log('Start: ' + performanceStart + ', stop: ' + performanceStop)
 
   # ======================= events
   # after we select value in order objects selector
   $(document).on 'change', '.order_object_selector', (event) ->
     newObjectId = $(this).prop('value')
     selectorId = $(this).prop('id')
-    console.log('Update selector with id: ' + selectorId)
     container = $(this).closest('.order_object_container');
 
     previousObjectId = selectedValues[selectorId]
@@ -411,7 +405,6 @@ $(document).ready ->
 
     # if new value blank
     if newObjectId == ''
-      console.log('empty character?')
       $(container).find('.order_object').remove();
       if previousObjectId != ''
         markSelectedOrderObjects(true, previousObjectId)

@@ -20,6 +20,7 @@ class Order::NewManager
 
   def prepare_customer
     @customer = Customer.new
+    @customer.customer_type = Customer.customer_types[:partner]
   end
 
   def prepare_contact
