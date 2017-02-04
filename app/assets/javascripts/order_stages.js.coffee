@@ -20,7 +20,7 @@ $(document).ready ->
       $('#stages_selector').prop('disabled', true)
 
     if stageType == 2
-      customerId = $('#order_customer_id').prop('value')
+      customerId = $('#customer_selector').prop('value')
       if customerId
         changeStagesList(customerId)
 
@@ -33,11 +33,14 @@ $(document).ready ->
     '<option value="' + object.id + '">' + object.name + '</option>'
 
   changeStagesList = (customerId) ->
+    console.log('Change stages list for: ' + customerId)
     stages = customerStages(customerId)
     options = createOptionsCollection(stages)
     element = $('#stages_selector')
     element.find('option').remove()
     element.append(options)
+    # select by default first stage (to show that customer has his own stages)
+    element.val(stages[0].id)
 
   createOptionsCollection = (objects) ->
     options = ['<option value="">Не выбрано</option>']

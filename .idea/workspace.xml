@@ -1,34 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="da3f41db-1fda-4073-bfa2-adf2de76c055" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/javascripts/invitation_states_switcher.js.coffee" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/telegram/admin_sender/invitation.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/telegram/base/callback.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/telegram/base/common.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/telegram/base/data_callback.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/telegram/base/invitation.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/telegram/callbacks/accept_invitation.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/telegram/callbacks/cancel_invitation.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/telegram/callbacks/create_invitation.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/telegram/callbacks/free_invitation.rb" />
+    <list default="true" id="da3f41db-1fda-4073-bfa2-adf2de76c055" name="Default" comment="update telegram messaging, add ajax to admin invitations panel">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/admin/invitation.rb" afterPath="$PROJECT_DIR$/app/admin/invitation.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/stylesheets/invitations_list.scss" afterPath="$PROJECT_DIR$/app/assets/stylesheets/invitations_list.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/invitation.rb" afterPath="$PROJECT_DIR$/app/models/invitation.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/admin/orders/_positions.haml" afterPath="$PROJECT_DIR$/app/views/admin/orders/_positions.haml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/initializers/assets.rb" afterPath="$PROJECT_DIR$/config/initializers/assets.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/locales/ru.yml" afterPath="$PROJECT_DIR$/config/locales/ru.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/order_positions_constructor.rb" afterPath="$PROJECT_DIR$/lib/order_positions_constructor.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/resources_manager.rb" afterPath="$PROJECT_DIR$/lib/resources_manager.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/telegram/callbacks/free_invitations.rb" afterPath="$PROJECT_DIR$/lib/telegram/callbacks/free_invitations.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/telegram/callbacks/invitation.rb" afterPath="$PROJECT_DIR$/lib/telegram/callbacks/invitation.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/telegram/callbacks/invitations.rb" afterPath="$PROJECT_DIR$/lib/telegram/callbacks/invitations.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/telegram/callbacks/processor.rb" afterPath="$PROJECT_DIR$/lib/telegram/callbacks/processor.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/telegram/callbacks/refuse_invitation.rb" afterPath="$PROJECT_DIR$/lib/telegram/callbacks/refuse_invitation.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/telegram/callbacks/retrieve_code.rb" afterPath="$PROJECT_DIR$/lib/telegram/callbacks/retrieve_code.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/telegram/callbacks/start.rb" afterPath="$PROJECT_DIR$/lib/telegram/callbacks/start.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/telegram/messages/start.rb" afterPath="$PROJECT_DIR$/lib/telegram/messages/start.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/order_customers.js.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/order_customers.js.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/order_objects.js.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/order_objects.js.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/order_stages.js.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/order_stages.js.coffee" />
     </list>
     <ignored path="$PROJECT_DIR$/.bundle/" />
     <ignored path="$PROJECT_DIR$/components/" />
@@ -55,53 +32,61 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="_positions.haml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/admin/orders/_positions.haml">
+      <file leaf-file-name="stage.rb" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/admin/stage.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="503">
-              <caret line="67" column="106" lean-forward="false" selection-start-line="67" selection-start-column="106" selection-end-line="67" selection-end-column="106" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="assets.rb" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/initializers/assets.rb">
+      <file leaf-file-name="user.rb" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/admin/user.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="13" column="79" lean-forward="false" selection-start-line="13" selection-start-column="79" selection-end-line="13" selection-end-column="79" />
+            <state relative-caret-position="184">
+              <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="invitation.rb" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/admin/invitation.rb">
+      <file leaf-file-name="dashboard.rb" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/admin/dashboard.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="744">
-              <caret line="48" column="0" lean-forward="true" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="invitation_states_switcher.js.coffee" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/invitation_states_switcher.js.coffee">
+      <file leaf-file-name="customer.rb" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/admin/customer.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="644">
-              <caret line="28" column="23" lean-forward="false" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
-              <folding>
-                <marker date="1486192403479" expanded="true" signature="375:376" ph="..." />
-              </folding>
+            <state relative-caret-position="0">
+              <caret line="0" column="29" lean-forward="false" selection-start-line="0" selection-start-column="21" selection-end-line="0" selection-end-column="29" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="invitation.rb" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models/invitation.rb">
+      <file leaf-file-name="20170204075748_update_customer_discount_type.rb" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/db/migrate/20170204075748_update_customer_discount_type.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-17">
-              <caret line="57" column="26" lean-forward="false" selection-start-line="57" selection-start-column="26" selection-end-line="57" selection-end-column="26" />
+            <state relative-caret-position="46">
+              <caret line="2" column="74" lean-forward="false" selection-start-line="2" selection-start-column="74" selection-end-line="2" selection-end-column="74" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_form.haml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/admin/orders/_form.haml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="161">
+              <caret line="7" column="98" lean-forward="false" selection-start-line="7" selection-start-column="98" selection-end-line="7" selection-end-column="98" />
               <folding />
             </state>
           </provider>
@@ -110,8 +95,41 @@
       <file leaf-file-name="order_customers.js.coffee" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/order_customers.js.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="49" column="31" lean-forward="false" selection-start-line="49" selection-start-column="25" selection-end-line="49" selection-end-column="31" />
+            <state relative-caret-position="1817">
+              <caret line="85" column="36" lean-forward="false" selection-start-line="85" selection-start-column="36" selection-end-line="85" selection-end-column="36" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="order_contacts.js.coffee" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/order_contacts.js.coffee">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="171">
+              <caret line="23" column="38" lean-forward="false" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="38" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="order_objects.js.coffee" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/order_objects.js.coffee">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="260">
+              <caret line="315" column="55" lean-forward="false" selection-start-line="315" selection-start-column="55" selection-end-line="315" selection-end-column="55" />
+              <folding>
+                <marker date="1486195359756" expanded="true" signature="3716:3728" ph="..." />
+                <marker date="1486195359756" expanded="true" signature="3905:3917" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="order_stages.js.coffee" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/order_stages.js.coffee">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="432">
+              <caret line="41" column="78" lean-forward="false" selection-start-line="41" selection-start-column="78" selection-end-line="41" selection-end-column="78" />
               <folding />
             </state>
           </provider>
@@ -121,13 +139,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>perform</find>
-      <find>performance.</find>
-      <find>redrawCharactersBlocks</find>
-      <find>send</find>
-      <find>sendMe</find>
-      <find>Validators::Invitation</find>
-      <find>prepare_owner_class</find>
       <find>class</find>
       <find>owner_class</find>
       <find>positionStop</find>
@@ -151,14 +162,21 @@
       <find>response</find>
       <find>parse_invitation</find>
       <find>$.map</find>
+      <find>+9</find>
+      <find>customersList</find>
+      <find>preloadCustomers</find>
+      <find>console</find>
+      <find>customer_type</find>
+      <find>select2</find>
+      <find>order_customer_id</find>
     </findStrings>
     <replaceStrings>
       <replace>error_message</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/app/views</dir>
-      <dir>$PROJECT_DIR$/app/assets/javascripts</dir>
       <dir>$PROJECT_DIR$</dir>
+      <dir>$PROJECT_DIR$/app/assets/javascripts</dir>
     </dirStrings>
   </component>
   <component name="GeneratorOptions">
@@ -171,23 +189,13 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/models/stage.rb" />
-        <option value="$PROJECT_DIR$/config/initializers/state_machine_patch.rb" />
-        <option value="$PROJECT_DIR$/app/models/positions.rb" />
-        <option value="$PROJECT_DIR$/app/models/order.rb" />
-        <option value="$PROJECT_DIR$/app/models/character.rb" />
-        <option value="$PROJECT_DIR$/lib/validators/invitation.rb" />
-        <option value="$PROJECT_DIR$/app/controllers/api/orders_controller.rb" />
-        <option value="$PROJECT_DIR$/app/models/position.rb" />
         <option value="$PROJECT_DIR$/lib/order/objects/collection_presenter.rb" />
         <option value="$PROJECT_DIR$/db/migrate/20170201150222_introduce_order_positions.rb" />
         <option value="$PROJECT_DIR$/db/migrate/20170201153118_add_position_id_to_invitation.rb" />
         <option value="$PROJECT_DIR$/db/migrate/20170201153347_zzz.rb" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/price_calculation.coffee" />
-        <option value="$PROJECT_DIR$/app/views/admin/orders/_form.haml" />
         <option value="$PROJECT_DIR$/app/views/admin/orders/_object_selector.haml" />
         <option value="$PROJECT_DIR$/lib/order/edit_manager.rb" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/order_objects.js.coffee" />
         <option value="$PROJECT_DIR$/app/assets/stylesheets/order_page.scss" />
         <option value="$PROJECT_DIR$/app/views/admin/orders/_object.html.haml" />
         <option value="$PROJECT_DIR$/db/migrate/20170202141950_remove_corrector_from_position.rb" />
@@ -204,7 +212,6 @@
         <option value="$PROJECT_DIR$/lib/telegram/callbacks/start.rb" />
         <option value="$PROJECT_DIR$/lib/telegram/callbacks/invitation.rb" />
         <option value="$PROJECT_DIR$/lib/telegram/callbacks/cancel_invitation.rb" />
-        <option value="$PROJECT_DIR$/lib/resources_manager.rb" />
         <option value="$PROJECT_DIR$/lib/order_positions_constructor.rb" />
         <option value="$PROJECT_DIR$/lib/telegram/callbacks/invitations.rb" />
         <option value="$PROJECT_DIR$/lib/telegram/base/data_callback.rb" />
@@ -222,6 +229,17 @@
         <option value="$PROJECT_DIR$/app/views/admin/orders/_positions.haml" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/invitation_states_switcher.js.coffee" />
         <option value="$PROJECT_DIR$/app/admin/invitation.rb" />
+        <option value="$PROJECT_DIR$/lib/resources_manager.rb" />
+        <option value="$PROJECT_DIR$/lib/order/new_manager.rb" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/costume_price_list_update.js.coffee" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/price_list_update.js.coffee" />
+        <option value="$PROJECT_DIR$/app/admin/customer.rb" />
+        <option value="$PROJECT_DIR$/db/migrate/20170204075748_update_customer_discount_type.rb" />
+        <option value="$PROJECT_DIR$/app/views/admin/orders/_form.haml" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/order_objects.js.coffee" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/order_contacts.js.coffee" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/order_customers.js.coffee" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/order_stages.js.coffee" />
       </list>
     </option>
   </component>
@@ -489,7 +507,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_interpreter_path" value="/usr/bin/node" />
     <property name="js.eslint.eslintPackage" value="" />
-    <property name="SearchEverywhereHistoryKey" value="asset&#9;FILE&#9;file:///home/rossmari/Projects/mirakuru/config/initializers/assets.rb&#10;invi&#9;FILE&#9;file:///home/rossmari/Projects/mirakuru/app/models/invitation.rb&#10;networkd&#9;null&#9;null&#10;invitation&#9;FILE&#9;file:///home/rossmari/Projects/mirakuru/app/models/invitation.rb&#10;invitat&#9;FILE&#9;file:///home/rossmari/Projects/mirakuru/app/models/invitation.rb&#10;stage.rb&#9;FILE&#9;file:///home/rossmari/Projects/mirakuru/app/models/stage.rb&#10;routes.rb&#9;FILE&#9;file:///home/rossmari/Projects/mirakuru/config/routes.rb&#10;routr&#9;FILE&#9;file:///home/rossmari/Projects/mirakuru/config/routes.rb" />
+    <property name="SearchEverywhereHistoryKey" value="_for&#9;FILE&#9;file:///home/rossmari/Projects/mirakuru/app/views/admin/orders/_form.haml&#10;asset&#9;FILE&#9;file:///home/rossmari/Projects/mirakuru/config/initializers/assets.rb&#10;invi&#9;FILE&#9;file:///home/rossmari/Projects/mirakuru/app/models/invitation.rb&#10;networkd&#9;null&#9;null&#10;invitation&#9;FILE&#9;file:///home/rossmari/Projects/mirakuru/app/models/invitation.rb&#10;invitat&#9;FILE&#9;file:///home/rossmari/Projects/mirakuru/app/models/invitation.rb&#10;stage.rb&#9;FILE&#9;file:///home/rossmari/Projects/mirakuru/app/models/stage.rb&#10;routes.rb&#9;FILE&#9;file:///home/rossmari/Projects/mirakuru/config/routes.rb&#10;routr&#9;FILE&#9;file:///home/rossmari/Projects/mirakuru/config/routes.rb" />
     <property name="RailsGeneratorsPopup.hiddenIncluded" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../AppODeal" />
   </component>
@@ -773,7 +791,7 @@
       <workItem from="1486088577357" duration="41000" />
       <workItem from="1486114642471" duration="4837000" />
       <workItem from="1486129107073" duration="11692000" />
-      <workItem from="1486185412860" duration="7247000" />
+      <workItem from="1486185412860" duration="10448000" />
     </task>
     <task id="LOCAL-00002" summary="add order page template">
       <created>1485529868736</created>
@@ -817,7 +835,21 @@
       <option name="project" value="LOCAL" />
       <updated>1486118269911</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="update telegram messaging, add ajax to admin invitations panel">
+      <created>1486192685878</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1486192685878</updated>
+    </task>
+    <task id="LOCAL-00009" summary="update order customer searcher">
+      <created>1486195166584</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1486195166584</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -832,16 +864,17 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="87179000" />
+    <option name="totallyTimeSpent" value="90380000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1056" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13322277" sideWeight="0.4955313" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22609176" sideWeight="0.4955313" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290461" sideWeight="0.4997236" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43010753" sideWeight="0.5157546" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40430108" sideWeight="0.4991708" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6981132" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2860215" sideWeight="0.4997236" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2498618" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -856,7 +889,6 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40430108" sideWeight="0.4991708" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -896,165 +928,27 @@
     <MESSAGE value="update slack bot, fix state machine bug" />
     <MESSAGE value="move from invitations to positions and invitations model" />
     <MESSAGE value="update position invitations for order/show page" />
-    <option name="LAST_COMMIT_MESSAGE" value="update position invitations for order/show page" />
+    <MESSAGE value="update telegram messaging, add ajax to admin invitations panel" />
+    <MESSAGE value="update order customer searcher" />
+    <option name="LAST_COMMIT_MESSAGE" value="update order customer searcher" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="443" />
+      <option name="time" value="446" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="RailsRunConfigurationType">
         <watch expression="position.invitations.map(&amp;:actor_id)" language="ruby" />
         <watch expression="actor.id" language="ruby" />
+        <watch expression="@manager.customer.partner? " language="HAML" />
+        <watch expression="@order.customer" language="HAML" />
       </configuration>
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/active_admin.js.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/application/order.js.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.rvm/gems/ruby-2.2.0/gems/actionview-4.2.0/lib/action_view/helpers/form_tag_helper.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="372" column="10" lean-forward="false" selection-start-line="372" selection-start-column="10" selection-end-line="372" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/order_objects.js.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="55" column="32" lean-forward="false" selection-start-line="55" selection-start-column="22" selection-end-line="55" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/order_page.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3588">
-          <caret line="156" column="9" lean-forward="false" selection-start-line="156" selection-start-column="9" selection-end-line="156" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/admin/orders/_object.html.haml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2622">
-          <caret line="114" column="26" lean-forward="false" selection-start-line="114" selection-start-column="26" selection-end-line="114" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/migrate/20170202141950_remove_corrector_from_position.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="2" column="40" lean-forward="false" selection-start-line="2" selection-start-column="40" selection-end-line="2" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/migrate/20170202142028_remove_columns_from_invitation.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/order/edit_manager.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="690">
-          <caret line="30" column="27" lean-forward="true" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/order/new_manager.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/order/objects/presenter.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="17" column="22" lean-forward="false" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.rvm/gems/ruby-2.2.0/gems/bundler-1.13.7/lib/bundler/fetcher.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="15" column="26" lean-forward="true" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/admin/orders/_form.haml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5635">
-          <caret line="245" column="82" lean-forward="false" selection-start-line="245" selection-start-column="82" selection-end-line="245" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/admin/price_positions/fill.haml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="69">
-          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="32" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/admin/orders/_object_selector.haml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="18" column="37" lean-forward="false" selection-start-line="18" selection-start-column="37" selection-end-line="18" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/admin/orders/_custom_links.haml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/admin/actor.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/telegram/base">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/admin/common/_events_table.haml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.rvm/gems/ruby-2.2.0/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/telegram/admin_sender/invitation.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="621">
@@ -1067,21 +961,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="299">
           <caret line="13" column="19" lean-forward="false" selection-start-line="13" selection-start-column="19" selection-end-line="13" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/admin/order.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3220">
-          <caret line="140" column="39" lean-forward="false" selection-start-line="140" selection-start-column="39" selection-end-line="140" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/resources_manager.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="28" column="29" lean-forward="false" selection-start-line="28" selection-start-column="29" selection-end-line="28" selection-end-column="29" />
           <folding />
         </state>
       </provider>
@@ -1246,14 +1125,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/order_contacts.js.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/models/invitation.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-17">
@@ -1270,18 +1141,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/order_customers.js.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="49" column="31" lean-forward="false" selection-start-line="49" selection-start-column="25" selection-end-line="49" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/admin/orders/_positions.haml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="503">
           <caret line="67" column="106" lean-forward="false" selection-start-line="67" selection-start-column="106" selection-end-line="67" selection-end-column="106" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/resources_manager.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="10" column="16" lean-forward="true" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
           <folding />
         </state>
       </provider>
@@ -1296,10 +1167,197 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/order_page.js.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/customer.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="46">
+          <caret line="2" column="6" lean-forward="false" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/price_list_update.js.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="10" column="8" lean-forward="false" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/costume_price_list_update.js.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="10" column="8" lean-forward="false" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/admin/order.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="90" column="29" lean-forward="false" selection-start-line="90" selection-start-column="29" selection-end-line="90" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/order/new_manager.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="13" lean-forward="false" selection-start-line="0" selection-start-column="13" selection-end-line="0" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/admin/invitation.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="744">
+        <state relative-caret-position="1104">
           <caret line="48" column="0" lean-forward="true" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/admin/character.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/admin/characters_group.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/admin/actor.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/admin/contact.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/admin/costume_price_position.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/admin/photo.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/admin/price_position.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/admin/stage.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/admin/user.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/admin/dashboard.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/admin/customer.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="29" lean-forward="false" selection-start-line="0" selection-start-column="21" selection-end-line="0" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/migrate/20170204075748_update_customer_discount_type.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="46">
+          <caret line="2" column="74" lean-forward="false" selection-start-line="2" selection-start-column="74" selection-end-line="2" selection-end-column="74" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/admin/orders/_form.haml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="7" column="98" lean-forward="false" selection-start-line="7" selection-start-column="98" selection-end-line="7" selection-end-column="98" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/order_contacts.js.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="23" column="38" lean-forward="false" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/order_objects.js.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="315" column="55" lean-forward="false" selection-start-line="315" selection-start-column="55" selection-end-line="315" selection-end-column="55" />
+          <folding>
+            <marker date="1486195359756" expanded="true" signature="3716:3728" ph="..." />
+            <marker date="1486195359756" expanded="true" signature="3905:3917" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/order_customers.js.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1817">
+          <caret line="85" column="36" lean-forward="false" selection-start-line="85" selection-start-column="36" selection-end-line="85" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/order_stages.js.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="41" column="78" lean-forward="false" selection-start-line="41" selection-start-column="78" selection-end-line="41" selection-end-column="78" />
           <folding />
         </state>
       </provider>

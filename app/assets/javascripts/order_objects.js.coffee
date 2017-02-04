@@ -313,6 +313,7 @@ $(document).ready ->
   activateSearchSelectors = ->
     $('.order_object_selector').select2({theme: "bootstrap"})
     $('#customer_selector').select2({theme: "bootstrap"})
+    $('#stages_selector').select2({theme: "bootstrap"})
 
   markSelectedOrderObjects = (value, objectId) ->
     characters = orderObjects[objectId].characters

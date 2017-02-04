@@ -83,7 +83,7 @@ $(document).ready ->
     updateCustomerTypeButtons($(this))
   )
   # ============= load contacts for selected customer
-  $('#order_customer_id').on('click', (event) ->
+  $('#customer_selector').on('change', (event) ->
     customerId = $(this).prop('value')
     loadCustomerContacts(customerId, updateContactSelectorOptions)
   )
