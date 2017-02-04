@@ -6,12 +6,23 @@ class Telegram::Messages::Start
       {
         header: '- Главное меню - ',
         buttons: [
-          # Telegram::Bot::Types::InlineKeyboardButton.new(text: 'Мои мероприятия', callback_data: 'my_invitations'),
           Telegram::Bot::Types::InlineKeyboardButton.new(
             {
-              text: 'Мероприятия',
+              text: 'Мои мероприятия',
               callback_data: { processor: 'invitations' }.to_json
             }
+          ),
+          Telegram::Bot::Types::InlineKeyboardButton.new(
+            {
+              text: 'Заявки',
+              callback_data: { processor: 'free_invitations' }.to_json
+            },
+          ),
+          Telegram::Bot::Types::InlineKeyboardButton.new(
+            {
+              text: 'Отказы, актуальные',
+              callback_data: { processor: 'zzz' }.to_json
+            },
           )
         ]
       }

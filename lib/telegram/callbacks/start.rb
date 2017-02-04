@@ -1,39 +1,32 @@
-class Telegram::Callbacks::Start
+class Telegram::Callbacks::Start < Telegram::Base::Callback
 
-  class << self
+  private
 
-    def perform(_response)
-      {
-        header: '- Главное меню - ',
-        buttons: [
-          Telegram::Bot::Types::InlineKeyboardButton.new(
-            {
-              text: 'Мероприятия',
-              callback_data: { processor: 'invitations' }.to_json
-            }
-          ),
-          Telegram::Bot::Types::InlineKeyboardButton.new(
-            {
-              text: 'Заявки',
-              callback_data: { processor: 'free_invitations' }.to_json
-            },
-          ),
-          Telegram::Bot::Types::InlineKeyboardButton.new(
-            {
-              text: 'Отказы, актуальные',
-              callback_data: { processor: 'zzz' }.to_json
-            },
-          )
+  def header
+    ['- Главное меню - ']
+  end
 
-        ],
-        type: type
-      }
-    end
-
-    def type
-      :buttons
-    end
-
+  def buttons
+    [
+      Telegram::Bot::Types::InlineKeyboardButton.new(
+        {
+          text: 'Мои мероприятия',
+          callback_data: { processor: 'invitations' }.to_json
+        }
+      ),
+      Telegram::Bot::Types::InlineKeyboardButton.new(
+        {
+          text: 'Заявки',
+          callback_data: { processor: 'free_invitations' }.to_json
+        },
+      ),
+      Telegram::Bot::Types::InlineKeyboardButton.new(
+        {
+          text: 'Отказы, актуальные',
+          callback_data: { processor: 'zzz' }.to_json
+        },
+      )
+    ]
   end
 
 end

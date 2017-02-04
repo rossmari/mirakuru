@@ -36,6 +36,11 @@ class OrderPositionsConstructor
 
   def update_position(params)
     position = Position.find_by(character_id: params[:character_id], order_id: order_instance.id)
+    d = order_instance.performance_date
+    t = Time.parse(params[:start])
+    params[:start] = DateTime.new(d.year, d.month, d.day, t.hour, t.min, t.sec)
+    t = Time.parse(params[:stop])
+    params[:stop] = DateTime.new(d.year, d.month, d.day, t.hour, t.min, t.sec)
     if position
       position.update_attributes(params)
     else

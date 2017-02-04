@@ -1,4 +1,5 @@
 = stylesheet_link_tag 'invitations_list'
+= javascript_include_tag 'invitation_states_switcher'
 
 %table.positions_list
   %thead
@@ -27,12 +28,10 @@
         %td
           = Order::Objects::Presenter.object_name(position.owner)
         %td
-          = position.character.name
-        -#%td
-          = position.status
+          = link_to position.character.name, admin_character_path(position.character)
         %td
           = l(position.start, format: '%d %b, %H:%M')
-          -
+          = ' - '
           = position.stop.strftime('%H:%M')
         %td
           - if position.payed
@@ -53,7 +52,7 @@
         %td
           .invitations_list
             - if index.zero?
-              .invitation_block.head
+              .list_head
                 .actor_name
                   Имя актера
                 .actor_corrector
@@ -63,22 +62,20 @@
                 .actor_actions
                   Действия
 
-            - position.invitations.each_with_index do |invitation, index|
-              %div{class: "invitation_block #{index != position.invitations.count - 1 ? 'not_last' : '' }"}
-                .actor_name
-                  = invitation.actor.name
+            - invitations = position.invitations
+            - invitations.each_with_index do |invitation, i|
+              - last_row = i != invitations.count - 1
+              %div{class: "invitation_block #{ last_row ? 'not_last' : '' }", data: { id: invitation.id }}
+                %div{class: 'actor_name', title: "Приглашение номер #{invitation.id}"}
+                  = link_to invitation.actor.name, admin_actor_path(invitation.actor)
                 .actor_corrector
                   = invitation.corrector
                   руб.
                 .actor_status
                   = t("admin.invitation.statuses.#{invitation.status}")
                 .actor_actions
-                  - events = invitation.status_events
-                  - events.each do |event|
-                    - case event
-                      - when :set_actor
-                        = link_to(t("admin.invitation.events.#{event}"), '#')
-                      - else
-                        = link_to(t("admin.invitation.events.#{event}"), fire_event_admin_invitation_path(event_name: event))
+                  - invitation.admin_events.each do |event|
+                    = link_to(t("admin.invitation.events.#{event}"),
+                        fire_event_admin_invitation_path(id: invitation.id, event_name: event))
                     %br
 

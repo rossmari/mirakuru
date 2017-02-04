@@ -466,15 +466,17 @@ ru:
         empty: 'Новое'
         sent: 'Отправлено'
         accepted: 'Принято'
-        received: 'Получено'
-        read: 'Прочитано'
-        denied: 'Отказ'
-        set_by_admin: 'Установлено адм.'
-        removed_by_admin: 'Снято адм.'
+        canceled: 'Актер отказался'
+        assigned: 'Назначен админом'
+        closed: 'Приглашение закрыто'
+        refused: 'Актер отказался'
       events:
-        sent_invitation: 'Отправить'
-        set_actor: 'Назначить актера'
+        sent_again: 'Отправить снова'
+        sent_invitation: 'Отправить праглашение'
         close_invitation: 'Отменить'
+        assign: 'Назначить актера'
+        close: 'Закрыть'
+        refuse: 'Отказаться'
 
     invitation_event:
       event_types:

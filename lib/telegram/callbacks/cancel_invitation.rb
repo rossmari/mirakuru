@@ -1,14 +1,14 @@
-class Telegram::Callbacks::RefuseInvitation < Telegram::Base::DataCallback
+class Telegram::Callbacks::CancelInvitation < Telegram::Base::DataCallback
 
   private
 
   def perform_actions
-    invitation.fire_events!(:refuse)
+    invitation.fire_events!(:cancel)
   end
 
   def header
     [
-      'Отказ от приглашения принят.'
+      'Вы отказались от этого заказа!'
     ]
   end
 

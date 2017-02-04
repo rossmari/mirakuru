@@ -11,3 +11,4 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += %w( order_page.css price_page.css)
 Rails.application.config.assets.precompile += %w( order_page.js price_list_update.js costume_price_list_update.js)
 Rails.application.config.assets.precompile += %w( invitations_list.scss)
+Rails.application.config.assets.precompile += %w( invitation_states_switcher.js)

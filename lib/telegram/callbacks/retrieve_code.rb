@@ -1,17 +1,18 @@
-class Telegram::Callbacks::RetrieveCode
+class Telegram::Callbacks::RetrieveCode < Telegram::Base::Callback
 
-  class << self
+  private
 
-    def perform(response)
+  def create_response
+    [
       {
         text: "Ваш код: #{response.from.id}",
         type: type
       }
-    end
-
-    def type
-      :message
-    end
-
+    ]
   end
+
+  def type
+    :message
+  end
+
 end

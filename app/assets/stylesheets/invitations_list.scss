@@ -18,41 +18,77 @@
 .invitation_block.not_last {
   border: 0px solid #dfdada;
   border-bottom-width: 1px;
+  margin-bottom: 5px;
 }
 
-.invitation_block.head {
-  border: 0px solid #dfdada;
-  border-bottom-width: 1px;
-  text-align: center;
-  color: #918787;
-}
-
-.invitations_list .actor_name {
+.invitation_block .actor_name {
   align-self: center;
   font-size: 11pt;
   min-width: 150px;
+  text-align: left;
 }
 
-.invitations_list .actor_status {
+.invitation_block .actor_name a {
+  text-decoration: none;
+}
+
+.invitation_block .actor_status {
   align-self: center;
-  font-size: 11pt;
+  font-size: 10pt;
   min-width: 150px;
+  padding-right: 10px;
 }
 
-.invitations_list .actor_corrector {
+.invitation_block .actor_corrector {
   align-self: center;
   font-size: 11pt;
   width: 150px;
 }
 
-.invitations_list .actor_actions {
+.invitation_block .actor_actions {
   display: inline-block;
-  width: 150px;
   font-size: 11pt;
   text-align: left;
   width: 180px;
 }
 
-.invitations_list .actor_actions a {
+.invitation_block .actor_actions a {
   text-decoration: none;
 }
+
+// ------------------------ head
+.list_head {
+  display: flex;
+  justify-content: center;
+  border: 0px solid #dfdada;
+  border-bottom-width: 1px;
+  text-align: center;
+  color: #918787;
+  font-size: 11pt;
+}
+
+.list_head .actor_name {
+  text-align: center;
+  font-size: 11pt;
+  min-width: 150px;
+}
+
+.list_head .actor_corrector {
+  align-self: center;
+  font-size: 11pt;
+  width: 150px;
+}
+
+.list_head .actor_status {
+  align-self: center;
+  font-size: 11pt;
+  min-width: 150px;
+  padding-right: 10px;
+}
+
+.list_head .actor_actions {
+  font-size: 11pt;
+  text-align: left;
+  width: 180px;
+}
+// --------------------------------

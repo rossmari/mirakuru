@@ -43,25 +43,20 @@ ActiveAdmin.register Invitation do
   end
 
   member_action :fire_event, method: :get do
+    invitation = Invitation.find(params[:id])
     event = params[:event_name]
-    # TODO : add implementation
-    # sent message again to Actor from this invitation
-  end
+    invitation.fire_events!(event)
 
-  member_action :dismiss, method: :get do
-    # TODO : disable this invitation,
-    # sent message to Actor that he was disabled
-  end
-
-  member_action :change_status, method: :get do
-    # TODO : ???
-  end
-
-  member_action :release, method: :get do
-    # resource.update(actor_id: nil)
-    # InvitationEvent.actor_removed!(resource, current_user)
-    # flash[:notice] = 'Приглашение освобождено!'
-    # redirect_to collection_path
+    invitations = Invitation.where(position_id: invitation.position_id)
+    invitations =
+      invitations.map do |i|
+        {
+          id: i.id,
+          status: I18n.t("admin.invitation.statuses.#{i.status}"),
+          events: i.admin_events.map{|event| {name: event, label: I18n.t("admin.invitation.events.#{event}")}}
+        }
+      end
+    render json: { invitations: invitations }
   end
 
   controller do

@@ -7,25 +7,36 @@ class Telegram::Callbacks::Processor
     invitation: Telegram::Callbacks::Invitation,
     start: Telegram::Callbacks::Start,
     refuse_invitation: Telegram::Callbacks::RefuseInvitation,
-    free_invitations: Telegram::Callbacks::FreeInvitations
+    free_invitations: Telegram::Callbacks::FreeInvitations,
+    free_invitation: Telegram::Callbacks::FreeInvitation,
+    accept_invitation: Telegram::Callbacks::AcceptInvitation,
+    cancel_invitation: Telegram::Callbacks::CancelInvitation,
+    create_invitation: Telegram::Callbacks::CreateInvitation
   }
 
   class << self
 
     def perform(message)
       data = JSON.parse(message.data)
-      processor = PROCESSORS_LIST[data['processor'].to_sym] || PROCESSORS_LIST[:undefined]
-      responses = processor.perform(message)
+      processor_class = PROCESSORS_LIST[data['processor'].to_sym] || PROCESSORS_LIST[:undefined]
+      processor = processor_class.new(message)
 
+      response = processor.create_response
+      recipient_id = message.from.id
+
+      send_responses(response, recipient_id)
+    end
+
+    def send_responses(responses, recipient_id)
       Array.wrap(responses).each do |response|
         case response[:type]
           when :message
-            bot.api.send_message(chat_id: message.from.id, text: response[:text])
+            bot.api.send_message(chat_id: recipient_id, text: response[:text])
           when :buttons
             markup = Telegram::Bot::Types::InlineKeyboardMarkup.new(inline_keyboard: response[:buttons])
-            bot.api.send_message(chat_id: message.from.id, text: response[:header], reply_markup: markup)
+            bot.api.send_message(chat_id: recipient_id, text: response[:header], reply_markup: markup)
           else
-            bot.api.send_message(chat_id: message.from.id, text: 'Unknown response type')
+            bot.api.send_message(chat_id: recipient_id, text: 'Unknown response type')
         end
       end
     end
@@ -33,5 +44,6 @@ class Telegram::Callbacks::Processor
     def bot
       $bot
     end
+
   end
 end
