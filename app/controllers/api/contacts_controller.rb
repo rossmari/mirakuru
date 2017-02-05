@@ -7,4 +7,9 @@ class Api::ContactsController < ApplicationController
     end
   end
 
+  def check
+    contact_exist = Contact.where(raw_value: Contact.clear_phone(params[:value])).any?
+    render json: { uniq_value: !contact_exist }
+  end
+
 end

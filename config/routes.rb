@@ -20,7 +20,11 @@ Rails.application.routes.draw do
         post :partner_container
       end
     end
-    resources :contacts
+    resources :contacts do
+      collection do
+        get :check
+      end
+    end
     resources :actors
     resources :price_positions
     resources :costume_price_positions
