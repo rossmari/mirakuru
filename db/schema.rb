@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170205103045) do
+ActiveRecord::Schema.define(version: 20170205113032) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -218,6 +218,7 @@ ActiveRecord::Schema.define(version: 20170205103045) do
     t.string   "actor_notice"
     t.string   "owner_class"
     t.integer  "owner_id"
+    t.boolean  "animator_payed", default: false, null: false
   end
 
   create_table "price_positions", force: :cascade do |t|

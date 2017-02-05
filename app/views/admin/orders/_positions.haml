@@ -18,6 +18,8 @@
     %th{style: 'width: 7%'}
       ЗП аниматора
     %th{style: 'width: 7%'}
+      Оплачено
+    %th{style: 'width: 7%'}
       Допники
     %th
       Приглашения
@@ -34,18 +36,27 @@
           = ' - '
           = position.stop.strftime('%H:%M')
         %td
+          = position.price
+          руб.
+        %td
           - if position.payed
             %span.status_tag.yes
               Да
           - else
             %span.status_tag.no
               Нет
-        %td
-          = position.price
-          руб.
+
         %td
           = position.animator_money
           руб.
+        %td
+          - if position.animator_payed
+            %span.status_tag.yes
+              Да
+          - else
+            %span.status_tag.no
+              Нет
+
         %td
           = position.overheads
           руб.

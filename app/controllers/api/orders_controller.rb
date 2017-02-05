@@ -18,12 +18,12 @@ class Api::OrdersController < ApplicationController
     order.valid?
     errors[:order].merge!(order.errors.to_h)
 
-    if invitations_params
-      # invitations_validator = Validators::Invitation.new(invitations_params, order_params.include?('id'), nil)
-      # invitations_validator.validate
-      # errors[:order].merge!(invitations_validator.errors)
+    if positions_params
+      positions_validator = Validators::Positions.new(positions_params, order_params.include?('id'), nil)
+      positions_validator.validate
+      errors[:order].merge!(positions_validator.errors)
     else
-      # errors[:order][:invitations] = 'Нужно выбрать персонажа или представление'
+      errors[:order][:positions] = 'Нужно выбрать персонажа или представление'
     end
 
     render json: { errors: ErrorsSerializer.new(errors).serialize }
@@ -51,9 +51,9 @@ class Api::OrdersController < ApplicationController
 
   end
 
-  def invitations_params
-    if params[:order].keys.include?('invitations')
-      params.require(:order).require(:invitations).permit!
+  def positions_params
+    if params[:order].keys.include?('positions')
+      params.require(:order).require(:positions).permit!
     end
   end
 

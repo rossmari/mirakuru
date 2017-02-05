@@ -11,4 +11,22 @@ class Api::PricePositionsController < ApplicationController
                                            :partner_price, :open_price, :exclusive_price)
   end
 
+  def index
+    position =  PricePosition.find_by(minutes: params[:time].to_i, animators_count: 1)
+    data =
+      if position
+        case params[:customer_type].to_i
+          when Customer.customer_types[:partner]
+            {price: position.partner_price, animator_money: position.partner_salary}
+          when Customer.customer_types[:physical]
+            {price: position.open_price, animator_money: position.open_salary}
+          else
+            {price: 0, animator_money: 0}
+        end
+      else
+        {price: 0, animator_money: 0}
+      end
+    render json: data
+  end
+
 end

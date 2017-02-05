@@ -5,3 +5,4 @@
 #= require jquery.maskedinput.min
 #= require price_calculation
 #= require order_validation
+#= require price_list_manager
