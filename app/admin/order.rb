@@ -73,7 +73,7 @@ ActiveAdmin.register Order do
         t("admin.order.statuses.#{record.status}")
       end
       row 'Источник заказа' do |record|
-        t("admin.order.sources.#{record.source}")
+        record.order_source.value
       end
       row :partner_money
       row :additional_expense

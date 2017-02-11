@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     end
     resources :characters_groups
     resources :performances
+    resources :order_sources
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

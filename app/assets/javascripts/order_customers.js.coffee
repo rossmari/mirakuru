@@ -69,12 +69,22 @@ $(document).ready ->
     customers = filterCustomer(customerType)
     updateCustomersSelectorOptions(customers)
 
+  changeSourceFieldVisibility = (customerType) ->
+    # repeat (hide source)
+    if customerType == 0
+      $('.source_template_part').hide()
+    # new customer - show source
+    else if customerType == 1
+      $('.source_template_part').show()
+
+
   # ============= events
   # change customer select mode - new customer fields or existing customer selectors
   $('.customer_switcher').on('click', (event)->
     event.preventDefault()
     updateCustomerInputs($(this))
     updateCustomerModeValue($(this))
+    changeSourceFieldVisibility($(this).data('value'))
   )
   # change customer type - physical or partners
   $('.customer_type_switcher').on('click', (event)->

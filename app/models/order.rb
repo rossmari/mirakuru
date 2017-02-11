@@ -5,6 +5,7 @@ class Order < ActiveRecord::Base
   belongs_to :customer
   belongs_to :performance
   belongs_to :stage
+  belongs_to :order_source
 
   has_many :orders_characters
   accepts_nested_attributes_for :orders_characters, allow_destroy: true

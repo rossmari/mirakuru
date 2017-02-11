@@ -152,13 +152,20 @@
 
     .row.separator
     -# ------------------------------------ ORDER SOURCE
-    .row.header_row
-      .col-md-2
+    .row.header_row.source_template_part
+      .col-md-1
         Источник заказа
-    .row.order_row
+      .col-md-1.action_link
+        = link_to new_admin_order_source_path, target: '_blank', title: 'Добавить источник' do
+          %span.glyphicon.glyphicon-plus
+        = link_to '#', target: '_blank', title: 'Обновить список', class: 'source_updater', data: {name: 'order_sources'} do
+          %span.glyphicon.glyphicon-refresh
+
+    .row.order_row.source_template_part
       .col-md-2
-        = f.select :source, Order.sources.map{|k, _value| [t("admin.order.sources.#{k}"), k]}, {}, class: 'form-control input-sm'
-    .row.separator
+        = f.select :order_source_id, OrderSource.all.map{|r| [r.value, r.id]}, {}, class: 'form-control input-sm',
+          value: @order.order_source_id
+    .row.separator.source_template_part
     -# ------------------------------------ CHILD
     .row.header_row
       .col-md-2.input_header

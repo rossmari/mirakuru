@@ -8,6 +8,9 @@ ru:
           has_many: 'Невозможно удалить запись, так как существуют зависимости: %{record}'
 
     models:
+      order_source:
+        one: 'Источник заказа'
+        other: 'Источники заказа'
       character:
         one: 'Персонаж'
         other: 'Персонажи'
@@ -187,6 +190,8 @@ ru:
         partner: 'Цена партнера'
         open: 'Цена открытая'
         exclusive: 'Цена эксклюзив'
+      order_source:
+        value: 'Значение'
 
   date:
     abbr_day_names:
