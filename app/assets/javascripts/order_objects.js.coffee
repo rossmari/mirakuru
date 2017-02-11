@@ -168,7 +168,7 @@ $(document).ready ->
         '</div>' +
         '<div class="col-md-1">гонорар актера</div>' +
           '<div class="col-md-1 action_link">' +
-            '<a href="#" class="price_by_list" data-input-name="order[positions][' + index + '][animator_money]">по прайсу</a>' +
+            '<input type="checkbox" value="1" name="order[positions][' + index + '][animator_payed]" id="order_animator_payed"> оплачено' +
           '</div>' +
         '<div class="col-md-1">накладные</div>' +
       '</div>' +
@@ -188,14 +188,27 @@ $(document).ready ->
           '</div>' +
           '<div class="error_message"></div>' +
         '</div>' +
+
         '<div class="col-md-2 error_container">' +
-          '<input name="order[positions][' + index + '][price]" value="0" class="form-control input-sm position_price" />' +
+          '<div class="input-group input-group-sm">' +
+            '<input name="order[positions][' + index + '][price]" value="0" class="form-control input-sm position_price" />' +
+            '<span class="input-group-addon" title: "Вставить из прайса" >' +
+              '<span class="glyphicon glyphicon-th-list load_from_price" data-attribute="price" />' +
+            '</span>' +
+          '</div>' +
           '<div class="error_message"></div>' +
         '</div>' +
+
         '<div class="col-md-2 error_container">' +
-          '<input name="order[positions][' + index + '][animator_money]" value="0" class="form-control input-sm position_animator_money" />' +
+          '<div class="input-group input-group-sm">' +
+            '<input name="order[positions][' + index + '][animator_money]" value="0" class="form-control input-sm position_animator_money" />' +
+            '<span class="input-group-addon" title: "Вставить из прайса" >' +
+              '<span class="glyphicon glyphicon-th-list load_from_price" data-attribute="animator_money" />' +
+            '</span>' +
+          '</div>' +
           '<div class="error_message"></div>' +
         '</div>' +
+
         '<div class="col-md-2 error_container">' +
           '<input name="order[positions][' + index + '][overheads]" value="0" class="form-control input-sm position_overheads" />' +
           '<div class="error_message"></div>' +

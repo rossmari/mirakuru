@@ -12,7 +12,7 @@ class CharactersGroup < ActiveRecord::Base
   private
 
   def update_global_store
-    OrderObjects::GlobalStore.update_characters_descriptions
+    Order::Objects::GlobalStore.update_characters_descriptions
   end
 
 end

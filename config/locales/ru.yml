@@ -143,6 +143,10 @@ ru:
         order_calculations_notice: 'Замечание по допнику'
         exclude_additional_expense: 'Партнерские без допника'
         exclude_outcome: 'Допник по прибыли'
+        contact: 'Контакт'
+        child_name: 'Имя ребенка'
+        child_birthday: 'День рождения ребенка'
+        child_notice: 'Примечание (ребенок)'
       invitation:
         status: 'Статус приглашения'
         actor: 'Аниматор'
@@ -455,10 +459,13 @@ ru:
       not_partner: 'Не партнер'
     order:
       statuses:
-        active: 'Активный'
-        success: 'Успешно завершен'
-        rejected_customer: 'Отменено заказчиком'
-        rejected_actor: 'Отменено исполнителем'
+        fresh: 'Новый'
+        assigned: 'Назначен'
+        prepared: 'Отменено заказчиком'
+        processed: 'Отменено исполнителем'
+        canceled_by_customer: 'Отменен заказчиком'
+        canceled_by_owner: 'Отменен испольнителем'
+        failed: 'Провален'
       sources:
         partner: 'Партнер'
         site: 'Сайт'

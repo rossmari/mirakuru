@@ -1,9 +1,9 @@
 $(document).ready ->
 
-  loadPrice = (customerType, time, callback) ->
+  loadPrice = (customerType, time, animatorsCount, callback) ->
     $.ajax
       type: 'GET'
-      url: '/api/price_positions?time=' + time + '&customer_type=' + customerType
+      url: '/api/price_positions?time=' + time + '&customer_type=' + customerType + '&animators_count=' + animatorsCount
       success: (data) ->
         callback(data)
 
@@ -13,7 +13,8 @@ $(document).ready ->
     time = $('#order_performance_duration').prop('value')
     input = $(this).parents('.input-group').find('input')
     attribute = $(this).data('attribute')
-    loadPrice(customerType, time, (priceObject) ->
+    animatorsCount = $('.order_object').length
+    loadPrice(customerType, time, animatorsCount, (priceObject) ->
       input.prop('value', parseFloat(priceObject[attribute]))
     )
   )

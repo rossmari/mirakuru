@@ -12,7 +12,7 @@ class Api::PricePositionsController < ApplicationController
   end
 
   def index
-    position =  PricePosition.find_by(minutes: params[:time].to_i, animators_count: 1)
+    position =  PricePosition.find_by(minutes: params[:time].to_i, animators_count: params[:animators_count])
     data =
       if position
         case params[:customer_type].to_i

@@ -54,6 +54,9 @@ ActiveAdmin.register Order do
       row :customer
       row :contact
       row :stage
+      row :status do |record|
+        t("admin.order.statuses.#{record.status}")
+      end
       row :child_name
       row :child_birthday
       row :child_notice

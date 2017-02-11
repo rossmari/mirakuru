@@ -14,7 +14,7 @@ class Order < ActiveRecord::Base
   has_many :invitations
   has_many :positions
 
-  enum status: [:active, :success, :rejected_customer, :rejected_actor]
+  enum status: [:fresh, :assigned, :prepared, :processed, :canceled_by_customer, :canceled_by_owner, :failed]
   enum source: [:partner, :site, :commercial]
 
   validates :child_name, :child_birthday, :performance_date, :performance_time,
