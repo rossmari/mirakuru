@@ -1,6 +1,6 @@
 ActiveAdmin.register Actor do
 
-  permit_params :name, :contacts, :age, :telegram_key, :phone,
+  permit_params :name, :contacts, :age, :telegram_key, :phone, :social,
                 avatar_attributes: [:id, :file],
                 actors_characters_attributes: [:id, :character_id, :actor_id, :_destroy]
 
@@ -17,9 +17,11 @@ ActiveAdmin.register Actor do
   index do
     column :id
     column :name
+    column :phone
+    column :social
     column 'Аватар' do |record|
       if record.avatar
-        image_tag(record.avatar.file.url(:middle_thumb))
+        image_tag(record.avatar.url(:middle_thumb))
       end
     end
     column :contacts
@@ -27,59 +29,53 @@ ActiveAdmin.register Actor do
       record.characters.map(&:name).join(',')
     end
     column :age
-    column :phone
     column :updated_at
     actions
   end
 
   form do |f|
     f.inputs do
+      f.input :phone
       f.input :name
-      f.input :contacts, :input_html => { :rows => 10, style: 'width:50%'}
-      f.has_many :avatar, new_record: false, allow_destroy: false, heading: false do |b|
-        b.input :file, label: 'Фотография актера-аниматора', hint: photo_hint(b.object)
-      end
-      f.has_many :actors_characters, new_record: true, allow_destroy: true do |c|
-        c.input :character_id, as: :select, collection: Character.all.map{|ch| [ch.name, ch.id]}
-      end
+      f.input :social
+      f.input :contacts, input_html: { rows: 10, style: 'width:50%'}
+      f.input :avatar, as: :file, hint: image_tag(f.object.avatar.url(:thumb))
+      f.input :characters, as: :check_boxes, collection: Character.all, label: 'Персонажи'
       f.input :age
       f.input :telegram_key
-      f.input :phone
     end
     f.actions
   end
 
   controller do
 
-    def new
-      @actor = Actor.new
-      @actor.build_avatar
-    end
-
     def create
+      characters = Character.where(id: actor_params.delete(:character_ids))
       @actor = Actor.new(actor_params)
+      @actor.characters = characters
       if @actor.save
         redirect_to admin_actor_path(@actor)
       else
-        unless @actor.build_avatar
-          if @actor.errors[:avatar]
-            @actor.avatar.errors.add(:file, :blank)
-          end
-        end
         render 'new'
       end
     end
 
-    def edit
+    def update
       @actor = Actor.find(params[:id])
-      unless @actor.avatar
-        @actor.build_avatar
+      characters = Character.where(id: actor_params.delete(:character_ids))
+      @actor.update_attributes(actor_params)
+      @actor.characters = characters
+      if @actor.save
+        redirect_to admin_actor_path(@actor)
+      else
+        render 'new'
       end
     end
 
     def actor_params
-      params.require(:actor).permit(:name, :contacts, :age, :telegram_key, :phone,
-      avatar_attributes: [:id, :file], actors_characters_attributes: [:id, :character_id, :actor_id, :_destroy])
+      params.require(:actor).permit(:name, :contacts, :age, :telegram_key, :phone, :social, :avatar,
+                                    character_ids: [])
+
     end
 
   end
@@ -89,10 +85,11 @@ ActiveAdmin.register Actor do
       row :name
       row :age
       row :phone
+      row :social
       row :contacts
       row :avatar do |record|
         if record.avatar
-          image_tag record.avatar.file.url(:middle_thumb)
+          image_tag record.avatar.url(:thumb)
         end
       end
       row t('admin.characters_list') do |record|
