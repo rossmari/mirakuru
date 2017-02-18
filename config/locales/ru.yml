@@ -119,6 +119,7 @@ ru:
         partner_link: 'Ссылка партнера'
         customer_name: 'Имя (для ссылки, латиница)'
         updated_at: 'Дата обновления'
+        exclusive: 'Эксклюзив'
       order:
         customer: 'Заказчик'
         character: 'Персонаж'

@@ -1,6 +1,6 @@
 ActiveAdmin.register Customer do
 
-  permit_params :customer_type, :name, :company_name, :contact, :notice, :discount,
+  permit_params :customer_type, :name, :company_name, :contact, :notice, :discount, :exclusive,
                 :customer_name, customers_stages_attributes: [:stage_id, :id, :_destroy]
 
   filter :customer_type,
@@ -50,6 +50,7 @@ ActiveAdmin.register Customer do
       f.input :notice
       f.input :discount
       f.input :customer_name
+      f.input :exclusive
       f.has_many :customers_stages, new_record: true, allow_destroy: true do |c|
         c.input :stage_id, as: :select, label: 'Площадки заказчика', collection: Stage.all.map{|ch| [ch.name, ch.id]}
       end
@@ -77,6 +78,7 @@ ActiveAdmin.register Customer do
       row 'Площадка' do |record|
         record.stages.map(&:name).join('<br>').html_safe
       end
+      row :exclusive
       row :partner_link do |record|
         if record.partner?
           url = "#{admin_root_url}/#{record.partner_link}"
