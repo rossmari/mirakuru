@@ -31,7 +31,7 @@
           = Order::Objects::Presenter.object_name(position.owner)
         %td
           = link_to position.character.name, admin_character_path(position.character)
-        %td
+        %td{title: "Позиция номер #{position.id}"}
           = l(position.start, format: '%d %b, %H:%M')
           = ' - '
           = position.stop.strftime('%H:%M')
