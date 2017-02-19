@@ -34,23 +34,46 @@ class ResourcesManager
   end
 
   def actors_invitations
+    statuses = [Invitation.statuses[:assigned], Invitation.statuses[:accepted]]
+    position_ids = Position.where('start > ?', DateTime.now).ids
+
     Actor.all.map do |actor|
-      actor_invitations =
-        Invitation.accepted.where(actor_id: actor.id).select do |invitation|
-          invitation.position.start > DateTime.now
-        end
-      [actor.id, actor_invitations.map{|i| {start: i.position.start, stop: i.position.stop}}]
+      invitations = Invitation.where(actor_id: actor.id, status: statuses, position_id: position_ids)
+      [actor.id, invitations.map{|i| {start: i.position.start, stop: i.position.stop}}]
     end.to_h
   end
 
   def get_characters
+    invitations = characters_invitations
     Character.all.map do |character|
       {
         name: Order::Objects::Presenter.object_name(character),
-        id: character.id
+        id: character.id,
+        invitations: invitations[character.id]
       }
     end
   end
+
+  def characters_invitations
+    positions = Position.where('start > ?', DateTime.now)
+    # complex logic - do we need this ?
+    # positions = positions.select do |position|
+    #   (position.invitations.map(&:status) & %w(assigned accepted)).any?
+    # end
+
+    result = {}
+    positions.each do |position|
+      result[position.character_id] ||= []
+      result[position.character_id] <<
+        {
+          start: position.start.in_time_zone(Time.zone),
+          stop: position.stop.in_time_zone(Time.zone),
+          order_id: position.order_id
+        }
+    end
+    result
+  end
+
 
   def get_stages
     Stage.all.map do |stage|

@@ -37,10 +37,8 @@ class OrderPositionsConstructor
   def update_position(params)
     position = Position.find_by(character_id: params[:character_id], order_id: order_instance.id)
     d = order_instance.performance_date
-    t = Time.parse(params[:start])
-    params[:start] = DateTime.new(d.year, d.month, d.day, t.hour, t.min, t.sec)
-    t = Time.parse(params[:stop])
-    params[:stop] = DateTime.new(d.year, d.month, d.day, t.hour, t.min, t.sec)
+    params[:start] = create_date_time(d, Time.parse(params[:start]))
+    params[:stop] = create_date_time(d, Time.parse(params[:stop]))
     if position
       position.update_attributes(params)
     else
@@ -49,6 +47,12 @@ class OrderPositionsConstructor
       position.save!
     end
     position
+  end
+
+  # create DateTime from Date and Time with
+  # correct Time Zone
+  def create_date_time(d, t)
+    DateTime.new.in_time_zone(Time.zone).change(year: d.year, month: d.month, day: d.day, hour: t.hour, min: t.min, sec: t.sec)
   end
 
   def to_bool(param)

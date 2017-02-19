@@ -35,7 +35,10 @@ class Order::EditManager
                   .select{|p| p.character_id == position.character_id}
                   .reject{|p| p.order_id == order.id}
     positions.each do |occupied_position|
-      if (occupied_position.start - position.stop) * (occupied_position.start - position.stop) >= 0
+      # x - occupied_position
+      # y - position
+      # (x.first - y.end) * (y.first - x.end) >= 0
+      if (occupied_position.start - position.stop) * (position.start - occupied_position.stop) >= 0
         return true
       end
     end

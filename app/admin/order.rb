@@ -15,17 +15,10 @@ ActiveAdmin.register Order do
     column :status do |record|
       t("admin.order.statuses.#{record.status}")
     end
-    column 'Выступление' do |record|
-      description = []
-      if record.characters.any?
-        description << 'Персонажи:'
-        description << record.characters.map(&:name).join('<br>')
-      end
-      if record.performance
-        description << 'Выступление:'
-        description << record.performance.name
-      end
-      description.join('<br>').html_safe
+    column 'Персонажи' do |record|
+      record.positions.map do |position|
+        link_to(position.character.name, admin_character_path(position.character))
+      end.join('<br>').html_safe
     end
     column 'Место' do |record|
       record.stage.name
@@ -55,7 +48,7 @@ ActiveAdmin.register Order do
       row :contact
       row :stage
       row :status do |record|
-        t("admin.order.statuses.#{record.status}")
+        "<b>#{t("admin.order.statuses.#{record.status}")}</b>".html_safe
       end
       row :child_name
       row :child_birthday
@@ -68,9 +61,6 @@ ActiveAdmin.register Order do
       end
       row :performance_duration do |record|
         "#{record.performance_duration} минут"
-      end
-      row :status do |record|
-        t("admin.order.statuses.#{record.status}")
       end
       row 'Источник заказа' do |record|
         record.order_source.value

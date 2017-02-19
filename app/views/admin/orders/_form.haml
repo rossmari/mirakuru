@@ -245,6 +245,9 @@
         =f.select :performance_duration, Duration::AVAILABLE_DURATIONS.map{|i| ["#{i} минут", i]}, {},
           class: 'form-control input-sm', value: @order.performance_duration || 60
 
+      .col-md-3#available_characters_count
+        доступно объектов: Х
+
     .row.header_row
       .col-md-3.input_header
         Добавить персонаж/программу к заказу

@@ -9,6 +9,55 @@ $(document).ready ->
   performanceStart = null
   performanceStop = null
 
+  getOrderId = ->
+    matches = $('form#order_form').prop('action').match(/admin\/orders\/(\d+)/)
+    if matches
+      return matches[1]
+    else
+      return null
+
+  markOccupiedCharacters = ->
+    objectIds = Object.keys(orderObjects)
+    orderId = getOrderId()
+
+    $.each(objectIds, (index, objectId) ->
+      characterIds = orderObjects[objectId].characters
+
+      start = performanceStart.clone().add(-60, 'minutes')
+      stop = performanceStop.clone().add(60, 'minutes')
+
+      $.each(characterIds, (index, characterId) ->
+        invitations = charactersCollection[characterId].invitations
+        if invitations && invitations.length > 0
+          $.map(invitations, (invitation) ->
+            console.log('Process invitation: ' + invitation.order_id)
+            # x - invitation
+            # (x.first - y.end) * (y.first - x.end) >= 0
+            # if we change/edit order - that we should skeep invitations from this order
+
+            if orderId
+              if (moment(invitation.start) - stop) * (start - moment(invitation.stop)) >= 0 && invitation.order_id != parseInt(orderId)
+                orderObjects[objectId]['occupied'] = true
+              else
+                orderObjects[objectId]['occupied'] = false
+            else
+              if (moment(invitation.start) - stop) * (start - moment(invitation.stop)) >= 0
+                orderObjects[objectId]['occupied'] = true
+              else
+                orderObjects[objectId]['occupied'] = false
+          )
+      )
+    )
+    count = 0
+    $.each(objectIds, (index, objectId) ->
+      if !orderObjects[objectId].occupied
+        count = count + 1
+    )
+    synchronizeSelectorsOptions()
+    $('#available_characters_count').text('Доступно объектов: ' + count)
+
+    console.log(orderObjects)
+
   getPerformanceStart = ->
     date = moment($('#order_performance_date').prop('value'), "DD-MM-YYYY")
     time = moment($('#order_performance_time').prop('value'),  'hh:mm')
@@ -21,15 +70,24 @@ $(document).ready ->
     date.add(duration, 'minutes')
     date
 
+  isCharacterOcupied = (character) ->
+    characterStop = moment(character.stop).add(60, 'F')
+    characterStart = moment(character.start).add(-60, 'minutes')
+    (characterStart - performanceStop) * (performanceStart - characterStop) >= 0
+
   isActorCloseToOccupied = (position) ->
     positionStop = moment(position.stop).add(60, 'F')
     positionStart = moment(position.start).add(-60, 'minutes')
-    positionStart < performanceStart && performanceStop < positionStop
+    # x - positionStart / positionStop
+    # y - performanceStart / performanceStop
+    # (x.first - y.end) * (y.first - x.end) >= 0
+    (positionStart - performanceStop) * (performanceStart - positionStop) >= 0
+
 
   isActorOccupied = (position) ->
     positionStop = moment(position.stop)
     positionStart = moment(position.start)
-    positionStart < performanceStart && performanceStop < positionStop
+    (positionStart - performanceStop) * (performanceStart - positionStop) >= 0
 
   prepareActorsCheckBoxes = (characterIndex, characterId) ->
     htmlBlocks = $.map(actorsList, (actor, actorIndex) ->
@@ -279,6 +337,8 @@ $(document).ready ->
       if targetId == 'order_performance_time'
         performanceStart = getPerformanceStart()
         performanceStop = getPerformanceStop()
+
+        markOccupiedCharacters()
     )
 
   startDatePickers = ->
@@ -290,6 +350,8 @@ $(document).ready ->
       if targetId == 'order_performance_date'
         performanceStart = getPerformanceStart()
         performanceStop = getPerformanceStop()
+
+        markOccupiedCharacters()
     )
 
   preloadActors = ->
@@ -299,6 +361,7 @@ $(document).ready ->
   preloadOrderObjects = ->
     objectsSerialized= $('#objects_serialized').prop('value')
     orderObjects = JSON.parse(objectsSerialized)
+    console.log(orderObjects)
 
   preloadCharacters = ->
     charactersSerialized = $('#characters_serialized').prop('value')
@@ -306,6 +369,7 @@ $(document).ready ->
     $.map(characters, (element) ->
       charactersCollection[element.id] = element
     )
+#    console.log(charactersCollection)
 
   loadStage = (element, callback) ->
     stageId = element.prop('value');
@@ -360,7 +424,7 @@ $(document).ready ->
   availableObjects = ->
     objects = []
     $.each(orderObjects, (key, value) ->
-      if orderObjects[key].available
+      if orderObjects[key].available && !orderObjects[key].occupied
         objects.push(value)
     )
     objects
@@ -405,6 +469,14 @@ $(document).ready ->
   setPerformanceStartAndStop = ->
     performanceStart = getPerformanceStart()
     performanceStop = getPerformanceStop()
+
+
+  # for initial state - set all selected values
+  assignSelectedPreviousValues = ->
+    $.each($('.order_object_selector'), (index, element) ->
+      selectorId = $(element).prop('id')
+      selectedValues[selectorId] = $(element).prop('value')
+    )
 
   # ======================= events
   # after we select value in order objects selector
@@ -498,5 +570,17 @@ $(document).ready ->
   startDatePickers()
   activateMasks()
 
-  updateControlButtonsState()
+  # mark previously saved characters as 'not available'
+  $.each($('.order_object_selector'), (index, element) ->
+    objectId = $(element).prop('value')
+    if objectId != ''
+      markSelectedOrderObjects(false, objectId)
+  )
+  synchronizeSelectorsOptions()
+  # first set time params of order
   setPerformanceStartAndStop()
+  # then find which object is occupied for this time
+  markOccupiedCharacters()
+  # ----------------------------------------------------
+  updateControlButtonsState()
+  assignSelectedPreviousValues()
