@@ -43,7 +43,7 @@ class Telegram::Callbacks::CreateInvitation < Telegram::Base::Invitation
       Telegram::Bot::Types::InlineKeyboardButton.new(
         {
           text: 'К заявкам',
-          callback_data: {processor: 'free_invitations'}.to_json
+          callback_data: {processor: 'invited_invitations'}.to_json
         }
       )
     ]

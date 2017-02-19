@@ -2,7 +2,7 @@ class Position < ActiveRecord::Base
 
   belongs_to :order
   belongs_to :character
-  has_many :invitations
+  has_many :invitations, dependent: :destroy
 
   validates :start, :stop, :price, :animator_money, :overheads, presence: true
 

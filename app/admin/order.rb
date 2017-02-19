@@ -46,7 +46,7 @@ ActiveAdmin.register Order do
   form partial: 'form'
 
   action_item :view, only: :show do
-    link_to 'Отправить всем', '#'
+    link_to 'Отправить всем', sent_to_all_admin_invitation_path
   end
 
   show do |order|

@@ -493,6 +493,7 @@ ru:
         assign: 'Назначить актера'
         close: 'Закрыть'
         refuse: 'Отказаться'
+        open: 'Открыть'
 
     invitation_event:
       event_types:

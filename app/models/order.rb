@@ -12,8 +12,8 @@ class Order < ActiveRecord::Base
 
   has_many :characters, through: :orders_characters
 
-  has_many :invitations
-  has_many :positions
+  has_many :invitations, dependent: :destroy
+  has_many :positions, dependent: :destroy
 
   enum status: [:fresh, :assigned, :prepared, :processed, :canceled_by_customer, :canceled_by_owner, :failed]
   enum source: [:partner, :site, :commercial]

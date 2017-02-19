@@ -1,16 +1,6 @@
-class Telegram::AdminSender::Invitation < Telegram::Base::Invitation
-
-  def initialize(invitation)
-    @invitation = invitation
-    @position = invitation.position
-    @order = position.order
-  end
+class Telegram::Callbacks::RejectedInvitation < Telegram::Base::Invitation
 
   private
-
-  def header
-    ['- Новый заказ - '] + invitation_description
-  end
 
   def buttons
     [
@@ -22,14 +12,14 @@ class Telegram::AdminSender::Invitation < Telegram::Base::Invitation
       ),
       Telegram::Bot::Types::InlineKeyboardButton.new(
         {
-          text: 'Отказаться',
-          callback_data: {processor: 'refuse_invitation', data: {id: invitation.id}}.to_json
+          text: 'Назад',
+          callback_data: {processor: 'rejected_invitations'}.to_json
         }
       ),
       Telegram::Bot::Types::InlineKeyboardButton.new(
         {
           text: 'Главное меню',
-          callback_data: {processor: 'start' }.to_json
+          callback_data: {processor: 'start'}.to_json
         }
       )
     ]

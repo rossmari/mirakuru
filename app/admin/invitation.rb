@@ -37,9 +37,12 @@ ActiveAdmin.register Invitation do
   end
 
   member_action :sent_to_all, method: :get do
-    # TODO : add implementation
-    # sent to all actors in this order
-    # move this to order ???
+    order = Order.find(params[:id])
+    invitations = order.positions.map(&:invitations).flatten
+    invitations.select{|i| i.status == 'empty'}.each{|r| r.fire_events!(:sent_invitation)}
+    invitations.select{|i| i.status == 'sent'}.each{|r| r.fire_events!(:sent_again)}
+    flash[:notice] = 'Приглашения отправлены'
+    redirect_to admin_order_path(order)
   end
 
   member_action :fire_event, method: :get do
@@ -47,7 +50,8 @@ ActiveAdmin.register Invitation do
     event = params[:event_name]
     invitation.fire_events!(event)
 
-    invitations = Invitation.where(position_id: invitation.position_id)
+    position_ids = Position.where(order_id: invitation.position.order_id).ids
+    invitations = Invitation.where(position_id: position_ids)
     invitations =
       invitations.map do |i|
         {
