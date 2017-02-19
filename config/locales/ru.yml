@@ -1,4 +1,9 @@
 ru:
+  active_admin:
+    filters:
+      predicates:
+        eq: 'Равно'
+
   activerecord:
     errors:
       messages:
