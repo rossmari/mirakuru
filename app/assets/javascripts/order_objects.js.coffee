@@ -9,6 +9,16 @@ $(document).ready ->
   performanceStart = null
   performanceStop = null
 
+  removeOccupiedSelectedObjects = ->
+    # Bad way , need to update some how (soft udpdate)
+#    $.each($('.order_object_selector'), (index, element) ->
+#      objectKey = $(element).prop('value')
+#      orderObject = orderObjects[objectKey]
+#      if orderObject && orderObject.occupied
+#        removeBtn = $(element).parents('.order_object_container').find('.remove_order_object')
+#        removeBtn.trigger('click')
+#    )
+
   getOrderId = ->
     matches = $('form#order_form').prop('action').match(/admin\/orders\/(\d+)/)
     if matches
@@ -30,7 +40,6 @@ $(document).ready ->
         invitations = charactersCollection[characterId].invitations
         if invitations && invitations.length > 0
           $.map(invitations, (invitation) ->
-            console.log('Process invitation: ' + invitation.order_id)
             # x - invitation
             # (x.first - y.end) * (y.first - x.end) >= 0
             # if we change/edit order - that we should skeep invitations from this order
@@ -54,9 +63,8 @@ $(document).ready ->
         count = count + 1
     )
     synchronizeSelectorsOptions()
+    removeOccupiedSelectedObjects()
     $('#available_characters_count').text('Доступно объектов: ' + count)
-
-    console.log(orderObjects)
 
   getPerformanceStart = ->
     date = moment($('#order_performance_date').prop('value'), "DD-MM-YYYY")
@@ -328,6 +336,12 @@ $(document).ready ->
     deleteButtons = visibleContainers().find('.remove_order_object')
     deleteButtons.last().hide()
 
+  hideAllDeleteButtons = ->
+    deleteButtons = visibleContainers().find('.remove_order_object')
+    $.each(deleteButtons, (index, button) ->
+      $(button).hide()
+    )
+
   startTimePickers = ->
     $('.time_picker').datetimepicker({
       locale: 'ru',
@@ -361,7 +375,6 @@ $(document).ready ->
   preloadOrderObjects = ->
     objectsSerialized= $('#objects_serialized').prop('value')
     orderObjects = JSON.parse(objectsSerialized)
-    console.log(orderObjects)
 
   preloadCharacters = ->
     charactersSerialized = $('#characters_serialized').prop('value')
@@ -369,7 +382,6 @@ $(document).ready ->
     $.map(characters, (element) ->
       charactersCollection[element.id] = element
     )
-#    console.log(charactersCollection)
 
   loadStage = (element, callback) ->
     stageId = element.prop('value');
@@ -394,8 +406,8 @@ $(document).ready ->
 
   markSelectedOrderObjects = (value, objectId) ->
     characters = orderObjects[objectId].characters
-    $.each(characters, (index, character) ->
-      $.each(orderObjects, (index, orderObject) ->
+    $.map(characters, (character) ->
+      $.map(orderObjects, (orderObject) ->
         if $.inArray(character, orderObject.characters) > -1
           orderObjects[orderObject.id].available = value
       )
@@ -429,36 +441,38 @@ $(document).ready ->
     )
     objects
 
+  # all order object container , not hidden
   visibleContainers = ->
     $('.order_object_container:visible')
 
-  availableSelectBoxes = ->
+  totalSelectBoxesCount = ->
+    selectors = visibleContainers().find('.order_object_selector')
+    selectors.length
+
+  emptySelectBoxesCount = ->
     selectors = visibleContainers().find('.order_object_selector')
     $.grep(selectors, (element, index) ->
       $(element).prop('value') == ""
     ).length
 
   updateControlButtonsState = ->
-    availbleObjCount = availableObjectsCount()
-    availableSelectors = availableSelectBoxes()
+    totalBoxesCount = totalSelectBoxesCount()
+    emptyBoxesCount = emptySelectBoxesCount()
+    objectsCount = availableObjectsCount()
+    console.log('Available objects count: ' + objectsCount + ' empty selectors: ' + emptyBoxesCount + ' total boxes: ' + totalBoxesCount)
 
-    if availbleObjCount > 1
+    if totalBoxesCount > 1
+      # have more than 1 selector existing
+      # this mean we can remove any of them safely
       showAllDeleteButtons()
-      hideAllAddButtons()
-      showLastAddButton()
-    else if availbleObjCount == 1 and availableSelectors == 1
-      showAllDeleteButtons()
-      hideAllAddButtons()
-    else if availbleObjCount == 1 and availableSelectors == 0
-      showAllDeleteButtons()
-      # hideLastDeleteButton();
-      hideAllAddButtons()
-      showLastAddButton()
     else
-      hideAllAddButtons()
-      showAllDeleteButtons()
-    if availableSelectors == 1
-      hideLastDeleteButton()
+      # have 0 or 1 selector existing
+      # this means we CANT remove this last selector
+      hideAllDeleteButtons()
+
+    hideAllAddButtons()
+    if emptyBoxesCount < objectsCount
+      showLastAddButton()
 
   activateMasks = ->
     $("#contact_value").mask("+7 (999) 999 99 99");
@@ -559,6 +573,10 @@ $(document).ready ->
   # change start, stop when duration is changed
   $('#order_performance_duration').on('change', (event) ->
     setPerformanceStartAndStop()
+  )
+
+  $('#order_performance_duration').on('change', (event) ->
+    markOccupiedCharacters()
   )
 
   # ======================= Initial State
