@@ -166,6 +166,14 @@
         = f.select :order_source_id, OrderSource.all.map{|r| [r.value, r.id]}, {}, class: 'form-control input-sm',
           value: @order.order_source_id
     .row.separator.source_template_part
+    -# ------------------------------------ ORDER STATUS
+    .row.header_row.source_template_part
+      .col-md-1
+        Статус заказа
+
+    .row.order_row
+      .col-md-2
+        = f.select :status, Order.statuses.map{|k, v| [t("admin.order.statuses.#{k}"), k]}, {}, class: 'form-control input-sm'
     -# ------------------------------------ CHILD
     .row.header_row
       .col-md-2.input_header

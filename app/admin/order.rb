@@ -83,6 +83,7 @@ ActiveAdmin.register Order do
       @resource_manager = ResourcesManager.new
       @manager = Order::NewManager.new
       @order = @manager.order
+      @actor_manager = Order::ActorsManager.new(@order)
     end
 
     def edit
@@ -90,6 +91,7 @@ ActiveAdmin.register Order do
       @manager = Order::EditManager.new(params)
       @manager.prepare_params
       @order = @manager.order
+      @actor_manager = Order::ActorsManager.new(@order)
     end
 
     def create

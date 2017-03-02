@@ -474,7 +474,7 @@ ru:
         fresh: 'Новый'
         assigned: 'Назначен'
         prepared: 'Отменено заказчиком'
-        processed: 'Отменено исполнителем'
+        done: 'Отработан'
         canceled_by_customer: 'Отменен заказчиком'
         canceled_by_owner: 'Отменен испольнителем'
         failed: 'Провален'

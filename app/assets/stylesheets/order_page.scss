@@ -86,6 +86,31 @@ form input[type=text] {
   font-size: 14pt;
   color: green;
   font-weight: bold;
+  width: auto;
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.order_object .sub_header {
+  font-size: 14pt;
+  color: #58ad4e;
+  line-height: 25px;
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.order_object .sub_header.first {
+  border: 0px solid #cfcbcb;
+  border-right-width: 3px;
+  padding-right: 15px;
+}
+
+.order_object .sub_header span {
+  vertical-align: middle;
+}
+
+.order_object .sub_header.occupied {
+  color: red;
 }
 
 .row.separator {

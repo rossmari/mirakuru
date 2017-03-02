@@ -9,15 +9,19 @@ $(document).ready ->
   performanceStart = null
   performanceStop = null
 
-  removeOccupiedSelectedObjects = ->
+  markOccupiedCostumes = ->
     # Bad way , need to update some how (soft udpdate)
-#    $.each($('.order_object_selector'), (index, element) ->
-#      objectKey = $(element).prop('value')
-#      orderObject = orderObjects[objectKey]
-#      if orderObject && orderObject.occupied
-#        removeBtn = $(element).parents('.order_object_container').find('.remove_order_object')
-#        removeBtn.trigger('click')
-#    )
+    $.each($('.order_object_selector'), (index, element) ->
+      objectKey = $(element).prop('value')
+      orderObject = orderObjects[objectKey]
+      container = getObjectContainer(objectKey)
+      if orderObject && orderObject.occupied
+        container.find('.costume_occupation').addClass('occupied')
+        container.find('.costume_occupation').find('.glyphicon').attr('class', 'glyphicon glyphicon-remove-circle')
+      else
+        container.find('.costume_occupation').removeClass('occupied')
+        container.find('.costume_occupation').find('.glyphicon').attr('class', 'glyphicon glyphicon-ok-sign')
+    )
 
   getOrderId = ->
     matches = $('form#order_form').prop('action').match(/admin\/orders\/(\d+)/)
@@ -33,8 +37,8 @@ $(document).ready ->
     $.each(objectIds, (index, objectId) ->
       characterIds = orderObjects[objectId].characters
 
-      start = performanceStart.clone().add(-60, 'minutes')
-      stop = performanceStop.clone().add(60, 'minutes')
+      start = getObjectStart(objectId).add(-60, 'minutes')
+      stop  = getObjectStop(objectId).add(60, 'minutes')
 
       $.each(characterIds, (index, characterId) ->
         invitations = charactersCollection[characterId].invitations
@@ -63,19 +67,40 @@ $(document).ready ->
         count = count + 1
     )
     synchronizeSelectorsOptions()
-    removeOccupiedSelectedObjects()
+    markOccupiedCostumes()
     $('#available_characters_count').text('Доступно объектов: ' + count)
 
+  #
+  # get order object start time if its selected
+  getObjectStart = (objectId) ->
+    startTime = moment(getObjectInputs(objectId).first().prop('value'), 'hh:mm')
+    addPerformanceDateToTime(startTime )
+
+  #
+  # get order object stop time if its selected
+  getObjectStop = (objectId) ->
+    stopTime = moment(getObjectInputs(objectId).last().prop('value'), 'hh:mm')
+    addPerformanceDateToTime(stopTime)
+
+  getObjectInputs = (objectId) ->
+    getObjectContainer(objectId).find('.time_picker').find('input')
+
+  getObjectContainer = (objectId) ->
+    $('.order_object_selector [value="' + objectId + '"]').parents('.order_object_container')
+
   getPerformanceStart = ->
-    date = moment($('#order_performance_date').prop('value'), "DD-MM-YYYY")
     time = moment($('#order_performance_time').prop('value'),  'hh:mm')
-    date.set({hours: time.hour(), minutes: time.minute()})
-    date
+    addPerformanceDateToTime(time)
 
   getPerformanceStop = ->
     duration = $('#order_performance_duration').val()
     date = getPerformanceStart()
     date.add(duration, 'minutes')
+    date
+
+  addPerformanceDateToTime = (time) ->
+    date = moment($('#order_performance_date').prop('value'), "DD-MM-YYYY")
+    date.set({hours: time.hour(), minutes: time.minute()})
     date
 
   isCharacterOcupied = (character) ->
@@ -128,7 +153,7 @@ $(document).ready ->
     rows = ''
     while(htmlBlocks.length > 0)
       row =
-        '<div class="row order_row">' +
+        '<div class="row order_row actor_row">' +
           htmlBlocks.splice(0, 3).join(' ') +
         '</div>'
       rows = rows + row
@@ -139,13 +164,13 @@ $(document).ready ->
     selectorIdCounter = selectorIdCounter + 1
     $(objectSelectTemplate(selectorIdCounter)).insertAfter($(container).closest('.order_object_container'))
 
-  copyStartTime = (element) ->
-    inputName = element.data('inputName')
-    $('input[name="' + inputName + '"]').prop('value', performanceStart.format('LT'))
+  copyStartTime = (input) ->
+    $(input).prop('value', performanceStart.format('LT'))
+    $(input).trigger('dp.change')
 
-  copyStopTime = (element) ->
-    inputName = element.data('inputName')
-    $('input[name="' + inputName + '"]').prop('value', performanceStop.format('LT'))
+  copyStopTime = (input) ->
+    $(input).prop('value', performanceStop.format('LT'))
+    $(input).trigger('dp.change')
 
   objectSelectTemplate = (selectorIndex) ->
 
@@ -215,18 +240,28 @@ $(document).ready ->
 
     '<div data-object-id=' + character.id + '" class="' + cssClass + '">' +
       '<div class="row">' +
-        '<div class="col-md-3 header">' +
+        '<div class="special_head_row header">' +
           characterName +
+        '</div>' +
+        '<div class="sub_header first costume_occupation">' +
+          '<span>костюм </span>' +
+          '<span class="glyphicon glyphicon-ok-sign" />' +
+        '</div>' +
+        '<div class="sub_header actor_occupation">' +
+          '<span>аниматор </span>' +
+          '<span class="glyphicon glyphicon-ok-sign" />' +
         '</div>' +
       '</div>' +
       '<div class="row header_row">' +
         '<div class="col-md-1">время начала</div>' +
         '<div class="col-md-1 action_link">' +
-          '<a href="#" class="start_as_in_order" data-input-name="order[positions][' + index + '][start]">как в заказе</a>' +
+          '<input type="checkbox" value="1" name="order[positions][' + index + '][fixed_start]" class="fixed_position_start"> ' +
+          '<span>как в заказе</span>' +
         '</div>' +
         '<div class="col-md-1">время окончания</div>' +
         '<div class="col-md-1 action_link">' +
-          '<a href="#" class="stop_as_in_order" data-input-name="order[positions][' + index + '][stop]">как в заказе</a>' +
+          '<input type="checkbox" value="1" name="order[positions][' + index + '][fixed_stop]" class="fixed_position_stop"> ' +
+          '<span>как в заказе</span>' +
         '</div>' +
         '<div class="col-md-1">стоймость</div>' +
           '<div class="col-md-1 action_link">' +
@@ -242,14 +277,14 @@ $(document).ready ->
       '<div class="row order_row">' +
         '<div class="col-md-2 error_container">' +
           '<div class="input-group date time_picker">' +
-            '<input name="order[positions][' + index + '][start]" class="form-control input-sm" value="' + moment(performanceStart).format('LT') + '"/>' +
+            '<input name="order[positions][' + index + '][start]" class="form-control input-sm position_start_time" value="' + moment(performanceStart).format('LT') + '"/>' +
             '<span class="input-group-addon"><span class="glyphicon glyphicon-time" /></span>' +
           '</div>' +
           '<div class="error_message"></div>' +
         '</div>' +
         '<div class="col-md-2 error_container">' +
           '<div class="input-group date time_picker">' +
-            '<input name="order[positions][' + index + '][stop]" class="form-control input-sm" value="' + moment(performanceStop).format('LT') + '"/>' +
+            '<input name="order[positions][' + index + '][stop]" class="form-control input-sm position_stop_time" value="' + moment(performanceStop).format('LT') + '"/>' +
             '<span class="input-group-addon"><span class="glyphicon glyphicon-time" /></span>' +
           '</div>' +
           '<div class="error_message"></div>' +
@@ -306,10 +341,8 @@ $(document).ready ->
           '<div class="error_message actors_error" />' +
         '</div>' +
       '</div>' +
-      '<div class="row order_row">' +
-        actorsCheckBoxes +
-      '</div>' +
-      '<input name="order[positions][' + index + '][character_id]" class="form-control input-sm" type="hidden" value="' + character.id + '">' +
+      actorsCheckBoxes +
+      '<input name="order[positions][' + index + '][character_id]" class="form-control input-sm character_id_hidden" type="hidden" value="' + character.id + '">' +
       '<input name="order[positions][' + index + '][owner_class]" class="form-control input-sm" type="hidden" value="' + ownerClass + '">' +
       '<input name="order[positions][' + index + '][owner_id]" class="form-control input-sm" type="hidden" value="' + ownerId + '">' +
       '<div class="row separator"></div>' +
@@ -348,11 +381,12 @@ $(document).ready ->
       format: 'LT'
     }).on('dp.change', (event) ->
       targetId = $(event.currentTarget).find('input').prop('id')
+      # update performance start if this is exact input with ID
       if targetId == 'order_performance_time'
-        performanceStart = getPerformanceStart()
-        performanceStop = getPerformanceStop()
-
-        markOccupiedCharacters()
+        setPerformanceStartAndStop()
+        updateFixedPositionTimes(performanceStart, performanceStop)
+      # -----------------------
+      markOccupiedCharacters()
     )
 
   startDatePickers = ->
@@ -361,11 +395,12 @@ $(document).ready ->
       format: 'DD.MM.YYYY'
     }).on('dp.change', (event) ->
       targetId = $(event.currentTarget).find('input').prop('id')
+      # update performance date if this is exact input with ID
       if targetId == 'order_performance_date'
-        performanceStart = getPerformanceStart()
-        performanceStop = getPerformanceStop()
-
-        markOccupiedCharacters()
+        setPerformanceStartAndStop()
+        updateFixedPositionTimes(performanceStart, performanceStop)
+      # -----------------------
+      markOccupiedCharacters()
     )
 
   preloadActors = ->
@@ -484,7 +519,6 @@ $(document).ready ->
     performanceStart = getPerformanceStart()
     performanceStop = getPerformanceStop()
 
-
   # for initial state - set all selected values
   assignSelectedPreviousValues = ->
     $.each($('.order_object_selector'), (index, element) ->
@@ -492,6 +526,30 @@ $(document).ready ->
       selectedValues[selectorId] = $(element).prop('value')
     )
 
+  checkFixedPositonTimes = ->
+    $.each($('.fixed_position_start'), (index, element) ->
+      if $(element).prop('checked')
+        $(element).parents('.order_object').find('.position_start_time').attr('readonly', true)
+    )
+    $.each($('.fixed_position_stop'), (index, element) ->
+      if $(element).prop('checked')
+        $(element).parents('.order_object').find('.position_stop_time').attr('readonly', true)
+    )
+
+  #
+  # After we change main performance time - all positions with fixed time should be changed
+  #
+  updateFixedPositionTimes = (start, stop) ->
+    $.each($('.fixed_position_start'), (index, element) ->
+      if $(element).prop('checked')
+        input = $(element).parents('.order_object').find('.position_start_time')
+        copyStartTime(input)
+    )
+    $.each($('.fixed_position_stop'), (index, element) ->
+      if $(element).prop('checked')
+        input = $(element).parents('.order_object').find('.position_stop_time')
+        copyStopTime(input)
+  )
   # ======================= events
   # after we select value in order objects selector
   $(document).on 'change', '.order_object_selector', (event) ->
@@ -521,16 +579,6 @@ $(document).ready ->
     updateControlButtonsState()
     synchronizeSelectorsOptions()
 
-  # copy Start and Stop time from global picker to characters pickers
-  $(document).on('click', '.start_as_in_order', (event) ->
-    event.preventDefault();
-    copyStartTime($(this))
-  )
-  # copy Start and Stop time from global picker to characters pickers
-  $(document).on('click', '.stop_as_in_order', (event) ->
-    event.preventDefault();
-    copyStopTime($(this))
-  )
   # set duration from pre defined templates
   $('.fast_duration').on('click', (event) ->
     event.preventDefault();
@@ -573,12 +621,25 @@ $(document).ready ->
   # change start, stop when duration is changed
   $('#order_performance_duration').on('change', (event) ->
     setPerformanceStartAndStop()
-  )
-
-  $('#order_performance_duration').on('change', (event) ->
+    updateFixedPositionTimes(performanceStart, performanceStop)
     markOccupiedCharacters()
   )
 
+  #
+  # when we check "Time as in order" - change time in input and set read only
+  $(document).on('change', '.fixed_position_stop', (event) ->
+    input =  $(this).parents('.order_object').find('.position_stop_time')
+    if $(this).prop('checked')
+      copyStopTime(input)
+    input.prop('readonly', $(this).prop('checked'))
+  )
+
+  $(document).on('change', '.fixed_position_start', (event) ->
+    input =  $(this).parents('.order_object').find('.position_start_time')
+    if $(this).prop('checked')
+      copyStartTime(input)
+    input.prop('readonly', $(this).prop('checked'))
+  )
   # ======================= Initial State
   preloadOrderObjects()
   activateSearchSelectors()
@@ -602,3 +663,5 @@ $(document).ready ->
   # ----------------------------------------------------
   updateControlButtonsState()
   assignSelectedPreviousValues()
+
+  checkFixedPositonTimes()

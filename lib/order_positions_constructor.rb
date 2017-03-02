@@ -16,9 +16,12 @@ class OrderPositionsConstructor
   def create_positions
     return unless params.present?
 
+
     params.each do |_key, position_params|
+      close_unselected_invitations(position_params)
       actors = position_params.delete(:actors) || []
       position = update_position(position_params)
+
       actors.each do |actor_id, params|
         next unless to_bool(params['checked'])
 
@@ -34,11 +37,24 @@ class OrderPositionsConstructor
     end
   end
 
+  def close_unselected_invitations(params)
+    position = Position.find_by(character_id: params[:character_id], order_id: order_instance.id)
+    selected_actor_ids = params[:actors].select{|_key, data| to_bool(data[:checked])}.keys
+    invitations = Invitation.where(position_id: position.id).where.not(actor_id: selected_actor_ids)
+    invitations.each do |i|
+      i.fire_events!(:close) if i.status != 'closed'
+    end
+  end
+
   def update_position(params)
     position = Position.find_by(character_id: params[:character_id], order_id: order_instance.id)
     d = order_instance.performance_date
     params[:start] = create_date_time(d, Time.parse(params[:start]))
     params[:stop] = create_date_time(d, Time.parse(params[:stop]))
+    params[:fixed_start] = to_bool(params[:fixed_start])
+    params[:fixed_stop] = to_bool(params[:fixed_stop])
+    params[:payed] = to_bool(params[:payed])
+    params[:animator_payed] = to_bool(params[:animator_payed])
     if position
       position.update_attributes(params)
     else

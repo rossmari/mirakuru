@@ -7,3 +7,4 @@
 #= require order_validation
 #= require price_list_manager
 #= require order_source
+#= require order_actors

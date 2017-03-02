@@ -25,7 +25,11 @@ Rails.application.routes.draw do
         get :check
       end
     end
-    resources :actors
+    resources :actors do
+      collection do
+        post :time_table
+      end
+    end
     resources :price_positions
     resources :costume_price_positions
     resources :orders do

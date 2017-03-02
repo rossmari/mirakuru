@@ -15,7 +15,6 @@ class Order < ActiveRecord::Base
   has_many :invitations, dependent: :destroy
   has_many :positions, dependent: :destroy
 
-  enum status: [:fresh, :assigned, :prepared, :processed, :canceled_by_customer, :canceled_by_owner, :failed]
   enum source: [:partner, :site, :commercial]
 
   validates :child_name, :child_birthday, :performance_date, :performance_time,
@@ -24,6 +23,8 @@ class Order < ActiveRecord::Base
   belongs_to :contact
 
   after_commit :generate_invitations
+
+  enum status: [:fresh, :assigned, :prepared, :done, :canceled_by_customer, :canceled_by_owner, :failed]
 
   private
 
