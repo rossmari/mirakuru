@@ -23,12 +23,9 @@ ActiveAdmin.register Customer do
         link_to(contact.description, admin_contact_path(contact))
       end.join('<br>').html_safe
     end
-    # column :discount do |record|
-    #   "#{record.discount} %"
-    # end
     column :partner_link do |record|
       if record.partner?
-        url = "#{admin_root_url}/#{record.partner_link}"
+        url = "#{new_order_url}?partner_key=#{record.partner_link}"
         link_to(url, url)
       else
         t('admin.customer.not_partner')
@@ -49,7 +46,7 @@ ActiveAdmin.register Customer do
       # f.input :contact
       f.input :notice
       f.input :discount
-      f.input :customer_name
+      # f.input :customer_name
       f.input :exclusive
       f.has_many :customers_stages, new_record: true, allow_destroy: true do |c|
         c.input :stage_id, as: :select, label: 'Площадки заказчика', collection: Stage.all.map{|ch| [ch.name, ch.id]}
@@ -81,7 +78,7 @@ ActiveAdmin.register Customer do
       row :exclusive
       row :partner_link do |record|
         if record.partner?
-          url = "#{admin_root_url}/#{record.partner_link}"
+          url = "#{new_order_url}?partner_key=#{record.partner_link}"
           link_to(url, url)
         else
           t('admin.customer.not_partner')
