@@ -15,13 +15,13 @@ class Telegram::Messages::Start
           Telegram::Bot::Types::InlineKeyboardButton.new(
             {
               text: 'Заявки',
-              callback_data: { processor: 'free_invitations' }.to_json
+              callback_data: { processor: 'invited_invitations' }.to_json
             },
           ),
           Telegram::Bot::Types::InlineKeyboardButton.new(
             {
               text: 'Отказы, актуальные',
-              callback_data: { processor: 'zzz' }.to_json
+              callback_data: { processor: 'rejected_invitations' }.to_json
             },
           )
         ]
