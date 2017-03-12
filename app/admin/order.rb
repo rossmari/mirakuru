@@ -63,7 +63,9 @@ ActiveAdmin.register Order do
         "#{record.performance_duration} минут"
       end
       row 'Источник заказа' do |record|
-        record.order_source.value
+        if record.order_source
+          record.order_source.value
+        end
       end
       row :partner_money
       row :additional_expense

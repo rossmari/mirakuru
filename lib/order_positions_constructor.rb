@@ -39,6 +39,7 @@ class OrderPositionsConstructor
 
   def close_unselected_invitations(params)
     position = Position.find_by(character_id: params[:character_id], order_id: order_instance.id)
+    return unless position
     selected_actor_ids = params[:actors].select{|_key, data| to_bool(data[:checked])}.keys
     invitations = Invitation.where(position_id: position.id).where.not(actor_id: selected_actor_ids)
     invitations.each do |i|
