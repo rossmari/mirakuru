@@ -15,7 +15,7 @@ class Validators::Positions
 
     params.each do |key, position_params|
       actors = position_params.delete(:actors)
-      unless actors
+      if actors.select{ |_id, data| data[:checked] == '1' }.empty?
         @errors[:positions][key] = {}
         @errors[:positions][key][:actors] = 'Необходимо выбрать актеров'
       end
