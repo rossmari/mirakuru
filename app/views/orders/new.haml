@@ -5,6 +5,14 @@
       = "#{@partner.name}."
       Выбор анимационной программы
 
+  %div{class: 'row header_row', style: 'display:none;', id: 'order_block'}
+    .row.title_row
+      .col-md-6
+        Ваш заказ:
+    .row
+      .col-md-6
+        %button.btn.btn-sm.btn-primary.add_to_order
+          Оформить заказ
   .row.header_row
     .col-md-7
       Выберите дату и время для бронирования

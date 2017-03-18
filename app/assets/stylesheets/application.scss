@@ -41,6 +41,16 @@
   padding-top: 5px;
 }
 
+.order_row {
+  font-size: 14pt;
+  color: #8f8b8b;
+}
+
+.order_row .glyphicon-remove {
+  color: red;
+  padding-left: 5px;
+}
+
 .top_header {
   padding-top: 20px;
   font-size: 18pt;
@@ -73,6 +83,7 @@
 .performance_container {
   padding: 10px 5px 5px 5px;
   border: 1px solid #c2bebe;
+  margin-bottom: 25px;
 }
 
 .performance_container .image {
@@ -118,4 +129,9 @@
   border-bottom-width: 2px;
   padding-top: 10px;
   margin-bottom: 15px;
+}
+
+.errors {
+  font-style: italic;
+  color: red;
 }

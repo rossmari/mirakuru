@@ -11,6 +11,8 @@ $(document).ready ->
 
   performanceDate = null
 
+  orderInfo = {}
+
   minutesToHours = {
     '15': 1,
     '30': 1,
@@ -154,6 +156,7 @@ $(document).ready ->
     }).on('dp.change', (event) ->
       performanceDate = event.date.format()
       updateOccupationTime()
+      clearOrder()
     )
 
   selectHour = (duration, hour, collection, subCollection) ->
@@ -216,6 +219,86 @@ $(document).ready ->
       subCollection[hour] = false
       hour = hour + 1
 
+  validateCharactersHours = (characterIds) ->
+    valid = false
+    $.each(characterIds, (index, characterId) ->
+      characterHours = charactersHoursBlocks[characterId]
+      $.each(Object.keys(characterHours), (index, hourKey) ->
+        if characterHours[hourKey].selected
+          valid = true
+      )
+    )
+    valid
+
+  clearOrder = ->
+    orderInfo = {}
+    $('.order_row').remove()
+
+  addToOrder = ( characterIds ) ->
+    orderInfo = {}
+    $.each(characterIds, (index, characterId) ->
+      orderInfo[characterId] = { hours: {} }
+      characterHours = charactersHoursBlocks[characterId]
+      $.each(Object.keys(characterHours), (index, hourKey) ->
+        if characterHours[hourKey].selected || charactersSubHoursBlocks[hourKey]
+          orderInfo[characterId].hours[hourKey] = true
+      )
+      orderInfo[characterId]['name'] = $('.character_' + characterId).find('.name').text()
+      orderInfo[characterId]['timeRange'] = characterHoursStartStop(characterId)
+      orderInfo[characterId]['hoursCount'] = orderInfo[characterId].timeRange.stop - orderInfo[characterId].timeRange.start
+      console.log(orderInfo[characterId])
+    )
+
+    redrawOrderInfo()
+
+  redrawOrderInfo = ->
+    $('.order_row').remove()
+    if Object.keys(orderInfo).length > 0
+      $('#order_block').show()
+    else
+      $('#order_block').hide()
+
+    $.each(Object.keys(orderInfo), (index, characterId) ->
+      htmlBlock = '<div class="row order_row"><div class="col-md-6">' +
+        orderInfo[characterId].name +
+        ' - ' +
+        orderInfo[characterId].hoursCount +
+        ' часа, c ' +
+        orderInfo[characterId].timeRange.start +
+        ' до ' +
+        orderInfo[characterId].timeRange.stop +
+        '<a href="#"><span class="glyphicon glyphicon-remove"></span></a>'
+      $('#order_block').find('.title_row').after(htmlBlock)
+    )
+
+  characterHoursStartStop = (characterId) ->
+    ranges = {}
+    rangeIndex = 0
+    characterHours = charactersHoursBlocks[characterId]
+    characterSubHours = charactersSubHoursBlocks[characterId]
+
+    $.each(Object.keys(characterHours), (index, hourKey) ->
+      if characterHours[hourKey].selected || characterSubHours[hourKey]
+        if ranges[rangeIndex] == undefined
+          ranges[rangeIndex] = { start: parseInt(hourKey), stop: null }
+        if hourKey == '23'
+          ranges[rangeIndex].stop = 24
+      else
+        if ranges[rangeIndex] != undefined
+          ranges[rangeIndex].stop = parseInt(hourKey)
+          rangeIndex = rangeIndex + 1
+    )
+
+    maxRangeSize = 0
+    maxKey = null
+    $.each(Object.keys(ranges), (index, key) ->
+      rangeSize = ranges[key].stop - ranges[key].start
+      if rangeSize > maxRangeSize
+        maxRangeSize = rangeSize
+        maxKey = key
+    )
+    ranges[maxKey]
+
   # === Events ============================================================================
   # hours select boxes
   $(document).on('click', '.hour_selector', (event) ->
@@ -244,8 +327,28 @@ $(document).ready ->
     )
   )
 
-  $('#calendar').on('change', (event) ->
-    updateOccupationTime()
+  $(document).on('click', '.add_to_order', (event) ->
+    container = $(this).parents('.performance_container')
+    lents = container.find('.hours_lent')
+    characterIds = []
+    $.each(lents, (index, lent) ->
+      characterIds.push(parseInt($(lent).data('character')))
+    )
+    errorText = []
+    charactersTimeValid = validateCharactersHours(characterIds)
+    childNameValid = (container.find('.child_name').prop('value') != '')
+    if !charactersTimeValid
+      errorText.push('Необхоидимо выбрать время')
+    if !childNameValid
+      errorText.push('Необходимо указать имя ребенка')
+
+    if !childNameValid || !charactersTimeValid
+      container.find('.errors').text(errorText.join(', '))
+    else
+      container.find('.errors').text('')
+
+    if childNameValid && charactersTimeValid
+      addToOrder(characterIds)
   )
   # ========================================================================================
 
