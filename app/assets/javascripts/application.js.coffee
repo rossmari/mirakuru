@@ -8,4 +8,6 @@
 #= require bootstrap/collapse
 #= require bootstrap-datetimepicker
 
+#= require select2
+
 #= require application/order

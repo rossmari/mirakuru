@@ -28,19 +28,10 @@
       Выберите желаемое время проведения программы
 
   .row
-    .col-md-12.hours_lent
+    .col-md-12.hours_lent.main
       - (7..24).each do |hour|
-        %div{class: 'hour_selector unselectable', data: {hour: hour}}
+        %div{class: 'hour_selector', data: {hour: hour}}
           = "#{hour}:00"
-
-  -#.row.content_row
-    .col-md-5
-      %input{name: '', class: 'form-control', placeholder: 'Поиск по персонажам'}
-
-    .col-md-2
-      %button.form-control.btn-primary
-        %span.glyphicon.glyphicon-search
-        Найт
 
   .row.header_row
     .col-md-7
@@ -53,40 +44,7 @@
 
   .row.content_row
     .col-md-6
-      = select_tag :object, options_for_select(@objects),
-        {class: 'form-control', id: 'objects_selector', include_blank: 'Не выбрано'}
-    .col-md-6
-      = select_tag :object, options_for_select([['Нет персонажей для выбора', 0]]),
-        {class: 'form-control', id: 'characters_selector'}
+      = select_tag 'partner_screen_object', options_for_select(Order::Objects::Presenter.all_order_objects),
+        include_blank: 'Не выбрано', class: 'form-control input-sm order_object_selector', id: 'objects_selector'
 
-  -#.row.header_row
-    .col-md-7
-      Выберите
-      = link_to 'персонажа', '#'
-      ,
-      = link_to 'программу', '#'
-      или
-      = link_to 'дворовой праздник', '#'
-
-  .characters_list
-    -#.row.header_row
-      .col-md-3
-        = link_to 'Программы', '#'
-
-    -#.row
-      - @performances.each do |performance|
-        = render partial: 'performance', locals: {performance: performance}
-
-    -#.row.header
-      .col-md-3
-        = link_to 'Персонажи', '#'
-
-    -#- @characters_with_groups.each do |group_id, characters|
-      .row
-        .col-md-3.subheader
-          = link_to CharactersGroup.find_by(id: group_id).name, '#'
-      - characters.each do |character|
-        = render partial: 'performance', locals: {performance: character}
-
-    -#- @characters.each do |character|
-      = render partial: 'performance', locals: {performance: character}
+  .partner_object_box

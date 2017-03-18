@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     resources :actors do
       collection do
         post :time_table
+        post :occupation_time
       end
     end
     resources :price_positions

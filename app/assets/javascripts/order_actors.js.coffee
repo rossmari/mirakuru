@@ -33,6 +33,14 @@ $(document).ready ->
       id: getPositionId(container)
     }
 
+  getPositionIndex = (container) ->
+    name = $(container).find('.position_start_time').prop('name')
+    matches = name.match(/order\[positions\]\[(\d+)\]\[start\]/)
+    if matches
+      return matches[1]
+    else
+      return null
+
   loadActorsTable = (container) ->
     box = container
     $.ajax
@@ -40,7 +48,7 @@ $(document).ready ->
       url: '/api/actors/time_table'
       data: {
         order_id: getOrderId(),
-        index: 1,
+        index: getPositionIndex(),
         position: getParams(box)
       }
       success: (data) ->

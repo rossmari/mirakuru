@@ -1,0 +1,71 @@
+.performance_container
+  .row
+    -# padding by image size
+    .col-md-2
+    -# Object name
+    .col-md-5.object_name
+      = object.name
+
+  - characters.each do |character|
+    .row
+      .col-md-2.image
+        = image_tag(character.avatar.file.url(:for_list))
+
+      %div{class: "col-md-10 #{Order::Objects::Presenter.object_value(character)}"}
+        .row
+          .col-md-5.name
+            = character.name
+          .col-md-5
+          .col-md-2
+            %button.btn.btn-default
+              Информация
+
+        .row.text
+          .col-md-10
+            - if character.description.present?
+              = character.description
+            - else
+              Необходимо добавить описание персонажа
+
+        .row.content_row
+          .col-md-5.input_header
+            Продолжительность выступления
+          .col-md-4
+            = select_tag :duration, options_for_select(Duration::AVAILABLE_DURATIONS.map{|i| ["#{i} минут", i]}),
+              {class: 'form-control character_duration'}
+
+        .row.content_row
+          .col-md-10.input_header
+            Выберите время начала программы
+
+        .row.content_row
+          %div{class: 'col-md-12 hours_lent', data: {character: character.id}}
+            - (7..24).each do |hour|
+              %div{class: 'hour_selector', data: {hour: hour}}
+                = "#{hour}:00"
+
+  .row
+    .col-md-2
+    .col-md-10
+      .separator
+  .row
+    .col-md-2
+    .col-md-10
+      .row.content_row
+        .col-md-2.input_header
+          Имя ребенка
+        .col-md-2
+          %input.form-control
+        .col-md-2.input_header
+          Что любит
+        .col-md-5
+          %input.form-control
+
+      .row.content_row
+        .col-md-2.input_header
+          Примечание
+        .col-md-7
+          %input.form-control
+        .col-md-2
+          %button.btn.btn-primary
+            Забронировать
