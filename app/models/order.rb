@@ -12,7 +12,7 @@ class Order < ActiveRecord::Base
 
   has_many :characters, through: :orders_characters
 
-  has_many :invitations, dependent: :destroy
+  # has_many :invitations, dependent: :destroy
   has_many :positions, dependent: :destroy
 
   enum source: [:partner, :site, :commercial]
