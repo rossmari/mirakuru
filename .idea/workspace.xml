@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="da3f41db-1fda-4073-bfa2-adf2de76c055" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/application/order.js.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/application/order.js.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/order_actors.js.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/order_actors.js.coffee" />
     </list>
     <ignored path="$PROJECT_DIR$/.bundle/" />
     <ignored path="$PROJECT_DIR$/components/" />
@@ -30,17 +30,17 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="active_admin.js.coffee" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/active_admin.js.coffee">
+      <file leaf-file-name="order_actors.js.coffee" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/order_actors.js.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="18" />
+            <state relative-caret-position="294">
+              <caret line="50" column="36" lean-forward="false" selection-start-line="50" selection-start-column="36" selection-end-line="50" selection-end-column="36" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="order.js.coffee" pinned="false" current-in-tab="true">
+      <file leaf-file-name="order.js.coffee" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/application/order.js.coffee">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="271">
@@ -134,7 +134,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>ra</find>
       <find>redrawHoursBlocks($('.hours_lent.main'), mainHoursBlocks)</find>
       <find>redrawM</find>
       <find>partlySelected</find>
@@ -163,6 +162,7 @@
       <find>redrawHoursBlocks</find>
       <find>orderInfo</find>
       <find>orderInfo</find>
+      <find>getPositionIndex</find>
       <find>orderIn</find>
     </findStrings>
     <replaceStrings>
@@ -227,7 +227,6 @@
         <option value="$PROJECT_DIR$/app/views/orders/_performance.haml" />
         <option value="$PROJECT_DIR$/app/views/orders/_object.haml" />
         <option value="$PROJECT_DIR$/app/controllers/api/characters_controller.rb" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/order_actors.js.coffee" />
         <option value="$PROJECT_DIR$/app/controllers/concerns/params_parsing.rb" />
         <option value="$PROJECT_DIR$/config/routes.rb" />
         <option value="$PROJECT_DIR$/app/controllers/api/order_objects_controller.rb" />
@@ -237,6 +236,7 @@
         <option value="$PROJECT_DIR$/app/views/orders/new.haml" />
         <option value="$PROJECT_DIR$/app/models/order.rb" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/application/order.js.coffee" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/order_actors.js.coffee" />
       </list>
     </option>
   </component>
@@ -912,7 +912,7 @@
       <workItem from="1489548553699" duration="618000" />
       <workItem from="1489804144693" duration="16420000" />
       <workItem from="1489972627256" duration="718000" />
-      <workItem from="1490278633072" duration="1799000" />
+      <workItem from="1490278633072" duration="2445000" />
     </task>
     <task id="LOCAL-00002" summary="add order page template">
       <created>1485529868736</created>
@@ -1138,7 +1138,14 @@
       <option name="project" value="LOCAL" />
       <updated>1490278837793</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="clear whole main lent, remove order, rewrite orders">
+      <created>1490280497658</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1490280497658</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1153,7 +1160,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="230337000" />
+    <option name="totallyTimeSpent" value="230983000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1056" extended-state="6" />
@@ -1163,6 +1170,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290461" sideWeight="0.4997236" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43010753" sideWeight="0.5157546" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.40430108" sideWeight="0.4991708" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.69784945" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2860215" sideWeight="0.4997236" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2498618" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1177,7 +1185,6 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40430108" sideWeight="0.4991708" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -1210,7 +1217,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update order customer searcher" />
     <MESSAGE value="update stages selector" />
     <MESSAGE value="update stages admin pages" />
     <MESSAGE value="update customer contacts" />
@@ -1235,7 +1241,8 @@
     <MESSAGE value="update partner screen" />
     <MESSAGE value="add order construction on partner page" />
     <MESSAGE value="fix order dependencies" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix order dependencies" />
+    <MESSAGE value="clear whole main lent, remove order, rewrite orders" />
+    <option name="LAST_COMMIT_MESSAGE" value="clear whole main lent, remove order, rewrite orders" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1509,14 +1516,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/order_actors.js.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="989">
-          <caret line="43" column="24" lean-forward="false" selection-start-line="43" selection-start-column="24" selection-end-line="43" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/active_admin.js.coffee">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
@@ -1593,6 +1592,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="271">
           <caret line="237" column="2" lean-forward="false" selection-start-line="237" selection-start-column="2" selection-end-line="237" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/order_actors.js.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="50" column="36" lean-forward="false" selection-start-line="50" selection-start-column="36" selection-end-line="50" selection-end-column="36" />
           <folding />
         </state>
       </provider>

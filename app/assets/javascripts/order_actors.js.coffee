@@ -48,7 +48,7 @@ $(document).ready ->
       url: '/api/actors/time_table'
       data: {
         order_id: getOrderId(),
-        index: getPositionIndex(),
+        index: getPositionIndex(box),
         position: getParams(box)
       }
       success: (data) ->
