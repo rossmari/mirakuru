@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="da3f41db-1fda-4073-bfa2-adf2de76c055" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/order.rb" afterPath="$PROJECT_DIR$/app/models/order.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/application/order.js.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/application/order.js.coffee" />
     </list>
     <ignored path="$PROJECT_DIR$/.bundle/" />
     <ignored path="$PROJECT_DIR$/components/" />
@@ -40,11 +40,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="order.js.coffee" pinned="false" current-in-tab="false">
+      <file leaf-file-name="order.js.coffee" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/application/order.js.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="110">
-              <caret line="233" column="18" lean-forward="false" selection-start-line="233" selection-start-column="18" selection-end-line="233" selection-end-column="18" />
+            <state relative-caret-position="271">
+              <caret line="237" column="2" lean-forward="false" selection-start-line="237" selection-start-column="2" selection-end-line="237" selection-end-column="2" />
               <folding />
             </state>
           </provider>
@@ -70,7 +70,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="position.rb" pinned="false" current-in-tab="true">
+      <file leaf-file-name="position.rb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/models/position.rb">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
@@ -134,9 +134,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>partlyse</find>
-      <find>redrawMainHoursBlocks</find>
-      <find>rednra</find>
       <find>ra</find>
       <find>redrawHoursBlocks($('.hours_lent.main'), mainHoursBlocks)</find>
       <find>redrawM</find>
@@ -147,7 +144,6 @@
       <find>charactersSubHoursBlocks</find>
       <find>mainPartlyOcupiedBlocks</find>
       <find>mainHoursBloc</find>
-      <find>redrawHoursBlocks</find>
       <find>unselectable</find>
       <find>initializeMainHours</find>
       <find>.main</find>
@@ -164,6 +160,10 @@
       <find>clearOrder</find>
       <find>updateOccupationTime</find>
       <find>characterHoursStartStop</find>
+      <find>redrawHoursBlocks</find>
+      <find>orderInfo</find>
+      <find>orderInfo</find>
+      <find>orderIn</find>
     </findStrings>
     <replaceStrings>
       <replace>error_message</replace>
@@ -235,8 +235,8 @@
         <option value="$PROJECT_DIR$/app/views/orders/object.haml" />
         <option value="$PROJECT_DIR$/app/assets/stylesheets/application.scss" />
         <option value="$PROJECT_DIR$/app/views/orders/new.haml" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/application/order.js.coffee" />
         <option value="$PROJECT_DIR$/app/models/order.rb" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/application/order.js.coffee" />
       </list>
     </option>
   </component>
@@ -912,7 +912,7 @@
       <workItem from="1489548553699" duration="618000" />
       <workItem from="1489804144693" duration="16420000" />
       <workItem from="1489972627256" duration="718000" />
-      <workItem from="1490278633072" duration="194000" />
+      <workItem from="1490278633072" duration="1799000" />
     </task>
     <task id="LOCAL-00002" summary="add order page template">
       <created>1485529868736</created>
@@ -1131,7 +1131,14 @@
       <option name="project" value="LOCAL" />
       <updated>1489825136846</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="fix order dependencies">
+      <created>1490278837793</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1490278837793</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1146,7 +1153,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="228732000" />
+    <option name="totallyTimeSpent" value="230337000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1056" extended-state="6" />
@@ -1161,7 +1168,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2498618" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29581994" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23719676" sideWeight="0.50446874" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.45268816" sideWeight="0.48424545" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45268816" sideWeight="0.48424545" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3268817" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
@@ -1203,7 +1210,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update telegram messaging, add ajax to admin invitations panel" />
     <MESSAGE value="update order customer searcher" />
     <MESSAGE value="update stages selector" />
     <MESSAGE value="update stages admin pages" />
@@ -1228,7 +1234,8 @@
     <MESSAGE value="fix actors validation" />
     <MESSAGE value="update partner screen" />
     <MESSAGE value="add order construction on partner page" />
-    <option name="LAST_COMMIT_MESSAGE" value="add order construction on partner page" />
+    <MESSAGE value="fix order dependencies" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix order dependencies" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1518,14 +1525,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/application/order.js.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="233" column="18" lean-forward="false" selection-start-line="233" selection-start-column="18" selection-end-line="233" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/application.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1012">
@@ -1586,6 +1585,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="6" lean-forward="false" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/application/order.js.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="237" column="2" lean-forward="false" selection-start-line="237" selection-start-column="2" selection-end-line="237" selection-end-column="2" />
           <folding />
         </state>
       </provider>

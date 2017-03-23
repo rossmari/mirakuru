@@ -121,6 +121,11 @@ $(document).ready ->
     $.each(hoursKeys, (index, hourKey) ->
       mainHoursBlocks[hourKey] = { selected: false, partlySelected: false, disabled: false }
     )
+    hoursKeys = Object.keys(mainSubHoursBlocks)
+    $.each(hoursKeys, (index, hourKey) ->
+      mainSubHoursBlocks[hourKey] = false
+      true
+    )
     redrawHoursBlocks($('.hours_lent.main'), mainHoursBlocks, mainSubHoursBlocks)
 
   characterPerformanceDuration = (characterId) ->
@@ -230,12 +235,11 @@ $(document).ready ->
     )
     valid
 
-  clearOrder = ->
-    orderInfo = {}
-    $('.order_row').remove()
+  clearOrder = (characterId) ->
+    orderInfo[characterId] = {}
+    redrawOrderInfo()
 
   addToOrder = ( characterIds ) ->
-    orderInfo = {}
     $.each(characterIds, (index, characterId) ->
       orderInfo[characterId] = { hours: {} }
       characterHours = charactersHoursBlocks[characterId]
@@ -267,7 +271,7 @@ $(document).ready ->
         orderInfo[characterId].timeRange.start +
         ' до ' +
         orderInfo[characterId].timeRange.stop +
-        '<a href="#"><span class="glyphicon glyphicon-remove"></span></a>'
+        '<a href="#" class="remove_order_part" data-character="' + characterId + '"><span class="glyphicon glyphicon-remove"></span></a>'
       $('#order_block').find('.title_row').after(htmlBlock)
     )
 
@@ -349,6 +353,12 @@ $(document).ready ->
 
     if childNameValid && charactersTimeValid
       addToOrder(characterIds)
+  )
+
+  $(document).on('click', '.remove_order_part', (event) ->
+    event.preventDefault()
+    characterId = $(this).data('character')
+    clearOrder(characterId)
   )
   # ========================================================================================
 
