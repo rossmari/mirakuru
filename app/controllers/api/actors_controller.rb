@@ -31,7 +31,7 @@ class Api::ActorsController < ApplicationController
       stop = position.stop + 1.hour
       res = []
       (start.to_i..stop.to_i).step(1.hour) do |date|
-        res << Time.at(date).hour
+        res << Time.at(date).in_time_zone(Time.zone).hour
       end
       result[position.character_id] = res
     end

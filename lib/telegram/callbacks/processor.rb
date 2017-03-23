@@ -46,7 +46,7 @@ class Telegram::Callbacks::Processor
         end
       end
     rescue => e
-      raise("Unable to send response: #{e}")
+      # raise("Unable to send response: #{e}")
     end
 
     def bot
