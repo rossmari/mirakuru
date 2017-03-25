@@ -1,4 +1,5 @@
 .performance_container
+  = text_field_tag :owner_id, Order::Objects::Presenter.object_value(object), type: :hidden
   .row
     -# padding by image size
     .col-md-2
@@ -59,13 +60,13 @@
         .col-md-2.input_header
           Что любит
         .col-md-5
-          %input.form-control
+          %input.form-control.child_notice
 
       .row.content_row
         .col-md-2.input_header
           Примечание
         .col-md-7
-          %input.form-control
+          %input.form-control.order_notice
         .col-md-2
           %button.btn.btn-primary.add_to_order
             Забронировать

@@ -161,7 +161,6 @@ $(document).ready ->
     }).on('dp.change', (event) ->
       performanceDate = event.date.format()
       updateOccupationTime()
-      clearOrder()
     )
 
   selectHour = (duration, hour, collection, subCollection) ->
@@ -247,12 +246,22 @@ $(document).ready ->
         if characterHours[hourKey].selected || charactersSubHoursBlocks[hourKey]
           orderInfo[characterId].hours[hourKey] = true
       )
-      orderInfo[characterId]['name'] = $('.character_' + characterId).find('.name').text()
-      orderInfo[characterId]['timeRange'] = characterHoursStartStop(characterId)
-      orderInfo[characterId]['hoursCount'] = orderInfo[characterId].timeRange.stop - orderInfo[characterId].timeRange.start
+      characterContainer = $('.character_' + characterId)
+      globalContainer = characterContainer.parents('.performance_container')
+      orderInfo[characterId]['ownerInfo'] = globalContainer.find('#owner_id').prop('value')
+      orderInfo[characterId]['date'] = performanceDate
+      orderInfo[characterId]['childName'] = globalContainer.find('.child_name').prop('value')
+      orderInfo[characterId]['orderNotice'] = globalContainer.find('.order_notice').prop('value')
+      orderInfo[characterId]['childNotice'] = globalContainer.find('.child_notice').prop('value')
+      orderInfo[characterId]['characterId'] = characterId
+      timeRanges = characterTimeRanges(characterId)
+      maxTimeRange = characterMaxTimeRange(timeRanges, characterId)
+      orderInfo[characterId]['timeRanges'] = timeRanges
+      orderInfo[characterId]['maxTimeRange'] = maxTimeRange
+      orderInfo[characterId]['hoursCount'] = maxTimeRange.stop - maxTimeRange.start
+      orderInfo[characterId]['duration'] = characterContainer.find('.character_duration').val()
       console.log(orderInfo[characterId])
     )
-
     redrawOrderInfo()
 
   redrawOrderInfo = ->
@@ -263,19 +272,23 @@ $(document).ready ->
       $('#order_block').hide()
 
     $.each(Object.keys(orderInfo), (index, characterId) ->
-      htmlBlock = '<div class="row order_row"><div class="col-md-6">' +
-        orderInfo[characterId].name +
-        ' - ' +
-        orderInfo[characterId].hoursCount +
-        ' часа, c ' +
-        orderInfo[characterId].timeRange.start +
-        ' до ' +
-        orderInfo[characterId].timeRange.stop +
-        '<a href="#" class="remove_order_part" data-character="' + characterId + '"><span class="glyphicon glyphicon-remove"></span></a>'
+      start = orderInfo[characterId].maxTimeRange.start
+      stop = orderInfo[characterId].maxTimeRange.stop
+      count = orderInfo[characterId].hoursCount
+      name = orderInfo[characterId].childName
+      htmlBlock =
+        '<div class="row order_row">' +
+          '<div class="col-md-6">' +
+            name + ' - ' + count  + ' часа, c ' + start + ' до ' + stop +
+            '<a href="#" class="remove_order_part" data-character="' + characterId + '">' +
+              '<span class="glyphicon glyphicon-remove"></span>' +
+            '</a>' +
+          '</div>' +
+        '</div>'
       $('#order_block').find('.title_row').after(htmlBlock)
     )
 
-  characterHoursStartStop = (characterId) ->
+  characterTimeRanges = (characterId) ->
     ranges = {}
     rangeIndex = 0
     characterHours = charactersHoursBlocks[characterId]
@@ -292,7 +305,9 @@ $(document).ready ->
           ranges[rangeIndex].stop = parseInt(hourKey)
           rangeIndex = rangeIndex + 1
     )
+    ranges
 
+  characterMaxTimeRange = (ranges, characterId) ->
     maxRangeSize = 0
     maxKey = null
     $.each(Object.keys(ranges), (index, key) ->
@@ -303,17 +318,44 @@ $(document).ready ->
     )
     ranges[maxKey]
 
+  submitOrder = ->
+    partnerId = $('#partner_id').prop('value')
+    childName = $('#child_name').prop('value')
+    data = {
+      partner_id: partnerId,
+      order_info: orderInfo
+    }
+    $.ajax
+      type: 'POST',
+      url: '/orders',
+      data: data
+      success: (data) ->
+        location.href = '/orders/' + data.order_id
+
   # === Events ============================================================================
+  $('#performance_duration').on('click', (event) ->
+    copyMainDuration()
+  )
+  $('#submit_order').on('click', (event) ->
+    event.preventDefault()
+    submitOrder()
+  )
   # hours select boxes
   $(document).on('click', '.hour_selector', (event) ->
     hour = $(this).data('hour')
-    if mainHoursBlocks[hour].disabled
-      return false
+#    if mainHoursBlocks[hour].disabled
+#      return false
 
     if $(this).parent().prop('class').match(/main/)
       duration = parseInt($('#performance_duration').val())
       selectHour(duration, hour, mainHoursBlocks, mainSubHoursBlocks)
       redrawHoursBlocks($('.hours_lent.main'), mainHoursBlocks, mainSubHoursBlocks)
+      characterIds = Object.keys(charactersHoursBlocks)
+      $.each(characterIds, (index, characterId) ->
+        selectHour(duration, hour, charactersHoursBlocks[characterId], charactersSubHoursBlocks[characterId])
+        element = $('.character_' + characterId).find('.hours_lent')
+        redrawHoursBlocks(element, charactersHoursBlocks[characterId], charactersSubHoursBlocks[characterId])
+      )
     else
       characterId = parseInt($(this).parent().data('character'))
       duration = characterPerformanceDuration(characterId)
@@ -327,7 +369,6 @@ $(document).ready ->
     loadObjects(objectName, (data) ->
       redrawCharactersBlocks(data)
       updateOccupationTime()
-      copyMainDuration()
     )
   )
 

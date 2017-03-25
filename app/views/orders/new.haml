@@ -4,6 +4,7 @@
     .col-md-12
       = "#{@partner.name}."
       Выбор анимационной программы
+      = text_field_tag :partner_id, @partner.id, type: :hidden
 
   %div{class: 'row header_row', style: 'display:none;', id: 'order_block'}
     .row.title_row
@@ -11,7 +12,7 @@
         Ваш заказ:
     .row
       .col-md-6
-        %button.btn.btn-sm.btn-primary.add_to_order
+        %button#submit_order.btn.btn-sm.btn-primary
           Оформить заказ
   .row.header_row
     .col-md-7
