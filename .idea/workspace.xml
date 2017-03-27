@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="da3f41db-1fda-4073-bfa2-adf2de76c055" name="Default" comment="clear invitations functionality">
+    <list default="true" id="da3f41db-1fda-4073-bfa2-adf2de76c055" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/application/order.js.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/application/order.js.coffee" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/orders_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/orders_controller.rb" />
     </list>
     <ignored path="$PROJECT_DIR$/.bundle/" />
@@ -31,11 +30,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="orders_controller.rb" pinned="false" current-in-tab="false">
+      <file leaf-file-name="orders_controller.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/orders_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="506">
-              <caret line="48" column="33" lean-forward="true" selection-start-line="48" selection-start-column="33" selection-end-line="48" selection-end-column="33" />
+            <state relative-caret-position="621">
+              <caret line="53" column="74" lean-forward="false" selection-start-line="53" selection-start-column="74" selection-end-line="53" selection-end-column="74" />
               <folding />
             </state>
           </provider>
@@ -104,17 +103,17 @@
       <file leaf-file-name="orders_controller.rb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/api/orders_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="483">
+            <state relative-caret-position="-134">
               <caret line="21" column="45" lean-forward="false" selection-start-line="21" selection-start-column="45" selection-end-line="21" selection-end-column="45" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="order.js.coffee" pinned="false" current-in-tab="true">
+      <file leaf-file-name="order.js.coffee" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/application/order.js.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="325">
+            <state relative-caret-position="-1523">
               <caret line="333" column="44" lean-forward="false" selection-start-line="333" selection-start-column="44" selection-end-line="333" selection-end-column="44" />
               <folding>
                 <element signature="e#491#640#0#CoffeeScript" expanded="false" />
@@ -258,8 +257,8 @@
         <option value="$PROJECT_DIR$/app/views/orders/show.haml" />
         <option value="$PROJECT_DIR$/app/helpers/active_admin/invitation_helper.rb" />
         <option value="$PROJECT_DIR$/app/admin/invitation.rb" />
-        <option value="$PROJECT_DIR$/app/controllers/orders_controller.rb" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/application/order.js.coffee" />
+        <option value="$PROJECT_DIR$/app/controllers/orders_controller.rb" />
       </list>
     </option>
   </component>
@@ -921,7 +920,7 @@
       <workItem from="1490366761048" duration="2599000" />
       <workItem from="1490411553786" duration="15794000" />
       <workItem from="1490582713634" duration="606000" />
-      <workItem from="1490625598475" duration="2827000" />
+      <workItem from="1490625598475" duration="2963000" />
     </task>
     <task id="LOCAL-00002" summary="add order page template">
       <created>1485529868736</created>
@@ -1182,7 +1181,14 @@
       <option name="project" value="LOCAL" />
       <updated>1490626083573</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="investigate order saving">
+      <created>1490628436334</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1490628436334</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1197,7 +1203,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="254346000" />
+    <option name="totallyTimeSpent" value="254482000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1056" extended-state="6" />
@@ -1254,7 +1260,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add data load from prices" />
     <MESSAGE value="update  order price list value load" />
     <MESSAGE value="add order source to order" />
     <MESSAGE value="update actor page, enable telegram bot" />
@@ -1279,7 +1284,8 @@
     <MESSAGE value="update actors occupation time zones" />
     <MESSAGE value="create order from partner request" />
     <MESSAGE value="clear invitations functionality" />
-    <option name="LAST_COMMIT_MESSAGE" value="clear invitations functionality" />
+    <MESSAGE value="investigate order saving" />
+    <option name="LAST_COMMIT_MESSAGE" value="investigate order saving" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1588,22 +1594,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/api/orders_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="21" column="45" lean-forward="false" selection-start-line="21" selection-start-column="45" selection-end-line="21" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/api/order_objects_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="18" column="9" lean-forward="false" selection-start-line="13" selection-start-column="4" selection-end-line="18" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/orders/object.haml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="46">
@@ -1652,17 +1642,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/orders_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="48" column="33" lean-forward="true" selection-start-line="48" selection-start-column="33" selection-end-line="48" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/application/order.js.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
+        <state relative-caret-position="-1523">
           <caret line="333" column="44" lean-forward="false" selection-start-line="333" selection-start-column="44" selection-end-line="333" selection-end-column="44" />
           <folding>
             <element signature="e#491#640#0#CoffeeScript" expanded="false" />
@@ -1687,6 +1669,30 @@
             <element signature="e#11046#11296#0#CoffeeScript" expanded="false" />
             <element signature="e#14949#15043#0#CoffeeScript" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/api/orders_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-134">
+          <caret line="21" column="45" lean-forward="false" selection-start-line="21" selection-start-column="45" selection-end-line="21" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/api/order_objects_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="18" column="9" lean-forward="false" selection-start-line="13" selection-start-column="4" selection-end-line="18" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/orders_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="621">
+          <caret line="53" column="74" lean-forward="false" selection-start-line="53" selection-start-column="74" selection-end-line="53" selection-end-column="74" />
+          <folding />
         </state>
       </provider>
     </entry>

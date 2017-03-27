@@ -51,7 +51,7 @@ class OrdersController < ApplicationController
       )
     end
     if order.save
-      render json: { status: 200 , order_id: order.id, valid: order.valid, errors: order.errors.full_messages }
+      render json: { status: 200 , order_id: order.id, valid: order.valid?, errors: order.errors.full_messages }
     else
       render json: { status: 422 }
     end
