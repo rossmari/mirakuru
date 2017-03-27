@@ -1,6 +1,6 @@
 ActiveAdmin.register Invitation do
 
-  actions :show, :index, :sent_to_all, :edit, :update
+  actions :show, :index
 
   permit_params :status, :actor_id
 
@@ -22,18 +22,10 @@ ActiveAdmin.register Invitation do
       end
     end
     column :status do |record|
-      "<div class='invitation_status #{record.status}'>
-      #{t("admin.invitation.statuses.#{record.status}")}
-      </div>".html_safe
-    end
-    column 'Дата последней отправки' do |record|
-      'TODO (in progress)'
-      # record.invitation_date ? record.invitation_date : 'Еще не отправлено'
+      t("admin.invitation.statuses.#{record.status}")
     end
     column :updated_at
-    actions defaults: true do |record|
-      member_actions(record)
-    end
+    actions
   end
 
   member_action :sent_to_all, method: :get do
