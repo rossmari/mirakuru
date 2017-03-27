@@ -330,9 +330,9 @@ $(document).ready ->
       url: '/orders',
       data: data
       success: (data) ->
-#        location.href = '/orders/' + data.order_id
-        console.log('Diagnostic mode is: On')
-        console.log(data)
+        location.href = '/orders/' + data.order_id
+#        console.log('Diagnostic mode is: On')
+#        console.log(data)
 
   removeSelectionFromMainLent = (mainCollection, subCollection) ->
     hours = Object.keys(mainHoursBlocks)
