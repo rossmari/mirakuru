@@ -330,8 +330,18 @@ $(document).ready ->
       url: '/orders',
       data: data
       success: (data) ->
-        location.href = '/orders/' + data.order_id
+#        location.href = '/orders/' + data.order_id
+        console.log('Diagnostic mode is: On')
+        console.log(data)
 
+  removeSelectionFromMainLent = (mainCollection, subCollection) ->
+    hours = Object.keys(mainHoursBlocks)
+    $.each(hours, (index, hour) ->
+      mainCollection[hour].selected = false
+      subCollection[hour] = false
+      true
+    )
+    console.log(mainHoursBlocks)
   # === Events ============================================================================
   $('#performance_duration').on('click', (event) ->
     copyMainDuration()
@@ -343,21 +353,31 @@ $(document).ready ->
   # hours select boxes
   $(document).on('click', '.hour_selector', (event) ->
     hour = $(this).data('hour')
-#    if mainHoursBlocks[hour].disabled
-#      return false
 
     if $(this).parent().prop('class').match(/main/)
+      # clear main lent
+      removeSelectionFromMainLent(mainHoursBlocks, mainSubHoursBlocks)
+
       duration = parseInt($('#performance_duration').val())
       selectHour(duration, hour, mainHoursBlocks, mainSubHoursBlocks)
+      # redraw main hours lent
       redrawHoursBlocks($('.hours_lent.main'), mainHoursBlocks, mainSubHoursBlocks)
+
       characterIds = Object.keys(charactersHoursBlocks)
       $.each(characterIds, (index, characterId) ->
+        # clear characters blocks selection
+        removeSelectionFromMainLent(charactersHoursBlocks[characterId], charactersSubHoursBlocks[characterId])
+
         selectHour(duration, hour, charactersHoursBlocks[characterId], charactersSubHoursBlocks[characterId])
         element = $('.character_' + characterId).find('.hours_lent')
         redrawHoursBlocks(element, charactersHoursBlocks[characterId], charactersSubHoursBlocks[characterId])
       )
     else
       characterId = parseInt($(this).parent().data('character'))
+
+      # clear characters blocks selection
+      removeSelectionFromMainLent(charactersHoursBlocks[characterId], charactersSubHoursBlocks[characterId])
+
       duration = characterPerformanceDuration(characterId)
       selectHour(duration, hour, charactersHoursBlocks[characterId], charactersSubHoursBlocks[characterId])
       redrawHoursBlocks($(this).parent(), charactersHoursBlocks[characterId], charactersSubHoursBlocks[characterId])
