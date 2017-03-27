@@ -28,8 +28,7 @@ class Order < ActiveRecord::Base
     invitations.select do |i|
       if i.status == 'empty'
         i.fire_events!(:sent_invitation)
-      end
-      if i.status == 'sent'
+      elsif i.status == 'sent'
         i.fire_events!(:sent_again)
       end
     end
