@@ -47,6 +47,8 @@ class OrdersController < ApplicationController
         character_id: character_id,
         order_notice: position_notice,
         owner_class: owner.class,
+        fixed_start: true,
+        fixed_stop: true,
         owner_id: owner.id
       )
     end
