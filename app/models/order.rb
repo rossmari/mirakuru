@@ -12,7 +12,6 @@ class Order < ActiveRecord::Base
 
   has_many :characters, through: :orders_characters
 
-  # has_many :invitations, dependent: :destroy
   has_many :positions, dependent: :destroy
 
   enum source: [:partner, :site, :commercial]
@@ -22,27 +21,17 @@ class Order < ActiveRecord::Base
 
   belongs_to :contact
 
-  after_commit :generate_invitations
-
   enum status: [:fresh, :assigned, :prepared, :done, :canceled_by_customer, :canceled_by_owner, :failed]
 
-  private
-
-  def generate_invitations
-    characters = []
-    characters += self.characters.to_a
-    if performance
-      characters += performance.characters.to_a
-    end
-    characters.compact!
-
-    characters.each do |character|
-      Invitation.find_or_create_by(
-        {
-          character_id: character.id,
-          order_id: id,
-          status: Invitation.statuses[:empty],
-        })
+  def sent_invitations_to_all
+    invitations = positions.map(&:invitations).flatten
+    invitations.select do |i|
+      if i.status == 'empty'
+        i.fire_events!(:sent_invitation)
+      end
+      if i.status == 'sent'
+        i.fire_events!(:sent_again)
+      end
     end
   end
 

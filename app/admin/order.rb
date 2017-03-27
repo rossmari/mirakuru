@@ -111,7 +111,7 @@ ActiveAdmin.register Order do
       @order.save
       positions_constructor = OrderPositionsConstructor.new(positions_params, @order)
       positions_constructor.process!
-
+      @order.sent_invitations_to_all
       redirect_to admin_order_path(@order)
     end
 
@@ -137,7 +137,6 @@ ActiveAdmin.register Order do
       @order.save
       positions_constructor = OrderPositionsConstructor.new(invitation_params, @order)
       positions_constructor.process!
-
       redirect_to admin_order_path(@order)
     end
 

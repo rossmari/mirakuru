@@ -30,9 +30,7 @@ ActiveAdmin.register Invitation do
 
   member_action :sent_to_all, method: :get do
     order = Order.find(params[:id])
-    invitations = order.positions.map(&:invitations).flatten
-    invitations.select{|i| i.status == 'empty'}.each{|r| r.fire_events!(:sent_invitation)}
-    invitations.select{|i| i.status == 'sent'}.each{|r| r.fire_events!(:sent_again)}
+    order.sent_invitations_to_all
     flash[:notice] = 'Приглашения отправлены'
     redirect_to admin_order_path(order)
   end
