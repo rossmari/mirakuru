@@ -18,7 +18,11 @@ ActiveAdmin.register CharactersGroup do
       "От #{record.age_from} до #{record.age_to} лет"
     end
     column :avatar do |record|
-      image_tag(record.avatar.file.url(:middle_thumb))
+      if record.avatar
+        image_tag(record.avatar.file.url(:middle_thumb))
+      else
+        'Нет аватарки группы'
+      end
     end
     column 'Персонажи' do |record|
       record.characters.map do |character|
@@ -66,7 +70,9 @@ ActiveAdmin.register CharactersGroup do
       row :age_from
       row :age_to
       row :avatar do |record|
-        image_tag record.avatar.file.url(:thumb)
+        if record.avatar
+          image_tag record.avatar.file.url(:thumb)
+        end
       end
     end
   end
