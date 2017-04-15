@@ -17,7 +17,11 @@ ActiveAdmin.register Order do
     end
     column 'Персонажи' do |record|
       record.positions.map do |position|
-        link_to(position.character.name, admin_character_path(position.character))
+        if position.character
+          link_to(position.character.name, admin_character_path(position.character))
+        else
+          'Персонаж не найден'
+        end
       end.join('<br>').html_safe
     end
     column 'Место' do |record|

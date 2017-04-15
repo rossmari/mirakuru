@@ -21,7 +21,7 @@ class Order < ActiveRecord::Base
 
   belongs_to :contact
 
-  enum status: [:fresh, :assigned, :prepared, :done, :canceled_by_customer, :canceled_by_owner, :failed]
+  enum status: [:fresh, :assigned, :prepared, :done, :canceled_by_customer, :canceled_by_owner, :failed, :approved]
 
   def sent_invitations_to_all
     invitations = positions.map(&:invitations).flatten

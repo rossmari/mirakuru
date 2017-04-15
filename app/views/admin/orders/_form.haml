@@ -98,7 +98,7 @@
       .col-md-2.input_header
         Место проведения
 
-    .row
+    .row.header_row
       .col-md-4
         .btn-group-xs{role: 'group', aria: {label: '...'}}
           - css_class = @order.is_new_stage ? 'default' : 'primary'
@@ -111,8 +111,15 @@
             у заказчика
 
     .row.header_row
-      .col-md-2
+      .col-md-1
         Площадка
+      .col-md-1.action_link
+        %div.stage_constructors
+          = link_to new_admin_stage_path, target: '_blank', title: 'Добавить площадку' do
+            %span.glyphicon.glyphicon-plus
+          = link_to '#', target: '_blank', title: 'Обновить список', class: 'stage_updater' do
+            %span.glyphicon.glyphicon-refresh
+
       .col-md-1
         Район
       .col-md-2
