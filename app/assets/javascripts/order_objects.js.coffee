@@ -139,6 +139,8 @@ $(document).ready ->
         )
 
       if !isActorAvailable
+        # do not show unavailable actors (new logic)
+        return
         extraSettings = extraSettings + ' disabled="true"'
         spanClass = ' disabled'
 
@@ -255,7 +257,7 @@ $(document).ready ->
       '<div class="row header_row">' +
         '<div class="col-md-1">время начала</div>' +
         '<div class="col-md-1 action_link">' +
-          '<input type="checkbox" value="1" name="order[positions][' + index + '][fixed_start]" class="fixed_position_start"> ' +
+          '<input type="checkbox"  value="1" name="order[positions][' + index + '][fixed_start]" class="fixed_position_start"> ' +
           '<span>как в заказе</span>' +
         '</div>' +
         '<div class="col-md-1">время окончания</div>' +
@@ -550,6 +552,11 @@ $(document).ready ->
         input = $(element).parents('.order_object').find('.position_stop_time')
         copyStopTime(input)
   )
+
+  closeTimePickersInpust = (container) ->
+    $('.fixed_position_start').trigger('click')
+    $('.fixed_position_stop').trigger('click')
+
   # ======================= events
   # after we select value in order objects selector
   $(document).on 'change', '.order_object_selector', (event) ->
@@ -578,6 +585,7 @@ $(document).ready ->
     setSelectedValue(newObjectId, selectorId)
     updateControlButtonsState()
     synchronizeSelectorsOptions()
+    closeTimePickersInpust(container)
 
   # set duration from pre defined templates
   $('.fast_duration').on('click', (event) ->

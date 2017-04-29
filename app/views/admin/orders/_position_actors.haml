@@ -13,7 +13,7 @@
           %span{title: 'Актер занят на другом заказе'}
             = actor.name
         .col-md-1.actor_corrector.occupied
-          %input{ class: 'form-control input-sm', name: "order[positions][#{index}][actors][#{actor.id}][corrector]",
+          %input{class: 'form-control input-sm', name: "order[positions][#{index}][actors][#{actor.id}][corrector]",
             value: 0.0, title: 'Актер занят на другом заказе', disabled: true}
 
       - elsif invited
@@ -22,17 +22,18 @@
           %span{title: 'Актер уже приглашен'}
             = actor.name
         .col-md-1.actor_corrector
-          %input{ class: 'form-control input-sm', name: "order[positions][#{index}][actors][#{actor.id}][corrector]",
+          %input{class: 'form-control input-sm', name: "order[positions][#{index}][actors][#{actor.id}][corrector]",
             value: invitation.corrector, title: 'Корректор'}
 
       - elsif blocked
-        %div{class: 'col-md-2 actor_name blocked'}
-          = check_box_tag "order[positions][#{index}][actors][#{actor.id}][checked]", 1, false, disabled: true
-          %span{title: 'Актер не подходит на эту роль'}
-            = actor.name
-        .col-md-1.actor_corrector.blocked
-          %input{ class: 'form-control input-sm', name: "order[positions][#{index}][actors][#{actor.id}][corrector]",
-            value: 0.0, title: 'Корректор', disabled: true}
+        -# do not show actors if they are blocked for this character
+        -#%div{class: 'col-md-2 actor_name blocked'}
+        -#  = check_box_tag "order[positions][#{index}][actors][#{actor.id}][checked]", 1, false, disabled: true
+        -#  %span{title: 'Актер не подходит на эту роль'}
+        -#    = actor.name
+        -#.col-md-1.actor_corrector.blocked
+        -#  %input{ class: 'form-control input-sm', name: "order[positions][#{index}][actors][#{actor.id}][corrector]",
+        -#    value: 0.0, title: 'Корректор', disabled: true}
 
       - else
         %div{class: 'col-md-2 actor_name'}
@@ -40,5 +41,5 @@
           %span{title: 'Актер доступен для выбора'}
             = actor.name
         .col-md-1.actor_corrector
-          %input{ class: 'form-control input-sm', name: "order[positions][#{index}][actors][#{actor.id}][corrector]",
+          %input{class: 'form-control input-sm', name: "order[positions][#{index}][actors][#{actor.id}][corrector]",
             value: 0.0, title: 'Корректор актера'}

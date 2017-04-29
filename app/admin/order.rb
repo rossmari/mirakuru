@@ -1,42 +1,61 @@
 ActiveAdmin.register Order do
 
-  filter :customer
-  filter :stage, as: :select,
-          collection: ->{Stage.all.map{|stage| [stage.name, stage.id]}}
-  filter :performance
-  filter :character
   filter :status
-  filter :payed
-  filter :price
+  filter :performance_date
+
+  scope proc{ I18n.t('admin.order.scopes.all')}, :all, default: true
+  scope proc{ I18n.t('admin.order.scopes.no_actor')}, :no_actor
+  scope proc{ I18n.t('admin.order.scopes.today')}, :today
+  scope proc{ I18n.t('admin.order.scopes.seven_days')}, :seven_days
+  scope proc{ I18n.t('admin.order.scopes.two_weeks')}, :two_weeks
+
+  config.batch_actions = false
 
   index do
-    column :id
-    column :customer
-    column :status do |record|
-      t("admin.order.statuses.#{record.status}")
+    column 'Дата' do |record|
+      "<div title='#{record.id}'>#{record.performance_date.strftime('%Y.%m.%d')}</div>".html_safe
     end
-    column 'Персонажи' do |record|
+    column 'Время' do |record|
+      record.performance_time.strftime('%H:%M')
+    end
+    column 'Персонаж' do |record|
       record.positions.map do |position|
+        invitations_count = position.invitations.count - 1
+        invitations_count  = invitations_count < 0 ? 0 : invitations_count
         if position.character
-          link_to(position.character.name, admin_character_path(position.character))
+          link_to(position.character.name, admin_character_path(position.character)) +
+          ('<br>' * invitations_count).html_safe
         else
           'Персонаж не найден'
         end
       end.join('<br>').html_safe
     end
+    column 'Актер' do |record|
+      record.positions.map do |position|
+        if position.invitations.any?
+
+          position.invitations.map do |invitation|
+            link_to(invitation.actor.name, admin_actor_path(invitation.actor))
+          end.join('<br>').html_safe
+        end
+      end.join('<br>').html_safe
+    end
+    column 'Статус актера' do |record|
+      record.positions.map do |position|
+        if position.invitations.any?
+
+          position.invitations.map do |invitation|
+            t("admin.invitation.statuses.#{invitation.status}")
+          end.join('<br>').html_safe
+        end
+      end.join('<br>').html_safe
+    end
+    column 'Статус заказа' do |record|
+      t("admin.order.statuses.#{record.status}")
+    end
     column 'Место' do |record|
       record.stage.name
     end
-    column 'Дата и время' do |record|
-      "#{record.performance_date.strftime('%Y.%m.%d')}, #{record.performance_time.strftime('%H:%M')}"
-    end
-    column 'Ребенок' do |record|
-      record.child_name
-    end
-    column 'Гости' do |record|
-      "#{record.guests_age_from} - #{record.guests_age_to} лет".html_safe
-    end
-    column :updated_at
     actions
   end
 

@@ -23,6 +23,17 @@ class Order < ActiveRecord::Base
 
   enum status: [:fresh, :assigned, :prepared, :done, :canceled_by_customer, :canceled_by_owner, :failed, :approved]
 
+  scope :no_actor, ->{
+    order_ids = Position.all.group_by{|p| p.order_id}.select do |_order_id, positions|
+      positions.sum{|p| p.invitations.count}.zero?
+    end.keys
+    Order.where(id: order_ids)
+  }
+
+  scope :today, ->{ where(performance_date: [Date.today, Date.tomorrow]) }
+  scope :seven_days, ->{ where(performance_date: (Date.today.ago(7.days)..Date.today)) }
+  scope :two_weeks, ->{ where(performance_date: (Date.today.ago(14.days)..Date.today)) }
+
   def sent_invitations_to_all
     invitations = positions.map(&:invitations).flatten
     invitations.select do |i|

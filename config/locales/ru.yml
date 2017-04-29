@@ -483,6 +483,12 @@ ru:
         partner: 'Партнер'
         site: 'Сайт'
         commercial: 'Реклама'
+      scopes:
+        no_actor: 'Без актера'
+        all: 'Все'
+        today: 'Сегодня / Завтра'
+        seven_days: '7 Дней'
+        two_weeks: '14 Дней'
     invitation:
       statuses:
         empty: 'Новое'
