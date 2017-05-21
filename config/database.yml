@@ -80,6 +80,9 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
+  adapter: postgresql
+  pool: 5
+  encoding: unicode
   host: 'postgresql7.locum.ru'
   username: 'ivra_chudo16'
   database: 'ivra_chudo16'
