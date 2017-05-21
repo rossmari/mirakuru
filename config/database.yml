@@ -80,7 +80,7 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
-  database: mirakuru_production
-  username: mirakuru
-  password: <%= ENV['MIRAKURU_DATABASE_PASSWORD'] %>
+  host: 'postgresql7.locum.ru'
+  username: 'ivra_chudo16'
+  database: 'ivra_chudo16'
+  password: 'W5WQWpS4VQ'

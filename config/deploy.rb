@@ -38,7 +38,7 @@ set :linked_dirs, %w(log tmp/cache tmp/pids vendor/bundle public/system)
 # set :keep_releases, 5
 
 # Configure RVM
-set :rvm_ruby_version, '2.2'
+set :rvm_ruby_version, '2.3'
 
 # You unlikely have to change below this line
 # -----------------------------------------------------------------------------
