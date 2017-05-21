@@ -16,8 +16,7 @@ set :unicorn_pid,    "/var/run/unicorn/#{fetch(:user)}/" \
 set :bundle_without, %w{development test}.join(' ')             # this is default
 set :use_sudo,       false
 
-set :repo_url,       "#{fetch(:user)}@chromium.locum.ru:" \
-                     "git/#{fetch(:application)}.git"
+set :repo_url,       "git@github.com:rossmari/mirakuru.git"
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
