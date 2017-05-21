@@ -162,6 +162,7 @@ ActiveRecord::Schema.define(version: 20170304091944) do
     t.string   "house"
     t.integer  "order_source_id"
     t.string   "guests_notice"
+    t.text     "order_notice"
     t.time     "performance_time"
     t.integer  "contact_id"
     t.date     "child_birthday"
@@ -232,8 +233,6 @@ ActiveRecord::Schema.define(version: 20170304091944) do
 
   create_table "price_positions", force: :cascade do |t|
     t.integer  "minutes"
-    t.float    "animator_price",   default: 0.0
-    t.float    "animator_salary",  default: 0.0
     t.integer  "animators_count"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
