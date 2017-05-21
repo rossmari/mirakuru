@@ -5,7 +5,7 @@ lock '3.8.1'
 # Project configuration options
 # ------------------------------
 
-set :application,    'mirakuru'
+set :application,    'chudo'
 set :login,          'ivra'
 set :user,           'hosting_ivra'
 
