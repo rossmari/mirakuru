@@ -13,3 +13,4 @@
 /tmp
 .idea/
 /config/initializers/args.rb
+.locum
