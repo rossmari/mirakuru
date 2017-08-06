@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="da3f41db-1fda-4073-bfa2-adf2de76c055" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/initializers/chudo_bot.rb" afterPath="$PROJECT_DIR$/config/initializers/chudo_bot.rb" />
     </list>
     <ignored path="$PROJECT_DIR$/.bundle/" />
     <ignored path="$PROJECT_DIR$/components/" />
@@ -33,7 +32,7 @@
         <entry file="file://$PROJECT_DIR$/config/initializers/chudo_bot.rb">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="69">
-              <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="2" selection-end-line="19" selection-end-column="5" />
+              <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="19" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -776,14 +775,7 @@
       <workItem from="1495335392276" duration="1644000" />
       <workItem from="1495356376233" duration="2880000" />
       <workItem from="1498279782490" duration="5166000" />
-      <workItem from="1502009847538" duration="3213000" />
-    </task>
-    <task id="LOCAL-00009" summary="update order customer searcher">
-      <created>1486195166584</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1486195166584</updated>
+      <workItem from="1502009847538" duration="3425000" />
     </task>
     <task id="LOCAL-00010" summary="update stages selector">
       <created>1486195874215</created>
@@ -1121,7 +1113,14 @@
       <option name="project" value="LOCAL" />
       <updated>1502017080451</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="disable gnome usage">
+      <created>1502017176434</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1502017176434</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1136,7 +1135,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="286835000" />
+    <option name="totallyTimeSpent" value="287047000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
@@ -1202,7 +1201,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix actors validation" />
     <MESSAGE value="update partner screen" />
     <MESSAGE value="add order construction on partner page" />
     <MESSAGE value="fix order dependencies" />
@@ -1227,7 +1225,8 @@
     <MESSAGE value="add device key" />
     <MESSAGE value="add unicorn ass app server" />
     <MESSAGE value="update telegram to long puling (bad)" />
-    <option name="LAST_COMMIT_MESSAGE" value="update telegram to long puling (bad)" />
+    <MESSAGE value="disable gnome usage" />
+    <option name="LAST_COMMIT_MESSAGE" value="disable gnome usage" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1616,7 +1615,7 @@
     <entry file="file://$PROJECT_DIR$/config/initializers/chudo_bot.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="69">
-          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="2" selection-end-line="19" selection-end-column="5" />
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="19" selection-end-column="3" />
           <folding />
         </state>
       </provider>
