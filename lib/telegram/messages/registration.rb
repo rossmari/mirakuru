@@ -6,7 +6,12 @@ class Telegram::Messages::Registration
       {
         header: 'Получение кода',
         buttons: [
-          Telegram::Bot::Types::InlineKeyboardButton.new(text: 'Получить код', callback_data: 'retrieve_code')
+          Telegram::Bot::Types::InlineKeyboardButton.new(
+            {
+              text: 'Получить код',
+              callback_data: { processor: 'retrieve_code' }.to_json
+            }
+          )
         ]
       }
     end
