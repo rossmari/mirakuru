@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="da3f41db-1fda-4073-bfa2-adf2de76c055" name="Default" comment="add unicorn ass app server">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/models/gnome.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/migrate/20170624072015_create_secret_variables.rb" />
+    <list default="true" id="da3f41db-1fda-4073-bfa2-adf2de76c055" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/initializers/chudo_bot.rb" afterPath="$PROJECT_DIR$/config/initializers/chudo_bot.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/schema.rb" afterPath="$PROJECT_DIR$/db/schema.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/telegram/callbacks/invitations.rb" afterPath="$PROJECT_DIR$/lib/telegram/callbacks/invitations.rb" />
     </list>
     <ignored path="$PROJECT_DIR$/.bundle/" />
     <ignored path="$PROJECT_DIR$/components/" />
@@ -36,8 +32,8 @@
       <file leaf-file-name="chudo_bot.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/config/initializers/chudo_bot.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="16" column="9" lean-forward="true" selection-start-line="16" selection-start-column="9" selection-end-line="16" selection-end-column="9" />
+            <state relative-caret-position="69">
+              <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="2" selection-end-line="19" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -780,14 +776,7 @@
       <workItem from="1495335392276" duration="1644000" />
       <workItem from="1495356376233" duration="2880000" />
       <workItem from="1498279782490" duration="5166000" />
-      <workItem from="1502009847538" duration="3106000" />
-    </task>
-    <task id="LOCAL-00008" summary="update telegram messaging, add ajax to admin invitations panel">
-      <created>1486192685878</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1486192685878</updated>
+      <workItem from="1502009847538" duration="3213000" />
     </task>
     <task id="LOCAL-00009" summary="update order customer searcher">
       <created>1486195166584</created>
@@ -1125,7 +1114,14 @@
       <option name="project" value="LOCAL" />
       <updated>1495358809122</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="update telegram to long puling (bad)">
+      <created>1502017080451</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1502017080451</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1140,7 +1136,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="286728000" />
+    <option name="totallyTimeSpent" value="286835000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
@@ -1206,7 +1202,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix removal of closed positions" />
     <MESSAGE value="fix actors validation" />
     <MESSAGE value="update partner screen" />
     <MESSAGE value="add order construction on partner page" />
@@ -1231,7 +1226,8 @@
     <MESSAGE value="update cache class to check if table exist" />
     <MESSAGE value="add device key" />
     <MESSAGE value="add unicorn ass app server" />
-    <option name="LAST_COMMIT_MESSAGE" value="add unicorn ass app server" />
+    <MESSAGE value="update telegram to long puling (bad)" />
+    <option name="LAST_COMMIT_MESSAGE" value="update telegram to long puling (bad)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1619,8 +1615,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/config/initializers/chudo_bot.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="16" column="9" lean-forward="true" selection-start-line="16" selection-start-column="9" selection-end-line="16" selection-end-column="9" />
+        <state relative-caret-position="69">
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="2" selection-end-line="19" selection-end-column="5" />
           <folding />
         </state>
       </provider>
