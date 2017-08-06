@@ -7,10 +7,10 @@ class Telegram::Callbacks::Invitations < Telegram::Base::DataCallback
     response = response
     actor = Actor.find_by(telegram_key: response.from.id)
     statuses = [
-      Invitation.statuses[:accepted],
-      Invitation.statuses[:assigned]
+      ::Invitation.statuses[:accepted],
+      ::Invitation.statuses[:assigned]
     ]
-    @invitations = Invitation.where(actor_id: actor.id, status: statuses)
+    @invitations = ::Invitation.where(actor_id: actor.id, status: statuses)
   end
 
   private

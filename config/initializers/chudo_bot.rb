@@ -1,26 +1,20 @@
 require 'net/http'
 require 'telegram/bot'
 
-token = ENV['telegram_token']
-
-service_url =
-  if Rails.env.development?
-    'https://roman.pagekite.me/telegram'
-  elsif Rails.env.production?
-    ENV['service_hook_url']
-  end
-
-uri = URI("https://api.telegram.org/bot#{token}/setWebhook")
-params = { url: service_url }
-uri.query = URI.encode_www_form(params)
-
-# register web hook only for development
-res = Net::HTTP.get_response(uri)
-if res.is_a?(Net::HTTPSuccess)
-  puts res.body
-else
-  puts res.body
-  puts 'Unable to register web hook'
-end
+token = Gnome.read('telegram_token')
 
 $bot = Telegram::Bot::Client.new(token)
+
+Thread.new do
+  Telegram::Bot::Client.run(token) do |bot|
+    bot.listen do |message|
+      case message
+        when Telegram::Bot::Types::CallbackQuery
+          # Here you can handle your callbacks from inline buttons
+          Telegram::Callbacks::Processor.perform(message)
+        when Telegram::Bot::Types::Message
+          Telegram::Messages::Processor.perform(message)
+      end
+    end
+  end
+end
